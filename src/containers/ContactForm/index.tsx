@@ -9,11 +9,11 @@ import Button from "@/components/Button";
 import { createValidationSchema } from "./validation";
 
 export default function ContactForm() {
-  const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [login, setLogin] = useState("testov");
+  const [email, setEmail] = useState("test@mail.ru");
+  const [phone, setPhone] = useState("79999999999");
+  const [name, setName] = useState("Тест");
+  const [surname, setSurname] = useState("Тестов");
   const [edit, setEdit] = useState(true);
 
   const t = useTranslations("FormContact");

@@ -40,7 +40,13 @@ export function LinearWithValueLabel() {
 export function LinearIndeterminate() {
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgress />
+      <LinearProgress 
+      sx={{
+        backgroundColor: 'white',
+          '& .MuiLinearProgress-bar': {
+            backgroundColor: '#6BE8C2'
+        }
+      }}/>
     </Box>
   );
 }
