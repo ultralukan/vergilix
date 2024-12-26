@@ -1,0 +1,44 @@
+.page {
+  padding: 30px 180px;
+  flex: 1;
+}
+
+.title {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-weight: bold;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 900px;
+}
+
+.listTitle {
+  color: $color-gray-dark;
+  margin-bottom: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  a {
+    display: inline-block;
+  }
+}
+
+.item:hover {
+  color: $color-main;
+}

@@ -1,0 +1,105 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.formRow {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.formItemFull {
+  width: (calc(100% - 20px));
+}
+
+.formItem {
+  width: (calc(50% - 20px));
+}
+
+.formItemLittle {
+  width: (calc(50%/3 - 20px));
+}
+
+
+.button {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.stepper {
+  border: 1px solid #DDD;
+  padding: 20px;
+  width: (calc(100% - 20px));
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.instruction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+
+  .image {
+    img {
+      width: 150px;
+    }
+  }
+}
+
+.rules {
+  ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+  }
+  
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: $color-main;
+  }
+}
+
+.resultWrapper {
+
+  .title {
+    display: inline-block;
+    background: $color-main;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }
+
+  .result {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    background-color: $color-white;
+    padding: 50px 80px;
+    width: 920px;
+    @include typographyHeading(md, bold);
+
+    .image {
+      img {
+        width: 300px;
+      }
+    }
+  }
+}
+
+.linear {
+  width: 80%;
+  margin: 40px auto 0;
+}

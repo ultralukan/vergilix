@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.captcha {
+  margin: 0 auto;
+}
+
+.errorMessage {
+	border-radius: 5px;
+	padding: 20px;
+	background-color: rgb(245, 170, 170);
+	color: rgb(85, 2, 2);
+	@include typography(md);
+}
+
+.successMessage {
+	border-radius: 5px;
+	padding: 20px;
+	background-color: rgb(170, 245, 180);
+	color: rgb(2, 85, 17);
+	@include typography(md);
+}
+
+.adornment {
+  color: $color-main !important;
+  @include typography(lg);
+}

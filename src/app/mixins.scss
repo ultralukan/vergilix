@@ -1,0 +1,23 @@
+@mixin media-down($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-up($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin typography($size-key: md, $weight-key: regular, $line-height-key: regular) {
+  font-size: map-get($font-sizes, $size-key);
+  font-weight: map-get($font-weights, $weight-key);
+  line-height: map-get($line-heights, $line-height-key);
+}
+
+@mixin typographyHeading($size-key: md, $weight-key: regular, $line-height-key: regular) {
+  font-size: map-get($heading-sizes, $size-key);
+  font-weight: map-get($font-weights, $weight-key);
+  line-height: map-get($line-heights, $line-height-key);
+}

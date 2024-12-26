@@ -1,0 +1,59 @@
+.page {
+  padding: 30px 180px;
+  flex: 1;
+
+  @include media-down($break-xxl) {
+    padding: 30px 120px;
+  }
+}
+
+.title {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
+}
+
+.main {
+  display: flex;
+  gap: 4rem;
+}
+
+.links {
+  background-color: $color-black-light;
+  color: $color-white;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+
+  ul {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-direction: column;
+  }
+  height: 100%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+  &-selected {
+    color: $color-main;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+  }
+}
+
+.formWrapper {
+  width: 75%;
+}

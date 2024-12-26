@@ -1,0 +1,52 @@
+$color-black: #000;
+$color-black-light: #222223;
+$color-white: #FFF;
+$color-gray: #F3F5F7;
+$color-main: #6BE8C2;
+$color-gray-light: #DDD;
+$color-gray-dark: #75777F;
+$color-gray-input: #A3A3A3;
+
+
+$break-xs: 480px;
+$break-sm: 768px;
+$break-md: 1024px;
+$break-lg: 1200px;
+$break-xl: 1440px;
+$break-xxl: 1600px;
+
+$font-size-sm: 12px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$font-size-xxl: 20px;
+
+$font-sizes: (
+  sm: 12px,
+  md: 14px,
+  lg: 16px,
+  xl: 18px,
+  xxl: 20px,
+);
+
+$heading-sizes: (
+  md: 22px,
+  lg: 24px,
+  xl: 26px,
+  xxl: 28px,
+  xxxl: 40px,
+  4xl: 48px
+);
+
+$line-heights: (
+  regular: 1.5,
+  tight: 1.2,
+  loose: 1.8
+);
+
+$font-weights: (
+  regular: 400,
+  medium: 500,
+  bold: 700,
+  extra-bold: 900
+);

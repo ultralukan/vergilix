@@ -1,0 +1,60 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+
+  h5 {
+    margin-bottom: 20px;
+  }
+
+  .title {
+    display: inline-block;
+    background: $color-main;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }
+}
+
+.formItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button {
+  width: 300px;
+  margin-top: 20px;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+
+
+  .fields, .rules {
+    width: (calc(50% - 20px));
+  }
+  
+
+  ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+  }
+  
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: $color-main;
+  }
+}

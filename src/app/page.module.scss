@@ -1,0 +1,74 @@
+.page {
+  background: linear-gradient(to left, $color-main 50%, #FFF 0);
+  display: flex;
+  flex: 1;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.text {
+  width: 50%;
+}
+
+.overlay {
+  @include typographyHeading(4xl, bold);
+  span {
+    background: $color-main;
+    color: $color-black;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+  }
+}
+
+.formWrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rateInfo {
+  margin-bottom: 30px;
+}
+
+.rateTitle {
+  @include typography(xl, bold);
+  color: $color-gray-dark;
+  text-transform: uppercase;
+}
+
+.rateText {
+  @include typographyHeading(xxl, bold);
+}
+
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.formItem {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+}
+
+.button {
+  margin-top: 1rem;
+  width: 100%;
+  button {
+    background: $color-black;
+    color: $color-white;
+  }
+}

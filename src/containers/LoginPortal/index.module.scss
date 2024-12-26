@@ -1,0 +1,130 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.panel {
+  position: relative;
+  width: 50%;
+  max-width: 800px;
+  height: 100%;
+  background-color: $color-black-light;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+
+  .closeButton, .backButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 3;
+    transition: color 0.3s;
+    font-size: 60px;
+  
+    &:hover {
+      color: $color-main;
+    }
+  }
+
+  .closeButton {
+    right: 1.5rem;
+  }
+
+  .backButton {
+    left: 1.5rem;
+
+    width: 30px;
+    transform: scale(1.5);
+  }
+
+  
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: white;
+    margin: 0 auto;
+    padding: 6rem 0 10rem;
+    max-width: 800px;
+  }
+
+  .list {
+    display: flex;
+    justify-content: space-between;
+    @include typographyHeading(4xl, bold);
+    margin-bottom: 10px;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .listReset {
+
+    justify-content: center;
+    padding: 0;
+  }
+
+  .item {
+    border-bottom: 5px solid $color-white;
+  }
+
+  .itemReset {
+    border: none;
+    text-align: center;
+  }
+
+  .selected {
+    color: $color-main;
+    border: none;
+  }
+}
+
+.form {
+  padding: 0 11rem;
+}
+
+.overlay.open .panel {
+  transform: translateX(0);
+}
+
+.overlay:not(.open) .panel {
+  transform: translateX(100%);
+}
+
+.image {
+  width: 120px;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}

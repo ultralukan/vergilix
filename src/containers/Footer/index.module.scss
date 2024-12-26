@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $color-white;
+  padding: 30px 40px;
+  font-weight: bold;
+  color: $color-gray-dark;
+  @include typography(md);
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  li:hover {
+    color: $color-main;
+  }
+}

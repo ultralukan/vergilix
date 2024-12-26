@@ -1,0 +1,40 @@
+.wrapper {
+  background: linear-gradient(
+    to right,
+    $color-black 50%,
+    $color-main 50%
+  );
+  margin-left: -180px;
+  margin-right: -180px;
+  padding: 30px 180px;
+
+  .title {
+    display: inline-block;
+    background: $color-main;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }  
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 55%;
+}
+
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+}
+
+.formItem {
+  width: 50%;
+}
+
+.button {
+  width: 250px;
+}

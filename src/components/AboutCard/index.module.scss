@@ -1,0 +1,13 @@
+.wrapper {
+  background-color: $color-white;
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  min-height: 100px;
+}

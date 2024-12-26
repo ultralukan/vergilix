@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.captcha {
+  margin: 0 auto;
+}
+
+.errorMessage {
+	border-radius: 5px;
+	padding: 20px;
+	background-color: rgb(245, 170, 170);
+	color: rgb(85, 2, 2);
+	@include typography(md);
+}
+
+.terms {
+	@include typography(md);
+	text-align: center;
+	color: $color-gray-dark;
+	a {
+		color: $color-white;
+	}
+}
+
+.successMessage {
+	text-align: center;
+	button {
+		margin-top: 40px;
+	}
+
+	img {
+		width: 120px;
+		margin-bottom: 40px;
+	}
+
+	.title {
+		@include typographyHeading(4xl, bold);
+		text-align: center;
+	}
+}
