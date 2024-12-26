@@ -12,11 +12,21 @@ import { useGetRateQuery } from "@/api/rates";
 import { getIconPath, groupRatesByTypeAndCurrency, isFiat } from "@/services/exchange";
 import { Option } from "@/types/option";
 import classNames from "classnames";
+import SwapVertIcon from '@mui/icons-material/SwapVert';
 
-function shouldFixed(value : string) {
+function shouldFixed(value: string) {
   const num = Number(value);
-  return Number.isInteger(num) ? value : parseFloat(value).toFixed(5);
+  if (Number.isInteger(num)) {
+    return value;
+  }
+
+  const floatValue = parseFloat(value);
+  
+  const decimalPlaces = (value.split('.')[1] || '').length;
+  
+  return floatValue.toFixed(Math.min(5, decimalPlaces));
 }
+
 
 export default function Home() {
   const { data: rates = [] } = useGetRateQuery();
@@ -124,16 +134,6 @@ export default function Home() {
     );
   };
 
-  const handleSwap = () => {
-    const tempItem = selectedItemFrom;
-    setSelectedItemFrom(selectedItemTo);
-    setSelectedItemTo(tempItem);
-  
-    const tempAmount = amountFrom;
-    setAmountFrom(amountTo);
-    setAmountTo(tempAmount);
-  };
-
   const isAvailableSwap = useMemo(() => {
     const filteredRates = rates
       .filter((el) => el.fromCurrency === selectedItemTo?.label)
@@ -142,8 +142,22 @@ export default function Home() {
     return filteredRates.length > 0;
   }, [rates, selectedItemTo?.label, selectedItemFrom?.label]);
 
+  const handleSwap = () => {
+    if(isAvailableSwap) {
+      const tempItem = selectedItemFrom;
+      setSelectedItemFrom(selectedItemTo);
+      setSelectedItemTo(tempItem);
+    
+      const tempAmount = amountFrom;
+      setAmountFrom(amountTo);
+      setAmountTo(tempAmount);
+    }
+  };
+
+
   const btnClass = classNames(
-    { [styles["buttonSwap-disabled"]]: !isAvailableSwap }
+    styles.swap,
+    { [styles["swap-disabled"]]: !isAvailableSwap }
   );
 
   const handleSubmit = () => {}
@@ -181,7 +195,7 @@ export default function Home() {
           <div>
           <div className={styles.rateInfo}>
             <p className={styles.rateTitle}>{t("rateTitle")}</p>
-            <p className={styles.rateText}>{tradeInfo()}1 Bitcoin = 6132.31 Euro</p>
+            <p className={styles.rateText}>{tradeInfo()}</p>
           </div>
           <Formik
             initialValues={initialValues}
@@ -208,6 +222,13 @@ export default function Home() {
                     selectedItem={selectedItemFrom}
                     options={optionsFrom as Option[]}
                   />
+                </div>
+                <div>
+                  <div className={styles.swap}>
+                    <button type="button" className={btnClass} onClick={() => isAvailableSwap && handleSwap()}>
+                      <SwapVertIcon className={styles.icon}/>
+                    </button>
+                 </div>
                 </div>
                 <div className={styles.formItem}>
                   <Input

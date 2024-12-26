@@ -13,7 +13,7 @@ export function groupRatesByTypeAndCurrency(rates: RateType[] = []) {
 		rates.forEach((rate) => {
 			const valueFrom = rate.fromCurrency;
 			const valueTo = rate.toCurrency;
-	
+			if(filterRates(valueFrom) || filterRates(valueTo)) return;
 			if (!grouped.FROM[valueFrom]) {
 				grouped.FROM[valueFrom] = [];
 			}

@@ -33,6 +33,7 @@ interface FormValues {
 //     backgroundColor: "#fff !important",
 //     boxShadow: "-1px 0 5px rgba(0, 0, 0, 0.1)",
 //     borderRadius: "3px",
+//     height: "100%",
 //     "&:before": {
 //       display: "none",
 //     },
@@ -56,7 +57,6 @@ interface FormValues {
 //       color: "#75777F",
 //     },
 //   },
-
 //   "& .MuiInputLabel-root": {
 //     paddingLeft: "5px",
 //   },
@@ -65,11 +65,15 @@ interface FormValues {
 //     right: "0",
 //     left: "0",
 //     top: "-2px",
-//     maxWidth: "100%"
+//     maxWidth: "100%",
 //   },
 //   "& .MuiInputBase-root": {
-//     padding: '10px'
-//   }
+//     padding: '10px',
+//     height: "100%",
+//   },
+//   "& .MuiInputAdornment-root": {
+//     margin: '0 !important',
+//   },
 // };
 
 const baseStyles: SxProps<Theme> = {
@@ -118,6 +122,15 @@ const baseStyles: SxProps<Theme> = {
     top: "-3px",
     maxWidth: "100%"
   },
+    "& .MuiInputAdornment-root": {
+    marginTop: '0 !important',
+    marginRight: '6px'
+  },
+    "& .MuiInputBase-root": {
+    padding: '10px 10px 10px 20px !important',
+
+    height: "100%",
+  },
 };
 
 export default function DropdownSelect({
@@ -139,10 +152,9 @@ export default function DropdownSelect({
 			setFieldValue(name, '');
 		}
 	}
-  console.log(options)
 
   return (
-    <Box sx={{ minWidth: 150 }}>
+    <Box sx={{ minWidth: 180 }}>
       <Autocomplete
         options={options}
         value={selectedItem}

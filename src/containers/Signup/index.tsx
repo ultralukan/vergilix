@@ -37,7 +37,6 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
     values: { email: string; password: string; confPassword: string,  },
     { resetForm }: { resetForm: () => void }
   ) => {
-    console.log(1)
     try {
       setErrorMessage('');
       setIsRegistered(false);
