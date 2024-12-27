@@ -33,8 +33,9 @@ const baseStyles: SxProps<Theme> = {
     },
   },
   "& .MuiInputLabel-filled": {
-    color: "#A3A3A3",
     fontWeight: "bold",
+    fontSize: "22px",
+    color: "#A3A3A3",
     "&.Mui-focused": {
       color: "#A3A3A3",
     },
@@ -43,9 +44,11 @@ const baseStyles: SxProps<Theme> = {
     },
   },
   "& .MuiInputBase-input": {
-    height: "32px",
+    height: "36px",
     paddingLeft: "20px",
     borderRadius: "3px",
+    fontWeight: "bold",
+    fontSize: "22px",
   },
   "& .MuiInputLabel-root": {
     right: 0,

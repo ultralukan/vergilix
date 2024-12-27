@@ -11,7 +11,7 @@ interface ButtonProps {
   disabled?: boolean;
   showArrow?: boolean;
   showBackArrow?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function Button({

@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
+    gap: 10px;
     cursor: pointer;
     background-color: $color-white;
     transition: all 0.3s;
@@ -19,18 +20,21 @@
     }
 
     .toggleButton {
-      background: none;
-      border: none;
-      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
       cursor: pointer;
       transition: transform 0.3s;
-      font-size: 32px;
-
       color: $color-main;
       border-radius: 50%;
 
       &.open {
         transform: rotate(180deg);
+      }
+
+      .icon {
+        font-size: 40px;
       }
     }
   }

@@ -3,6 +3,8 @@
 import { useState, useRef } from "react";
 import classNames from "classnames";
 import styles from "./index.module.scss";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 type DropDownItemProps = {
   label: string;
@@ -28,7 +30,7 @@ export default function DropdownItem({ label, text }: DropDownItemProps) {
             [styles.open]: isOpen,
           })}
         >
-          {isOpen ? "-" : "+"}
+          {isOpen ? <RemoveCircleOutlineIcon className={styles.icon}/> : <AddCircleOutlineIcon className={styles.icon}/>}
         </button>
       </div>
       <div

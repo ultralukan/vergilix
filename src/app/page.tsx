@@ -6,13 +6,13 @@ import Input from "@/components/Input";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Button from "@/components/Button";
 import { Form, Formik } from "formik";
-import BasicSelect from "@/components/DropdownItem";
 import DropdownSelect from "@/components/DropdownSelect";
 import { useGetRateQuery } from "@/api/rates";
-import { getIconPath, groupRatesByTypeAndCurrency, isFiat } from "@/services/exchange";
+import { getIconPath, groupRatesByTypeAndCurrency } from "@/services/exchange";
 import { Option } from "@/types/option";
 import classNames from "classnames";
-import SwapVertIcon from '@mui/icons-material/SwapVert';
+import SwapIcon from '../../public/swap.svg';
+import { useSearchParams } from "next/navigation";
 
 function shouldFixed(value: string) {
   const num = Number(value);
@@ -38,8 +38,9 @@ export default function Home() {
   const [amountTo, setAmountTo] = useState<string>("");
   const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [editingField, setEditingField] = useState<"amountFrom" | "amountTo" | null>(null);
-  // const [selectedOptionFrom, setSelectedOptionFrom] = useState<string>('coin');
-  // const [selectedOptionTo, setSelectedOptionTo] = useState<string>('cash');
+  const searchParams = useSearchParams();
+  const from = searchParams.get('from') || "BTC";
+  const to = searchParams.get('to') || "RUB";
   const [rate, setRate] = useState<number>(1);
 
   const optionsFrom = useMemo(() => {
@@ -59,6 +60,17 @@ export default function Home() {
     }
     return Object.keys(rates).map((el, index) => ({value: index, label: el, icon: getIconPath(el)})) || [];
   }, [groupedRates, selectedItemFrom])
+
+  useEffect(() => {
+    if(rates.length && optionsFrom.length) {
+      try {
+        if(!selectedItemFrom && !selectedItemTo) {
+          setSelectedItemFrom(optionsFrom.filter((el) => el.label === from)[0])
+          setSelectedItemTo(optionsTo.filter((el) => el.label === to)[0])
+        }
+      }catch{}
+    }
+  }, [rates])
 
   const selectedRate = useMemo(() => {
     if (!selectedItemTo?.label || !selectedItemFrom?.label || !rates.length) return null;
@@ -179,7 +191,7 @@ export default function Home() {
               .split(" ")
               .reduce<string[][]>((acc, word, index, array) => {
                 if (index % 2 === 0) {
-                  acc.push(array.slice(index, index + 2)); // Берем по 2 слова
+                  acc.push(array.slice(index, index + 2));
                 }
                 return acc;
               }, [])
@@ -192,11 +204,17 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.formWrapper}>
-          <div>
-          <div className={styles.rateInfo}>
-            <p className={styles.rateTitle}>{t("rateTitle")}</p>
-            <p className={styles.rateText}>{tradeInfo()}</p>
-          </div>
+          <div className={styles.formContainer}>
+            <div className={styles.rateInfo}>
+            {
+              !!tradeInfo() && (
+                <>
+                  <p className={styles.rateTitle}>{t("rateTitle")}</p>
+                  <p className={styles.rateText}>{tradeInfo()}</p>
+                </>
+              )
+            }
+            </div>
           <Formik
             initialValues={initialValues}
             // validationSchema={validationSchema}
@@ -214,6 +232,7 @@ export default function Home() {
                     type="text"
                     value={amountFrom}
                     setValue={handleAmountFromChange}
+                    customStyles={{width: '63%'}}
                   />
                   <DropdownSelect
                     id="selectedItemFrom"
@@ -221,12 +240,16 @@ export default function Home() {
                     setSelectedItem={setSelectedItemFrom}
                     selectedItem={selectedItemFrom}
                     options={optionsFrom as Option[]}
+                    customStyles={{width: '37%'}}
                   />
                 </div>
                 <div>
                   <div className={styles.swap}>
                     <button type="button" className={btnClass} onClick={() => isAvailableSwap && handleSwap()}>
-                      <SwapVertIcon className={styles.icon}/>
+                      <div className={styles.iconWrapper}>
+                        <SwapIcon className={styles.icon}/>
+                      </div>
+                      {/* <img className={styles.icon} src="./swap.png"/> */}
                     </button>
                  </div>
                 </div>
@@ -237,6 +260,7 @@ export default function Home() {
                     type="text"
                     value={amountTo}
                     setValue={handleAmountToChange}
+                    customStyles={{width: '63%'}}
                   />
                   <DropdownSelect
                     id="selectedItemTo"
@@ -244,17 +268,21 @@ export default function Home() {
                     setSelectedItem={setSelectedItemTo}
                     selectedItem={selectedItemTo}
                     options={optionsTo as Option[]}
+                    customStyles={{width: '37%'}}
                   />
                 </div>
               </div>
               <div className={styles.button}>
                 <Button label={t('exchangeBtn')} onClick={() => {}} showArrow={false}/>
               </div>
+              <p className={styles.termsText}>{t("terms")}</p>
             </Form>
-          </Formik>
+            </Formik>
           </div>
         </div>
       </div>
+      <img className={styles.bgImage} src="./bg.png"/>
+      <span className={styles.bgColor}></span>
     </div>
   );
 }

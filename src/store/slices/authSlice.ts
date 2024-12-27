@@ -6,6 +6,7 @@ export type Language =  'ru' | 'en';
 interface AuthState {
   token: string | null;
   user: UserType | null;
+  isVerif: boolean;
   language: Language;
 }
 
@@ -13,6 +14,7 @@ const initialState: AuthState = {
   token: null,
   user: null,
   language: 'ru',
+  isVerif: false
 };
 
 const authSlice = createSlice({
@@ -21,6 +23,9 @@ const authSlice = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
+    },
+    setVerif: (state) => {
+      state.isVerif = true;
     },
     logout: (state) => {
       state.token = null;
@@ -34,5 +39,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken, logout, setUser, setLanguage } = authSlice.actions;
+export const { setToken, logout, setUser, setLanguage, setVerif } = authSlice.actions;
 export default authSlice.reducer;

@@ -37,9 +37,8 @@ export default function LoginForm({setIsReset}: Props) {
       setErrorMessage('');
       setIsLoading(true);
       const { email, password } = values;
-      // const response = await login({ email, password, captchaToken }).unwrap();
-      // const { token } = response;
-      const token = 'ZXC_GUL_228';
+      const response = await login({ email, password, captchaToken }).unwrap();
+      const { token } = response;
       if(token) {
         dispatch(setToken(token));
         Cookies.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });

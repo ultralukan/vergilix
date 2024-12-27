@@ -2,50 +2,69 @@
 
 import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useVerifyEmailMutation } from "@/api/auth";
+import ModalComponent from "@/components/Modal";
 
 function VerifyEmail() {
-  const t = useTranslations('Map');
+  const t = useTranslations('EmailVerif');
   const searchParams = useSearchParams();
+  const router = useRouter();
   const token = searchParams.get('token');
+  const [modal, setModal] = useState(false);
+  const handleOpen = () => setModal(true);
+  
+  const handleClose = () => {
+    setModal(false);
+    router.push('/');
+  }
 
   const [verify] = useVerifyEmailMutation();
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isVerified, setIsVerified] = useState<boolean | null>(null);
+
+  const hasRun = useRef(false);
 
   useEffect(() => {
     const verifyEmail = async (token: string) => {
       try {
-        setErrorMessage("");
-        setSuccessMessage("");
         const response = await verify(token).unwrap();
+
         if (response?.message) {
-          setSuccessMessage('Your email has been verified!');
           setIsVerified(true);
+          setIsSuccess(true);
         }
-      } catch (error) {
-        setErrorMessage('An unexpected error occurred. Please try again.');
+      } catch {
         setIsVerified(true);
+        setIsSuccess(false);
       }
     };
-
-    if (token && !isVerified) {
+    
+    if (token && !isVerified && !hasRun.current) {
+      hasRun.current = true;
       verifyEmail(token);
+      handleOpen();
     }
-  }, [token, verify, isVerified]);
+  }, [token, verify, isVerified, t]);
 
   return (
     <div className={styles.page}>
       <h2 className={styles.title}>Верификация</h2>
-      {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-      {successMessage && <div className={styles.success}>{successMessage}</div>}
+        {
+          (isVerified === true || isVerified === false) ? (
+            <ModalComponent 
+              open={modal} 
+              onClose={handleClose} 
+              title={isSuccess ? t("success") : t("error")} 
+              btnText={isSuccess ? t("btnSuccess") : t("btnError")}
+              status={isSuccess}
+            />
+          ) : null
+        }
     </div>
   );
 }
-
 
 const VerifyEmailWrapper = () => {
   return (

@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 import LoginPortal from "../LoginPortal";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { Menu, MenuItem } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/store/slices/authSlice";
 import Cookies from "js-cookie";
+import classNames from "classnames";
+import PersonIcon from "../../../public/person.svg"
 
 export default function Header() {
   // const user = useAppSelector((state) => state.auth.user);
@@ -18,6 +20,9 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const isAuth = !!token;
   const router = useRouter();
+  const location = usePathname();
+  const isMain = location === '/';
+  const isVerif = useAppSelector((state) => state.auth.isVerif);
 
   const [isHydrated, setIsHydrated] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -41,8 +46,6 @@ export default function Header() {
     setAnchorEl(null);
   };
 
-
-
   const handleClick = () => {
     if (isAuth) {
       dispatch(logout());
@@ -51,16 +54,24 @@ export default function Header() {
     }
   };
 
+  useEffect(() => {
+    if(isVerif) {
+      toggleLoginForm()
+    }
+  }, [isVerif])
+
   return (
-    <header className={styles.header}>
+    <header className={classNames(styles.header, {[styles["header-main"]]: isMain})}>
       <div className={styles.main}>
+        <Link href={"/"}>
         <Image
           src={"/logo.png"}
           alt={"logo"}
           width={160}
           height={50}
           className={styles.logo}
-        />
+        /></Link>
+
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.link}>
@@ -78,14 +89,14 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      <div className={styles.buttons}>
+      <div className={classNames(styles.buttons, {[styles["buttons-main"]]: isMain})}>
         <button className={styles.language}>EN</button>
         {isHydrated && (
           <button
-            className={styles.login}
+            className={classNames(styles.login, {[styles["login-main"]]: isMain})}
             onClick={isAuth ? toggleDropDown : toggleLoginForm}
           >
-            {isAuth ? t("profile") : t("login")}
+            <PersonIcon className={styles.icon}/>{isAuth ? t("profile") : t("login")}
           </button>
         )}
       </div>

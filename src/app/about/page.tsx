@@ -4,10 +4,6 @@ import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
 import AboutCard from "@/components/AboutCard";
 import FeedbackForm from "@/containers/FeedbackForm";
-import GraphIcon from "./../../../public/graph.png"
-import ClockIcon from "./../../../public/clock.svg"
-import HomeIcon from "./../../../public/home.svg"
-import CommentIcon from "./../../../public/comment.svg"
 
 export default function About() {
   const t = useTranslations("About");

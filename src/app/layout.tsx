@@ -20,17 +20,13 @@ export default async function RootLayout({
   const locale = await getLocale();
   const messages = await getMessages();
 
-  // const response = await fetch('https://vergilix-backend.vercel.app/api/rates')
-  // const data = await response.json()
-  // console.log(data)
-
   return (
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <Header/>
-            {children}
+              {children}
             <Footer/>
           </Providers>
         </NextIntlClientProvider>

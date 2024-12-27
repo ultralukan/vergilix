@@ -178,3 +178,9 @@ h3, h4, h5 {
 //   color: $color-main;
 //   font-weight: bold;
 // }
+
+body.body-lock {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}

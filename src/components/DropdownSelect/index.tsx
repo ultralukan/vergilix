@@ -10,6 +10,8 @@ import { useFormikContext } from "formik";
 import Input from "../Input";
 import styles from "./index.module.scss";
 import { getIconPath } from "@/services/exchange";
+import { SxProps } from "@mui/material";
+import { Theme } from "@emotion/react";
 
 interface DropdownSelectProps {
   label?: string;
@@ -106,9 +108,11 @@ const baseStyles: SxProps<Theme> = {
     },
   },
   "& .MuiInputBase-input": {
-    height: "32px",
-    paddingLeft: "20px",
+    height: "36px",
+    padding: "20px",
     borderRadius: "3px",
+    fontWeight: "bold",
+    fontSize: "22px",
   },
   "& .MuiInputLabel-root": {
     right: 0,
@@ -139,6 +143,7 @@ export default function DropdownSelect({
   selectedItem,
   options,
   text,
+  customStyles
 }: DropdownSelectProps) {
 
   const {setFieldValue, handleBlur, touched, errors} = useFormikContext<FormValues>();
@@ -154,7 +159,10 @@ export default function DropdownSelect({
 	}
 
   return (
-    <Box sx={{ minWidth: 180 }}>
+    <Box sx={{
+      ...(customStyles as SxProps<Theme>),
+      minWidth: 190,
+    }}>
       <Autocomplete
         options={options}
         value={selectedItem}
@@ -193,7 +201,9 @@ export default function DropdownSelect({
                 </InputAdornment>
               ) : null,
             }}
-            sx={baseStyles}
+            sx={{
+              ...(baseStyles as SxProps<Theme>),
+            }}
             error={touched[name] && Boolean(errors[name])}
             helperText={touched[name] && errors[name]}
           />

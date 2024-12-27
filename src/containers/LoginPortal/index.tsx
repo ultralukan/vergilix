@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import LoginForm from "../LoginForm";
 import { useTranslations } from "next-intl";
@@ -24,6 +24,18 @@ export default function SlideInPanel({ isOpen, onClose }: Props) {
     setIsRegistered(false);
     setSelected('login')
   }
+
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("body-lock");
+    } else {
+      document.body.classList.remove("body-lock");
+    }
+    return () => {
+      document.body.classList.remove("body-lock");
+    };
+  }, [isOpen]);
 
 
   return (

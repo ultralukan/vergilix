@@ -8,6 +8,10 @@
   color: $color-gray-dark;
   @include typography(md);
   box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+  &-main {
+    box-shadow: none;
+    color: $color-black;
+  }
 }
 
 .links {
@@ -19,4 +23,8 @@
   li:hover {
     color: $color-main;
   }
+}
+
+.content {
+  z-index: 99999;
 }
