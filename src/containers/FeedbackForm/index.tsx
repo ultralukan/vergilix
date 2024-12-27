@@ -64,6 +64,12 @@ export default function FeedbackForm() {
             setValue={setQuestion}
             multiline
             rows={5}
+            // customStyles={{
+            //   "& .MuiInputBase-input": {
+            //     paddingLeft: "10px",
+            //     fontWeight:
+            //   },
+            // }}
           />
           <div className={styles.button}>
             <Button label={t('formBtn')}/>

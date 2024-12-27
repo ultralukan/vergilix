@@ -50,9 +50,17 @@ const baseStyles: SxProps<Theme> = {
     fontWeight: "bold",
     fontSize: "22px",
   },
+  "& .MuiInputBase-inputMultiline": {
+    height: "36px",
+    paddingLeft: "10px",
+    borderRadius: "3px",
+    fontWeight: "bold",
+    fontSize: "22px",
+    paddingTop: "5px"
+  },
   "& .MuiInputLabel-root": {
     right: 0,
-    top: "5px",
+    top: "3px",
     paddingLeft: "10px",
   },
   "& .MuiInputLabel-shrink": {

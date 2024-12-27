@@ -13,6 +13,7 @@
   transition: opacity 0.3s, visibility 0.3s;
   z-index: 99999999;
   overflow-y: auto;
+  overflow-x: hidden;
 
   &.open {
     visibility: visible;
@@ -71,8 +72,6 @@
     transform: scale(1.5);
   }
 
-  
-
   .content {
     display: flex;
     flex-direction: column;
@@ -114,7 +113,7 @@
 }
 
 .form {
-  padding: 0 11rem;
+  padding: 0 9rem;
 }
 
 .overlay.open .panel {

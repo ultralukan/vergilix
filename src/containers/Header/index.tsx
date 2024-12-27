@@ -51,6 +51,7 @@ export default function Header() {
       dispatch(logout());
       Cookies.remove("token");
       closeDropDown();
+      router.push('/');
     }
   };
 
