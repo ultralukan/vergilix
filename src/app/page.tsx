@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
 import Input from "@/components/Input";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Button from "@/components/Button";
 import { Form, Formik } from "formik";
 import DropdownSelect from "@/components/DropdownSelect";
@@ -28,7 +28,7 @@ function shouldFixed(value: string) {
 }
 
 
-export default function Home() {
+function Home() {
   const { data: rates = [] } = useGetRateQuery();
   const groupedRates = useMemo(() => groupRatesByTypeAndCurrency(rates), [rates]);
   const t = useTranslations('Main');
@@ -286,3 +286,13 @@ export default function Home() {
     </div>
   );
 }
+
+const HomeWrapper = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home />
+    </Suspense>
+  );
+};
+
+export default HomeWrapper;
