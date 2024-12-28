@@ -33,31 +33,98 @@ const baseStyles: SxProps<Theme> = {
     },
   },
   "& .MuiInputLabel-filled": {
-    color: "#A3A3A3",
     fontWeight: "bold",
+    fontSize: "22px",
+    color: "#A3A3A3",
     "&.Mui-focused": {
       color: "#A3A3A3",
     },
-  },
-  "& .MuiButtonBase-root": {
-    right: 10
+    "&.Mui-disabled": {
+      color: "#75777F",
+    },
+    "@media (min-width: 800px)": {
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      fontSize: "26px",
+    },
   },
   "& .MuiInputBase-input": {
-    height: "32px",
+    height: "36px",
     paddingLeft: "20px",
     borderRadius: "3px",
+    fontWeight: "bold",
+    fontSize: "22px",
+    "@media (min-width: 800px)": {
+      height: "32px",
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      height: "30px",
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      height: "36px",
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      height: "60px",
+      fontSize: "28px",
+    },
+  },
+  "& .MuiInputBase-inputMultiline": {
+    height: "36px",
+    paddingLeft: "10px",
+    borderRadius: "3px",
+    fontWeight: "bold",
+    fontSize: "22px",
+    paddingTop: "5px",
+    "@media (min-width: 800px)": {
+      height: "34px",
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      height: "32px",
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      height: "40px",
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      height: "60px",
+      fontSize: "28px",
+    },
   },
   "& .MuiInputLabel-root": {
     right: 0,
-    top: "5px",
+    top: "3px",
     paddingLeft: "10px",
+    "@media (min-width: 800px)": {
+      top: "7px",
+    },
+    "@media (min-width: 1100px)": {
+      top: "3px",
+    },
+    "@media (min-width: 2000px)": {
+      top: "12px",
+    },
   },
   "& .MuiInputLabel-shrink": {
     position: "absolute",
     right: "0",
     left: "0",
     top: "-3px",
-    maxWidth: "100%"
+    maxWidth: "100%",
+    "@media (min-width: 800px)": {
+      top: "-1px",
+    },
   },
   "& .MuiSvgIcon-root": {
     color: "#6BE8C2",
@@ -65,6 +132,10 @@ const baseStyles: SxProps<Theme> = {
       color: "#6BE8C2",
     },
   },
+  "& .MuiButtonBase-root": {
+    position: "relative",
+    right: "15px",
+  }
 };
 
 export default function DatePC({

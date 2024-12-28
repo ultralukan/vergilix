@@ -29,7 +29,7 @@ export const baseQueryWithReauth: BaseQueryFn<
     if (result.error && typeof result.error.status === 'number') {
       if (statuses.includes(result.error.status) && api.endpoint !== "login") {
         Cookies.remove('token');
-        window.open('/login', '_self');
+        window.open('/', '_self');
       }
     }
     return result;

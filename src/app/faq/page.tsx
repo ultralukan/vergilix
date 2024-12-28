@@ -17,6 +17,7 @@ export default function FAQ() {
           faqItems.map((el, index) => <DropDownItem key={index} label={el.title} text={el.text}/>)
         }
       </div>
+      <img className={styles.image} src="./faq.svg"/>
     </div>
   );
 }

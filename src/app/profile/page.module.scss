@@ -1,9 +1,14 @@
 .page {
-  padding: 30px 180px;
   flex: 1;
 
+  padding: 30px 15rem;
+  
   @include media-down($break-xxl) {
-    padding: 30px 120px;
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
   }
 }
 
@@ -27,7 +32,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  min-width: 290px;
+
 
   ul {
     display: flex;

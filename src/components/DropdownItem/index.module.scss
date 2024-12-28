@@ -1,9 +1,9 @@
 .wrapper {
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
   margin: 10px 0;
   overflow: hidden;
-  max-width: 70%;
+  width: 70%;
+  min-width: 800px;
 
   .header {
     display: flex;
@@ -17,24 +17,32 @@
 
     .label {
       font-weight: bold;
+      font-size: 30px;
+      @include media-down($break-xxl) {
+        @include typography(xxl, bold);
+      }
     }
 
     .toggleButton {
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+
       
       cursor: pointer;
       transition: transform 0.3s;
       color: $color-main;
       border-radius: 50%;
+      transform-origin: center;
 
       &.open {
         transform: rotate(180deg);
       }
 
       .icon {
-        font-size: 40px;
+        min-width: 40px;
+        min-height: 40px;
       }
     }
   }
@@ -49,10 +57,9 @@
     overflow: hidden;
     transition: height 0.3s ease;
     background-color: #fff;
-    
 
     .innerContent {
-      padding: 20px 40px;
+      padding: 20px 40px 30px;
     }
   }
 }

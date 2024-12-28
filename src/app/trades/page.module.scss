@@ -1,5 +1,13 @@
 .page {
-  padding: 30px 180px;
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
   flex: 1;
 }
 

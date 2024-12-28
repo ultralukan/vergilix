@@ -2,13 +2,15 @@
 
 import { Form, Formik } from "formik";
 import styles from "./index.module.scss";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Input from "@/components/Input";
 import { useTranslations } from "next-intl";
 import Button from "@/components/Button";
 import { createValidationSchema } from "./validation";
+import { useAppSelector } from "@/store";
 
 export default function ContactForm() {
+  const user = useAppSelector((state) => state.auth.user);
   const [login, setLogin] = useState("testov");
   const [email, setEmail] = useState("test@mail.ru");
   const [phone, setPhone] = useState("79999999999");

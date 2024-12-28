@@ -4,9 +4,13 @@
     $color-black 50%,
     $color-main 50%
   );
-  margin-left: -180px;
-  margin-right: -180px;
-  padding: 50px 180px;
+  margin-left: -15rem;
+  margin-right: -15rem;
+  padding: 50px 15rem;
+
+  @include media-down($break-xxl) {
+    padding: 50px 15rem;
+  }
 
   .title {
     display: inline-block;
@@ -22,6 +26,7 @@
   flex-direction: column;
   gap: 20px;
   width: 55%;
+  min-width: 600px;
 }
 
 .formRow {

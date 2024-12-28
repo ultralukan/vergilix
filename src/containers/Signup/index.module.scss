@@ -13,11 +13,20 @@
 	padding: 20px;
 	background-color: rgb(245, 170, 170);
 	color: rgb(85, 2, 2);
-	@include typography(md);
+	text-align: center;
+	@include typography(xl);
+
+	@include media-down($break-xxl) {
+		@include typography(md);
+	}
 }
 
 .terms {
-	@include typography(md);
+	@include typography(xl);
+
+	@include media-down($break-xxl) {
+		@include typography(md);
+	}
 	text-align: center;
 	color: $color-gray-dark;
 	a {

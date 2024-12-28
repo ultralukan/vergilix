@@ -96,6 +96,12 @@ const baseStyles: SxProps<Theme> = {
       },
       backgroundColor: "#fff",
     },
+    "@media (min-width: 800px)": {
+      borderRadius: "5px",
+    },
+    "@media (min-width: 1100px)": {
+      boxShadow: "-1px 0 10px rgba(0, 0, 0, 0.1)",
+    },
   },
   "& .MuiInputLabel-filled": {
     color: "#A3A3A3",
@@ -106,6 +112,18 @@ const baseStyles: SxProps<Theme> = {
     "&.Mui-disabled": {
       color: "#75777F",
     },
+    "@media (min-width: 800px)": {
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      fontSize: "26px",
+    },
   },
   "& .MuiInputBase-input": {
     height: "36px",
@@ -113,29 +131,54 @@ const baseStyles: SxProps<Theme> = {
     borderRadius: "3px",
     fontWeight: "bold",
     fontSize: "22px",
+    "@media (min-width: 800px)": {
+      height: "32px",
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      height: "30px",
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      height: "36px",
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      height: "60px",
+      fontSize: "28px",
+    },
   },
   "& .MuiInputLabel-root": {
     right: 0,
     top: "5px",
     paddingLeft: "10px",
+    "@media (min-width: 800px)": {
+      top: "7px",
+    },
+    "@media (min-width: 2000px)": {
+      top: "12px",
+    },
   },
   "& .MuiInputLabel-shrink": {
     position: "absolute",
     right: "0",
     left: "0",
     top: "-3px",
-    maxWidth: "100%"
+    maxWidth: "100%",
+    "@media (min-width: 800px)": {
+      top: "-1px",
+    },
   },
-    "& .MuiInputAdornment-root": {
-    marginTop: '0 !important',
-    marginRight: '6px'
+  "& .MuiInputAdornment-root": {
+    marginTop: "0 !important",
+    marginRight: "6px",
   },
-    "& .MuiInputBase-root": {
-    padding: '10px 10px 10px 20px !important',
-
+  "& .MuiInputBase-root": {
+    padding: "10px 10px 10px 20px !important",
     height: "100%",
   },
 };
+
 
 export default function DropdownSelect({
   name,

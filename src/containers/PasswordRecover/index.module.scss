@@ -4,7 +4,10 @@
   justify-content: space-between;
   gap: 20px;
   width: 100%;
-  max-width: 1000px;
+
+  @include media-down($break-xxl) {
+    max-width: 1000px;
+  }
 
   h5 {
     margin-bottom: 20px;
@@ -25,7 +28,8 @@
 }
 
 .button {
-  width: 300px;
+  min-width: 300px;
+  width: 40%;
   margin-top: 20px;
 }
 

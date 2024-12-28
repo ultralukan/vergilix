@@ -4,16 +4,32 @@ import { Provider } from 'react-redux';
 import { store, useAppDispatch } from '../store';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { Language, setLanguage, setToken } from '@/store/slices/authSlice';
+import { Language, setAuthLoading, setLanguage, setToken, setUser } from '@/store/slices/authSlice';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { enUS } from '@mui/material/locale';
 import { ruRU } from '@mui/material/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { useGetUserQuery } from '@/api/user';
 
 type ProvidersProps = {
   children: React.ReactNode;
 };
+
+export const customBreakpoints = {
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 480,
+      md: 768,
+      lg: 1024,
+      xl: 1200,
+      xxl: 1440,
+      xxxl: 1920,
+    },
+  },
+};
+
 
 function Providers({ children }: ProvidersProps) {
   const [isClient, setIsClient] = useState(false);
@@ -24,8 +40,14 @@ function Providers({ children }: ProvidersProps) {
   }, []);
 
   useEffect(() => {
-    const language = Cookies.get('language');
-    const newTheme = language === 'ru' ? createTheme(ruRU) : createTheme(enUS);
+    const language = Cookies.get("language");
+    const localeTheme = language === "ru" ? ruRU : enUS;
+    const newTheme = createTheme(
+      {
+        ...customBreakpoints,
+      },
+      localeTheme
+    );
     setTheme(newTheme);
   }, []);
 
@@ -46,18 +68,27 @@ function Providers({ children }: ProvidersProps) {
 
 function StoreInitializer({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
+  const token = Cookies.get("token") || null;
+  const language = Cookies.get('language') || null;
+  const {data: user = null, isFetching} = useGetUserQuery(undefined, {skip: !token});
 
   useEffect(() => {
-    const token = Cookies.get('token');
     if (token) {
       dispatch(setToken(token));
+
+      if(user) {
+        dispatch(setUser(user))
+      }
     }
 
-    const language = Cookies.get('language');
+    if (!isFetching) {
+      dispatch(setAuthLoading(false));
+    }
+
     if (language) {
       dispatch(setLanguage(language as Language));
     }
-  }, [dispatch]);
+  }, [dispatch, token, user, language, isFetching]);
 
   return <>{children}</>;
 }

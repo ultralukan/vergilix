@@ -23,6 +23,7 @@ type Props = {
 export default function LoginForm({setIsReset}: Props) {
   const t = useTranslations('Login');
   const e = useTranslations('Validation');
+  const a = useTranslations('API');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
@@ -47,9 +48,11 @@ export default function LoginForm({setIsReset}: Props) {
     } catch (error: unknown) {
       if (error && (error as ApiError).data) {
         const status = (error as ApiError).status;
-    
-        if (status === 400 || status === 401) {
-          // setErrorMessage(apiMessageText[lang].login.POST[status as 400 | 401]);
+        console.log(status)
+        if (status === 400) {
+          setErrorMessage(a("loginError400"));
+        } else if(status === 401) {
+          setErrorMessage(a("loginError401"));
         } else {
           setErrorMessage('An unexpected error occurred');
         }

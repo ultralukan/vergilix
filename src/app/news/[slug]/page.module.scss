@@ -1,0 +1,158 @@
+.page {
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
+  flex: 1;
+
+  h2 {
+    display: inline-block;
+    background: $color-main;
+    padding: 5px 15px 0;
+    margin: 20px 0 0;
+  }
+}
+
+
+// .titles {
+//   h2 {
+//     display: inline-block;
+//     margin-bottom: 0;
+
+//     @include typographyHeading(xxxl, bold);
+
+//     @include media-down($break-xl) {
+//       @include typographyHeading(xxl, bold);
+//     }
+//   }
+// }
+
+.titles {
+  div {
+    height: 85px;
+
+    @include media-down($break-xxl) {
+      height: 70px;
+    }
+
+    @include media-down($break-lg) {
+      height: 50px;
+    }
+
+  }
+  span {
+    font-weight: bold;
+    background: $color-main;
+    color: $color-black;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .arrow {
+    transform: rotate(90deg);
+    scale: 2;
+  }
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: bold;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  display: flex;
+  font-size: 28px;
+  line-height: 28px;
+
+  @include media-down($break-xxl) {
+    font-size: 24px;
+    line-height: 24px;
+  }
+}
+
+.dateDay {
+  position: relative;
+  top: 5px;
+  font-size: 80px;
+
+  @include media-down($break-xxl) {
+    font-size: 60px;
+  }
+}
+
+.year {
+  color: #98999B;
+}
+
+.image {
+  height: 400px;
+  width: auto;
+  overflow: hidden;
+  margin: 50px 0;
+
+  img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 80%;
+
+  @include media-down(lg) {
+    max-width: 100%;
+  }
+
+  h4 {
+    font-weight: normal;
+    font-size: 34px;
+    @include media-down($break-xxl) {
+      @include typography(xxxl);
+    }
+  }
+
+  div {
+    border-left: 4px solid $color-main;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    @include media-down($break-xxl) {
+      @include typography(xxl, bold);
+    }
+  }
+}
+
+.otherNews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.cardSecondary {
+  position: relative;
+  width: calc(50% - 30px);
+  height: 200px;
+  display: flex;
+  overflow: hidden;
+  -webkit-box-align: end;
+  background-color: $color-white;
+  padding: 20px 40px;
+}

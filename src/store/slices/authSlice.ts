@@ -8,13 +8,15 @@ interface AuthState {
   user: UserType | null;
   isVerif: boolean;
   language: Language;
+  isAuthLoading: boolean;
 }
 
 const initialState: AuthState = {
   token: null,
   user: null,
   language: 'ru',
-  isVerif: false
+  isVerif: false,
+  isAuthLoading: true
 };
 
 const authSlice = createSlice({
@@ -36,8 +38,11 @@ const authSlice = createSlice({
     setLanguage(state, action: PayloadAction<'en' | 'ru'>) {
       state.language = action.payload;
     },
+    setAuthLoading(state, action: PayloadAction<boolean>) {
+      state.isAuthLoading = action.payload;
+    },
   },
 });
 
-export const { setToken, logout, setUser, setLanguage, setVerif } = authSlice.actions;
+export const { setToken, logout, setUser, setLanguage, setVerif, setAuthLoading } = authSlice.actions;
 export default authSlice.reducer;

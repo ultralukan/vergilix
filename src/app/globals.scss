@@ -25,10 +25,18 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  @include typography(xxl);
+  @include typographyHeading(xxl);
   
   @include media-down($break-xxl) {
     @include typography(xl);
+  }
+
+  @include media-down($break-xl) {
+    @include typography(lg);
+  }
+
+  @include media-down($break-lg) {
+    @include typography(md);
   }
 }
 
@@ -146,7 +154,11 @@ input[type='number']::-webkit-inner-spin-button {
 
 
 h1, h2 {
-  @include typographyHeading(xxxl, bold);
+  @include typographyHeading(4xl, bold);
+
+  @include media-down($break-xxl) {
+    @include typographyHeading(xxxl, bold);
+  }
 
   @include media-down($break-lg) {
     @include typographyHeading(xxl, bold)

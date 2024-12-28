@@ -1,6 +1,7 @@
 import { TextField, SxProps, Theme, TextFieldProps } from "@mui/material";
 import { useFormikContext } from "formik";
 import styles from "./index.module.scss";
+import { customBreakpoints } from "@/app/providers";
 
 type PropsType = {
   value: string;
@@ -42,6 +43,18 @@ const baseStyles: SxProps<Theme> = {
     "&.Mui-disabled": {
       color: "#75777F",
     },
+    "@media (min-width: 800px)": {
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      fontSize: "26px",
+    },
   },
   "& .MuiInputBase-input": {
     height: "36px",
@@ -49,6 +62,22 @@ const baseStyles: SxProps<Theme> = {
     borderRadius: "3px",
     fontWeight: "bold",
     fontSize: "22px",
+    "@media (min-width: 800px)": {
+      height: "32px",
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      height: "30px",
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      height: "36px",
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      height: "60px",
+      fontSize: "28px",
+    },
   },
   "& .MuiInputBase-inputMultiline": {
     height: "36px",
@@ -56,19 +85,47 @@ const baseStyles: SxProps<Theme> = {
     borderRadius: "3px",
     fontWeight: "bold",
     fontSize: "22px",
-    paddingTop: "5px"
+    paddingTop: "5px",
+    "@media (min-width: 800px)": {
+      height: "34px",
+      fontSize: "20px",
+    },
+    "@media (min-width: 1100px)": {
+      height: "32px",
+      fontSize: "22px",
+    },
+    "@media (min-width: 1500px)": {
+      height: "40px",
+      fontSize: "24px",
+    },
+    "@media (min-width: 2000px)": {
+      height: "60px",
+      fontSize: "28px",
+    },
   },
   "& .MuiInputLabel-root": {
     right: 0,
     top: "3px",
     paddingLeft: "10px",
+    "@media (min-width: 800px)": {
+      top: "7px",
+    },
+    "@media (min-width: 1100px)": {
+      top: "3px",
+    },
+    "@media (min-width: 2000px)": {
+      top: "12px",
+    },
   },
   "& .MuiInputLabel-shrink": {
     position: "absolute",
     right: "0",
     left: "0",
     top: "-3px",
-    maxWidth: "100%"
+    maxWidth: "100%",
+    "@media (min-width: 800px)": {
+      top: "-1px",
+    },
   },
 };
 
@@ -103,6 +160,7 @@ export default function Input({
       sx={{
         ...(baseStyles as SxProps<Theme>),
         ...(customStyles as SxProps<Theme>),
+        minWidth: 180,
       }}
       {...props}
     />

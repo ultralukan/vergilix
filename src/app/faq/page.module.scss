@@ -1,6 +1,17 @@
 .page {
-  padding: 30px 180px;
   flex: 1;
+  position: relative;
+  z-index: 1;
+
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
 }
 
 .title {
@@ -8,4 +19,12 @@
   background: $color-main;
   padding: 5px 15px 0;
   margin-bottom: 20px;
+}
+
+.image {
+  position: absolute;
+  z-index: -1;
+  right: 25%;
+  top: 280px;
+  scale: 4;
 }

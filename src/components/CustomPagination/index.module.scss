@@ -1,0 +1,88 @@
+.icon {
+  width: 20px;
+  height: 20px;
+  scale: (1.5);
+}
+
+.details {
+  display: flex;
+  color: $color-black;
+  padding: 20px;
+  justify-content: center;
+  gap: 40px;
+}
+
+.detailsWrapper {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 100px;
+  margin-right: 10px;
+}
+
+.detailsTitles, .detailsValues {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.detailsPay {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-gray;
+  min-width: 500px;
+  border-radius: 3px;
+}
+
+.detailsPayTitle {
+  display: flex;
+  border-bottom: 1px solid $color-gray-light;
+  padding: 40px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detailsPayForm {
+  padding: 40px;
+}
+
+
+.button {
+  button {
+    background: $color-main;
+    color: $color-black;
+    padding: 20px 0;
+    text-transform: none;
+    font-weight: bold;
+    width: 300px;
+  }
+}
+
+.pagination {
+  background-color: $color-white;
+  display: inline-flex;
+  gap: 15px;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: center;
+  @include typographyHeading(lg, bold);
+
+  button {
+    display: flex;
+  }
+
+  .pagArrow {
+    font-size: 22px;
+  }
+
+  .pagButton {
+    padding: 7px 10px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pagBtnActive {
+    background-color: $color-main;
+  }
+}

@@ -21,14 +21,32 @@
 .overlay {
   position: relative;
   bottom: 60px;
+
+  @include media-down($break-xl) {
+    height: 120px;
+  }
   div {
-    height: 80px;
+    height: 100px;
+
+    @include media-down($break-xxl) {
+      height: 70px;
+    }
+    @include media-down($break-xl) {
+      height: 50px;
+    }
   }
   span {
+    font-weight: bold;
     background: $color-main;
     color: $color-black;
-    @include typographyHeading(5xl, bold);
     padding: 9px 9px 0;
+    font-size: 90px;
+    @include media-down($break-xxl) {
+      font-size: 60px;
+    }
+    @include media-down($break-xl) {
+      font-size: 40px;
+    }
   }
 }
 
@@ -46,6 +64,7 @@
 .formContainer {
   width: 60%;
   max-width: 800px;
+  min-width: 400px;
   margin: 0 auto;
 }
 
@@ -59,18 +78,39 @@
 }
 
 .rateTitle {
-  @include typography(lg, bold);
+  font-weight: bold;
   color: #468E7A;
   text-transform: uppercase;
+  font-size: 28px;
+  @include media-down($break-xxl) {
+    font-size: 22px;
+  }
+  @include media-down($break-xl) {
+    font-size: 18px;
+  }
 }
 
 .rateText {
-  @include typographyHeading(xl, bold);
+  font-weight: bold;
+  font-size: 40px;
+  @include media-down($break-xxl) {
+    font-size: 28px;
+  }
+  @include media-down($break-xl) {
+    font-size: 22px;
+  }
 }
 
 .termsText {
   margin-top: 20px;
-  @include typography(md);
+
+  font-size: 20px;
+  @include media-down($break-xxl) {
+    font-size: 14px;
+  }
+  @include media-down($break-xl) {
+    font-size: 12px;
+  }
 }
 
 .formRow {

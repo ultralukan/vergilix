@@ -1,6 +1,15 @@
 .page {
-  padding: 30px 180px;
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
   flex: 1;
+  z-index: 1;
 }
 
 .title {
@@ -11,21 +20,35 @@
 }
 
 .main {
+  margin-top: 40px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
   font-weight: bold;
+  @include typographyHeading(xl, bold);
+
+  @include media-down($break-xxl) {
+    @include typography(xxl, bold);
+  }
+
+  @include media-down($break-xl) {
+    @include typography(xl, bold);
+  }
 }
 
 .info {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  width: 900px;
+  gap: 100px;
+  min-width: 800px;
+
+  @include media-down($break-xl) {
+    gap: 50px;
+  }
 }
 
 .listTitle {
-  color: $color-gray-dark;
+  color: #B8B8B8;
   margin-bottom: 10px;
 }
 
@@ -41,4 +64,12 @@
 
 .item:hover {
   color: $color-main;
+}
+
+.image {
+  position: absolute;
+  right: 25%;
+  top: 330px;
+  z-index: -1;
+  scale: 2.5;
 }

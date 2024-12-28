@@ -29,6 +29,7 @@ export default function Map() {
             <Link href={'/'} className={styles.item}>{t("News")}</Link>
             <Link href={'/'} className={styles.item}>{t("FAQ")}</Link>
             <Link href={'/'} className={styles.item}>{t("About")}</Link>
+            <Link href={'/'} className={styles.item}>{t("Support")}</Link>
           </div>
           <div className={styles.list}>
             <Link href={'/'} className={styles.listTitle}>{t("titleTerms")}</Link>
@@ -41,6 +42,7 @@ export default function Map() {
 
         </div>
       </div>
+      <img className={styles.image} src="./map.svg"/>
     </div>
   );
 }

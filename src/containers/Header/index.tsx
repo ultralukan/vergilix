@@ -15,24 +15,23 @@ import classNames from "classnames";
 import PersonIcon from "../../../public/person.svg"
 
 export default function Header() {
-  // const user = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
-  const dispatch = useAppDispatch();
-  const isAuth = !!token;
+  const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
+  const isAuth = !!token && user;
   const router = useRouter();
   const location = usePathname();
   const isMain = location === '/';
   const isVerif = useAppSelector((state) => state.auth.isVerif);
+  const dispatch = useAppDispatch();
 
-  const [isHydrated, setIsHydrated] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const t = useTranslations("Header");
 
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  console.log(isAuthLoading)
+  console.log(isAuthLoading)
 
   const toggleLoginForm = () => {
     setIsLoginOpen((prev) => !prev);
@@ -92,7 +91,7 @@ export default function Header() {
       </div>
       <div className={classNames(styles.buttons, {[styles["buttons-main"]]: isMain})}>
         <button className={styles.language}>EN</button>
-        {isHydrated && (
+        {!isAuthLoading && (
           <button
             className={classNames(styles.login, {[styles["login-main"]]: isMain})}
             onClick={isAuth ? toggleDropDown : toggleLoginForm}

@@ -3,8 +3,16 @@
 }
 
 .page {
-  padding: 30px 180px 0;
   flex: 1;
+  padding: 30px 15rem 0;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem 0;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem 0;
+  }
 }
 
 .title {
@@ -18,7 +26,6 @@
   display: flex;
   position: relative;
   margin-bottom: 30px;
-
 }
 
 .text {
@@ -30,35 +37,62 @@
 .subTitle {
   background: $color-white;
   box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
-  padding: 40px 180px 40px 80px;
-  @include typographyHeading(xl);
+  padding: 30px 180px 30px 80px;
+  font-size: 26px;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 120px 30px 60px;
+  }
+
+  @include media-down($break-xl) {
+    @include typographyHeading(md);
+    padding: 20px 30px;
+  }
 }
 
 .desc {
   margin-top: 20px;
-  padding: 40px 180px 40px 80px;
+  padding: 40px 80px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @include media-down($break-xxl) {
+    padding: 30px 120px 30px 60px;
+  }
+
+  @include media-down($break-xl) {
+    padding: 20px 30px;
+  }
 }
 
 .image {
   width: 50vw;
-  right: -180px;
+  right: -15rem;
   position: absolute;
   height: 100%;
   z-index: 1;
+  max-height: 1000px;
+
+  @include media-down($break-xxl) {
+    right: -10rem;
+  }
+
+  @include media-down($break-xl) {
+    right: -7rem;
+  }
 }
 
 .image img {
   width: 100%;
   height: 100%;
+
 }
 
 .overlay {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 40px;
+  left: 40px;
   z-index: 2;
 
   span {
@@ -68,7 +102,11 @@
     padding: 5px 10px;
     margin-bottom: 5px;
     text-transform: uppercase;
-    @include typographyHeading(xxl, bold);
+    @include typographyHeading(xxxl, bold);
+
+    @include media-down($break-xl) {
+      @include typographyHeading(xxl, bold);
+    }
   }
 }
 

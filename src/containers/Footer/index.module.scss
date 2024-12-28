@@ -4,13 +4,16 @@
   justify-content: space-between;
   background-color: $color-white;
   padding: 30px 40px;
-  font-weight: bold;
+
   color: $color-gray-dark;
-  @include typography(md);
   box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
   &-main {
     box-shadow: none;
     color: $color-black;
+  }
+  font-size: 22px;
+  @include media-down($break-xxl) {
+    font-size: 14px;
   }
 }
 

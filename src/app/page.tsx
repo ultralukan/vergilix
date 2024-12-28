@@ -13,6 +13,9 @@ import { Option } from "@/types/option";
 import classNames from "classnames";
 import SwapIcon from '../../public/swap.svg';
 import { useSearchParams } from "next/navigation";
+import { createValidationSchema } from "./validation";
+import { error } from "console";
+import { useAppSelector } from "@/store";
 
 function shouldFixed(value: string) {
   const num = Number(value);
@@ -29,9 +32,10 @@ function shouldFixed(value: string) {
 
 
 function Home() {
-  const { data: rates = [] } = useGetRateQuery();
+  const { data: rates = [], isFetching } = useGetRateQuery();
   const groupedRates = useMemo(() => groupRatesByTypeAndCurrency(rates), [rates]);
   const t = useTranslations('Main');
+  const e = useTranslations('Validation');
   const [selectedItemFrom, setSelectedItemFrom] = useState<Option | null>(null);
   const [selectedItemTo, setSelectedItemTo] = useState<Option | null>(null);
   const [amountFrom, setAmountFrom] = useState<string>("");
@@ -42,6 +46,10 @@ function Home() {
   const from = searchParams.get('from') || "BTC";
   const to = searchParams.get('to') || "RUB";
   const [rate, setRate] = useState<number>(1);
+
+  const user = useAppSelector((state) => state.auth.user);
+  const token = useAppSelector((state) => state.auth.token);
+  const isAuth = !!token && user;
 
   const optionsFrom = useMemo(() => {
     const rates = groupedRates.FROM;
@@ -61,16 +69,16 @@ function Home() {
     return Object.keys(rates).map((el, index) => ({value: index, label: el, icon: getIconPath(el)})) || [];
   }, [groupedRates, selectedItemFrom])
 
-  useEffect(() => {
-    if(rates.length && optionsFrom.length) {
-      try {
-        if(!selectedItemFrom && !selectedItemTo) {
-          setSelectedItemFrom(optionsFrom.filter((el) => el.label === from)[0])
-          setSelectedItemTo(optionsTo.filter((el) => el.label === to)[0])
-        }
-      }catch{}
-    }
-  }, [rates])
+  // useEffect(() => {
+  //   if(rates.length && optionsFrom.length) {
+  //     try {
+  //       if(!selectedItemFrom && !selectedItemTo) {
+  //         setSelectedItemFrom(optionsFrom.filter((el) => el.label === from)[0])
+  //         setSelectedItemTo(optionsTo.filter((el) => el.label === to)[0])
+  //       }
+  //     }catch{}
+  //   }
+  // }, [rates])
 
   const selectedRate = useMemo(() => {
     if (!selectedItemTo?.label || !selectedItemFrom?.label || !rates.length) return null;
@@ -172,15 +180,20 @@ function Home() {
     { [styles["swap-disabled"]]: !isAvailableSwap }
   );
 
-  const handleSubmit = () => {}
+  const handleSubmit = (values) => {
+    console.log(values)
+  }
 
   const initialValues = useMemo(() => {
     return({
-      name: '',
-      email: '',
-      question: '',
+      amountFrom: amountFrom,
+      amountTo: amountTo,
+      selectedItemFrom: selectedItemFrom,
+      selectedItemTo: selectedItemTo
     })
-  }, [])
+  }, [amountFrom, amountTo, selectedItemFrom, selectedItemTo])
+
+  const validationSchema = useMemo(() => createValidationSchema(e), [e])
 
   return (
     <div className={styles.page}>
@@ -217,22 +230,26 @@ function Home() {
             </div>
           <Formik
             initialValues={initialValues}
-            // validationSchema={validationSchema}
+            validationSchema={validationSchema}
             onSubmit={handleSubmit}
             validateOnChange={true}
             validateOnBlur={true}
             enableReinitialize
           >
+          {({ errors }) => {
+            console.log(errors)
+            return(
             <Form className={styles.form}>
               <div className={styles.formRow}>
                 <div className={styles.formItem}>
                   <Input
                     label={t('sell')}
-                    name='name'
+                    name='amountFrom'
                     type="text"
                     value={amountFrom}
                     setValue={handleAmountFromChange}
                     customStyles={{width: '63%'}}
+                    type="number"
                   />
                   <DropdownSelect
                     id="selectedItemFrom"
@@ -256,11 +273,12 @@ function Home() {
                 <div className={styles.formItem}>
                   <Input
                     label={t('buy')}
-                    name='name'
+                    name='amountTo'
                     type="text"
                     value={amountTo}
                     setValue={handleAmountToChange}
                     customStyles={{width: '63%'}}
+                    type="number"
                   />
                   <DropdownSelect
                     id="selectedItemTo"
@@ -273,10 +291,12 @@ function Home() {
                 </div>
               </div>
               <div className={styles.button}>
-                <Button label={t('exchangeBtn')} onClick={() => {}} showArrow={false}/>
+                <Button disabled={!!isFetching || !isAuth} label={!isAuth ? t('exchangeBtnDisabled') :t('exchangeBtn')} type="submit" showArrow={false}/>
               </div>
               <p className={styles.termsText}>{t("terms")}</p>
             </Form>
+            )}}
+
             </Formik>
           </div>
         </div>
