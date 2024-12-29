@@ -3,7 +3,10 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  max-width: 1000px;
+
+  @include media-down($break-xxl) {
+    max-width: 1000px;
+  }
 }
 
 .formRow {
@@ -21,14 +24,18 @@
 }
 
 .formItemLittle {
-  width: (calc(50%/3 - 20px));
+  width: (calc(25% - 20px));
 }
 
 
 .button {
+  width: 400px;
   min-width: 300px;
-  width: 40%;
   margin-top: 20px;
+
+  @include media-down($break-xl) {
+    width: 300px;
+  }
 }
 
 .stepper {

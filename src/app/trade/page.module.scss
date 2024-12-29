@@ -1,0 +1,199 @@
+.page {
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
+  flex: 1;
+  z-index: 1;
+}
+
+.stepper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.formTitle {
+  margin: 20px 0;
+  color: #7D7D7D;
+  font-size: 42px;
+  
+  @include media-down($break-xxl) {
+    font-size: 28px;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  min-width: unset;
+  width: fit-content;
+  gap: 20px;
+}
+
+.amounts {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+  padding: 20px;
+  border-radius: 3px;
+  gap: 20px;
+  min-width: 450px;
+
+  @include media-down($break-xl) {
+    min-width: 250px;
+  }
+}
+
+.amountRow {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.amountTitle {
+  text-transform: uppercase;
+  color: #7D7D7D;
+  line-height: normal;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 26px;
+  @include media-down($break-xxl) {
+    font-size: 20px;
+  }
+}
+
+.amount {
+  line-height: normal;
+  font-weight: bold;
+  font-size: 30px;
+  @include media-down($break-xxl) {
+    font-size: 24px;
+  }
+}
+
+.currency {
+  display: inline-flex;
+  flex-direction: column;
+  background-color: $color-white;
+  padding: 20px;
+  min-width: 450px;
+  border-radius: 3px;
+
+  @include media-down($break-xl) {
+    min-width: 250px;
+  }
+}
+
+.amountTitle {
+  margin-top: 10px;
+}
+
+.wrapper {
+  display: flex;
+
+  gap: 40px;
+}
+
+.inputs {
+  background-color: $color-main;
+  padding: 20px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-width: 600px;
+
+  @include media-down($break-xl) {
+    min-width: 450px;
+  }
+
+  .inputsTitle {
+    color: #468B78;
+    @include typography(xl, bold);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button {
+  button {
+    background-color: $color-black;
+    color: $color-white;
+  }
+}
+
+.final {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  width: fit-content;
+
+  .currency {
+    background-color: $color-main;
+  }
+
+  .createdTitle {
+    font-size: 30px;
+    font-weight: bold;
+    @include media-down($break-xxl) {
+      font-size: 26px;
+    }
+  }
+
+  .timerTitle {
+    font-size: 26px;
+    @include media-down($break-xxl) {
+      font-size: 20px;
+    }
+  }
+
+  .timerWrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .timerIconWrapper {
+    display: flex;
+  }
+
+  .timerText {
+
+    font-weight: bold;
+    position: relative;
+    top: 3px;
+    font-size: 20px;
+  }
+
+  .timerIcon {
+    scale: 0.5;
+    color: #000;
+  }
+
+  .timer {
+    display: flex;
+    align-items: center;
+    background-color: #B8EFE1;
+    padding: 0 15px 0 0;
+    border-radius: 3px;
+  }
+}

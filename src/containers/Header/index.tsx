@@ -30,9 +30,6 @@ export default function Header() {
 
   const t = useTranslations("Header");
 
-  console.log(isAuthLoading)
-  console.log(isAuthLoading)
-
   const toggleLoginForm = () => {
     setIsLoginOpen((prev) => !prev);
   };

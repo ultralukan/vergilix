@@ -12,9 +12,8 @@ import { getIconPath, groupRatesByTypeAndCurrency } from "@/services/exchange";
 import { Option } from "@/types/option";
 import classNames from "classnames";
 import SwapIcon from '../../public/swap.svg';
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createValidationSchema } from "./validation";
-import { error } from "console";
 import { useAppSelector } from "@/store";
 
 function shouldFixed(value: string) {
@@ -24,9 +23,7 @@ function shouldFixed(value: string) {
   }
 
   const floatValue = parseFloat(value);
-  
   const decimalPlaces = (value.split('.')[1] || '').length;
-  
   return floatValue.toFixed(Math.min(5, decimalPlaces));
 }
 
@@ -46,6 +43,7 @@ function Home() {
   const from = searchParams.get('from') || "BTC";
   const to = searchParams.get('to') || "RUB";
   const [rate, setRate] = useState<number>(1);
+  const router = useRouter();
 
   const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
@@ -69,16 +67,16 @@ function Home() {
     return Object.keys(rates).map((el, index) => ({value: index, label: el, icon: getIconPath(el)})) || [];
   }, [groupedRates, selectedItemFrom])
 
-  // useEffect(() => {
-  //   if(rates.length && optionsFrom.length) {
-  //     try {
-  //       if(!selectedItemFrom && !selectedItemTo) {
-  //         setSelectedItemFrom(optionsFrom.filter((el) => el.label === from)[0])
-  //         setSelectedItemTo(optionsTo.filter((el) => el.label === to)[0])
-  //       }
-  //     }catch{}
-  //   }
-  // }, [rates])
+  useEffect(() => {
+    if(rates.length && optionsFrom.length) {
+      try {
+        if(!selectedItemFrom && !selectedItemTo) {
+          setSelectedItemFrom(optionsFrom.filter((el) => el.label === from)[0])
+          setSelectedItemTo(optionsTo.filter((el) => el.label === to)[0])
+        }
+      }catch{}
+    }
+  }, [rates, selectedItemFrom, selectedItemTo, optionsFrom, optionsTo, from, to])
 
   const selectedRate = useMemo(() => {
     if (!selectedItemTo?.label || !selectedItemFrom?.label || !rates.length) return null;
@@ -181,7 +179,12 @@ function Home() {
   );
 
   const handleSubmit = (values) => {
-    console.log(values)
+    try{
+      if(values && !!Object.keys(values).length) {
+        sessionStorage.setItem('tradeInfo', JSON.stringify({...values, rate}))
+        router.push('/trade')
+      }
+    }catch{}
   }
 
   const initialValues = useMemo(() => {
@@ -237,7 +240,6 @@ function Home() {
             enableReinitialize
           >
           {({ errors }) => {
-            console.log(errors)
             return(
             <Form className={styles.form}>
               <div className={styles.formRow}>
@@ -250,6 +252,7 @@ function Home() {
                     setValue={handleAmountFromChange}
                     customStyles={{width: '63%'}}
                     type="number"
+                    required
                   />
                   <DropdownSelect
                     id="selectedItemFrom"
@@ -258,6 +261,7 @@ function Home() {
                     selectedItem={selectedItemFrom}
                     options={optionsFrom as Option[]}
                     customStyles={{width: '37%'}}
+                    label={t('currencyDrop')}
                   />
                 </div>
                 <div>
@@ -279,8 +283,10 @@ function Home() {
                     setValue={handleAmountToChange}
                     customStyles={{width: '63%'}}
                     type="number"
+                    required
                   />
                   <DropdownSelect
+                    label={t('currencyDrop')}
                     id="selectedItemTo"
                     name="selectedItemTo"
                     setSelectedItem={setSelectedItemTo}

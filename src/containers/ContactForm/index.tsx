@@ -8,32 +8,85 @@ import { useTranslations } from "next-intl";
 import Button from "@/components/Button";
 import { createValidationSchema } from "./validation";
 import { useAppSelector } from "@/store";
+import { ApiError } from "@/types/error";
+import { useUpdateUserMutation } from "@/api/user";
 
 export default function ContactForm() {
   const user = useAppSelector((state) => state.auth.user);
-  const [login, setLogin] = useState("testov");
-  const [email, setEmail] = useState("test@mail.ru");
-  const [phone, setPhone] = useState("79999999999");
-  const [name, setName] = useState("Тест");
-  const [surname, setSurname] = useState("Тестов");
+  const [telegram, setTelegram] = useState("");
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [patronymic, setPatronymic] = useState("");
   const [edit, setEdit] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const t = useTranslations("FormContact");
   const e = useTranslations('Validation');
+  const a = useTranslations('API');
+  const [update] = useUpdateUserMutation();
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    try {
+      if (user && Object.keys(user) && Object.keys(user).length) {
+        if (user?.telegram) setTelegram(user.telegram);
+        if (user?.phoneNumber) setPhone(user.phoneNumber);
+        if (user?.fullName) {
+          user?.fullName.split(" ").map((el, index) => {
+            if(index === 0) {
+              setSurname(el);
+            } else if (index === 1) {
+              setName(el);
+            } else if (index === 2) {
+              setPatronymic(el);
+            }
+          })
+        };
+      }
+    } catch {
+    }
+  }, [user]);
+  
 
+  const handleSubmit = async (values, { resetForm }) => {
+    if (edit) return;
+    
+    try {
+      setSuccessMessage("");
+      const { telegram, phone, name, surname, patronymic } = values;
+      const fullName = `${surname} ${name} ${patronymic}` ;
+      const response = await update({ telegram, fullName, phoneNumber: phone }).unwrap();
+  
+      if (response) {
+        resetForm();
+        setSuccessMessage(t("successMessage"));
+        setEdit(true);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error && (error as ApiError).data) {
+        const status = (error as ApiError).status;
+  
+        if ([400, 401, 404, 500].includes(status)) {
+          setErrorMessage(a(`updateUser${status}`));
+        } else {
+          setErrorMessage("An unexpected error occurred");
+        }
+      }
+    }
   };
+
 
   const initialValues = useMemo(() => {
     return {
-      login: login,
-      email: email,
+      telegram: telegram,
       phone: phone,
       name: name,
       surname: surname,
+      patronymic: patronymic,
     };
-  }, [name, email, surname, phone, login]);
+  }, [name, telegram, surname, phone, patronymic]);
 
   const validationSchema = useMemo(() => createValidationSchema(e), [e])
 
@@ -41,44 +94,37 @@ export default function ContactForm() {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       validateOnChange={true}
       validateOnBlur={true}
       enableReinitialize
     >
       <Form className={styles.form}>
+        <div>
+          {errorMessage ? <h5 className={styles.titleError}>{errorMessage}</h5> : successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
+        </div>
         <h5>{t("titleContact")}</h5>
         <div className={styles.formRow}>
           <div className={styles.formItem}>
             <Input
-              label={t("formLogin")}
-              name="login"
-              type="text"
-              value={login}
-              setValue={setLogin}
+              label={t("formTelegram")}
+              name="telegram"
+              type="telegram"
+              value={telegram}
+              setValue={setTelegram}
               disabled={edit}
-            />
-          </div>
-        </div>
-        <div className={styles.formRow}>
-          <div className={styles.formItem}>
-            <Input
-              label={t("formEmail")}
-              name="email"
-              type="email"
-              value={email}
-              setValue={setEmail}
-              disabled={edit}
+              required
             />
           </div>
           <div className={styles.formItem}>
             <Input
               label={t("formPhone")}
               name="phone"
-              type="text"
+              type="number"
               value={phone}
               setValue={setPhone}
               disabled={edit}
+              required
             />
           </div>
         </div>
@@ -91,6 +137,7 @@ export default function ContactForm() {
               value={name}
               setValue={setName}
               disabled={edit}
+              required
             />
           </div>
           <div className={styles.formItem}>
@@ -101,6 +148,19 @@ export default function ContactForm() {
               value={surname}
               setValue={setSurname}
               disabled={edit}
+              required
+            />
+          </div>
+        </div>
+        <div className={styles.formRow}>
+          <div className={styles.formItem}>
+            <Input
+              label={t("formPatronymic")}
+              name="patronymic"
+              type="text"
+              value={patronymic}
+              setValue={setPatronymic}
+              disabled={edit}
             />
           </div>
         </div>
@@ -108,7 +168,12 @@ export default function ContactForm() {
           <Button
             label={edit ? t("formContactEdit") : t("formContactSave")}
             type={edit ? "button" : "submit"}
-            onClick={() => setEdit(!edit)}
+            onClick={(e) => {
+              if (edit) {
+                e.preventDefault();
+                setEdit(false);
+              }
+            }}
           />
         </div>
       </Form>

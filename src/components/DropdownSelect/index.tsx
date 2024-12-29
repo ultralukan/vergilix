@@ -185,7 +185,7 @@ export default function DropdownSelect({
   setSelectedItem,
   selectedItem,
   options,
-  text,
+  label,
   customStyles
 }: DropdownSelectProps) {
 
@@ -230,7 +230,7 @@ export default function DropdownSelect({
         renderInput={(params) => (
           <Input
             {...params}
-            placeholder={text || ""}
+            placeholder={label || ""}
             InputProps={{
               ...params.InputProps,
               startAdornment: selectedItem ? (
@@ -247,6 +247,7 @@ export default function DropdownSelect({
             sx={{
               ...(baseStyles as SxProps<Theme>),
             }}
+            required
             error={touched[name] && Boolean(errors[name])}
             helperText={touched[name] && errors[name]}
           />

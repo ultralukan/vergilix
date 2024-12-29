@@ -301,7 +301,7 @@ export default function VerificationForm() {
                 setValue={setAppart}
               />
             </div>
-            <div className={styles.formItem}>
+            <div className={styles.formItemLittle}>
               <Input
                 label={t('formIndx')}
                 name='homeIndex'
@@ -378,7 +378,6 @@ export default function VerificationForm() {
         validateOnChange={true}
         validateOnBlur={true}
         enableReinitialize
-        
       >
         <Form className={styles.form}>
           <Stepper 

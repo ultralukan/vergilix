@@ -58,7 +58,8 @@
     "passLowercase": "Хотя бы одна латинская буква нижнего регистра",
     "passUppercase": "Хотя бы одна латинская буква верхнего регистра",
     "passNumber": "Хотя бы одна цифра",
-    "passSpecialChar": "Хотя бы один спецсимвол"
+    "passSpecialChar": "Хотя бы один спецсимвол",
+    "noTrailingSpaces": "Строка не должна содержать пробелов"
   },
   "News": {
     "title": "Новости",
@@ -68,9 +69,10 @@
   "Main": {
     "title": "thE beSt eXchange rates cryptOcurrEncy_",
     "rateTitle": "Обмен по курсу",
-    "sell": "Продаёте",
-    "buy": "Покупаете",
+    "sell": "Отправляете",
+    "buy": "Получаете",
     "exchangeBtn": "Обменять",
+    "currencyDrop": "Выберите",
     "exchangeBtnDisabled": "Войдите чтобы обменять",
     "terms": "Нажимая на кнопку, вы соглашаетесь с условиями обмена"
   },
@@ -94,7 +96,11 @@
     "registerError": "Ошибка CAPTCHA или пользователь уже существует",
     "registerSuccess": "Пользователь успешно зарегистрирован",
     "loginError401": "Неверные учетные данные",
-    "loginError400": "Ошибка CAPTCHA"
+    "loginError400": "Ошибка CAPTCHA",
+    "updateUser400": "Переданные данные не прошли проверку валидации",
+    "updateUser401": "Не передан или недействителен токен авторизации",
+    "updateUser404": "Пользователь не найден",
+    "updateUser500": "Внутренняя ошибка сервера при обновлении данных"
   },
   "Profile": {
     "title": "Мой профиль",
@@ -107,11 +113,14 @@
     "titleContact": "Заполнить контактные данные",
     "formLogin": "Логин",
     "formEmail": "Email",
+    "formTelegram": "Telegram",
+    "formPatronymic": "Отчество",
     "formPhone": "Телефон",
     "formName": "Имя",
     "formSurname": "Фамилия",
     "formContactSave": "Сохранить",
-    "formContactEdit": "Редактировать"
+    "formContactEdit": "Редактировать",
+    "successMessage": "Данные успешно обновлены"
   },
   "FormPassRecovery": {
     "title": "Создание нового пароля",
@@ -206,5 +215,20 @@
     "error": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте еще раз.",
     "btnSuccess": "Завершить",
     "btnError": "Спасибо, все понятно"
+  }, 
+  "Trade": {
+    "titleStep1": "Введите информацию и утвердите детали сделки",
+    "send": "Отправляете",
+    "get": "Получаете",
+    "currencyTime": "Курс актуален в течение 15-ти минут",
+    "sender": "Отправитель",
+    "recipient": "Получатель",
+    "phone": "Телефон отправителя",
+    "telegram": "Telegram отправителя",
+    "address": "кошелёк получателя",
+    "btnStep1": "Начать транзакцию",
+    "createdTradeTitle": "Cоздана заявка №",
+    "timerTitle": "Оплатите заявку в течение",
+    "payButton": "Перейти к оплате"
   }
 }

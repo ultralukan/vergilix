@@ -13,3 +13,12 @@ export type UserType = {
   registrationDate?: string;
   isVerified: boolean;
 };
+
+export type UserTypeApi = {
+  fullName?: string;
+  phoneNumber?: string;
+  telegram?: string;
+  password?: string;
+  verificationPhoto?: string;
+  balance?: number;
+};

@@ -44,6 +44,7 @@ export default function FeedbackForm() {
                 type="text"
                 value={name}
                 setValue={setName}
+                required
               />
             </div>
             <div className={styles.formItem}>
@@ -53,6 +54,7 @@ export default function FeedbackForm() {
                 type="text"
                 value={email}
                 setValue={setEmail}
+                required
               />
             </div>
           </div>
@@ -62,6 +64,7 @@ export default function FeedbackForm() {
             type="text"
             value={question}
             setValue={setQuestion}
+            required
             multiline
             rows={5}
             // customStyles={{

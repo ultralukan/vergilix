@@ -99,6 +99,7 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
               type="email"
               value={email}
               setValue={setEmail}
+              required
             />
             <Input 
               label={t('password')}
@@ -106,6 +107,7 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
               type="password"
               value={password}
               setValue={setPassword}
+              required
             />
             <Input 
               label={t('confPassword')}
@@ -113,12 +115,13 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
               type="password"
               value={confPassword}
               setValue={setConfPassword}
+              required
             />     
             <div className={styles.captcha}>
               <Captcha ref={captchaRef} onChange={handleRecaptchaChange} />
             </div>
             <div className={styles.button}>
-              <Button disabled={!captchaToken || isLoading} type="submit" label={t('signupFormBtn')}/>
+              <Button isLoading={isLoading} disabled={!captchaToken || isLoading} type="submit" label={t('signupFormBtn')}/>
             </div>
             <div className={styles.terms}>
               {t('termsMessage')} <Link href={"/"}>{t('terms')}</Link> {t('and')} <Link href={"/"}>{t('policy')}</Link>

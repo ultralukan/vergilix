@@ -1,4 +1,4 @@
-import { UserType } from "@/types/user";
+import { UserType, UserTypeApi } from "@/types/user";
 import { baseApi } from "./baseApi";
 
 export const userApi = baseApi.injectEndpoints({
@@ -10,7 +10,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ['USER']
     }),
-    updateUser: builder.mutation<UserType, UserType>({
+    updateUser: builder.mutation<UserType, UserTypeApi>({
       query: (data) => ({
         url: '/user',
         method: 'PATCH',

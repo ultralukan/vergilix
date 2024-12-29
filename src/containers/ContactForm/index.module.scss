@@ -3,7 +3,24 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  max-width: 1000px;
+
+  @include media-down($break-xxl) {
+    max-width: 1000px;
+  }
+
+  .title {
+    display: inline-block;
+    background: $color-main;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }
+
+  .titleError {
+    display: inline-block;
+    background: red;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }
 }
 
 .formRow {
@@ -18,8 +35,12 @@
 }
 
 .button {
+  width: 400px;
   min-width: 300px;
-  width: 40%;
   margin-top: 20px;
+
+  @include media-down($break-xl) {
+    width: 300px;
+  }
 }
 

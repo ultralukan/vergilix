@@ -1,6 +1,6 @@
 "use client";
 
-import { Button as Btn, Box } from "@mui/material";
+import { Button as Btn, Box, CircularProgress } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import styles from "./index.module.scss";
@@ -12,6 +12,7 @@ interface ButtonProps {
   showArrow?: boolean;
   showBackArrow?: boolean;
   [key: string]: unknown;
+  isLoading?: boolean;
 }
 
 export default function Button({
@@ -19,6 +20,7 @@ export default function Button({
   onClick,
   showArrow = true,
   showBackArrow = false,
+  isLoading,
   ...props
 }: ButtonProps) {
   return (
@@ -44,6 +46,18 @@ export default function Button({
         fontWeight: "bold",
         borderRadius: "3px",
         padding: "20px",
+        "@media (min-width: 800px)": {
+          fontSize: "16px",
+        },
+        "@media (min-width: 1100px)": {
+          fontSize: "18px",
+        },
+        "@media (min-width: 1500px)": {
+          fontSize: "20px",
+        },
+        "@media (min-width: 2000px)": {
+          fontSize: "28px",
+        },
         width: "100%",
         background: 'rgb(107, 232, 194)',
         boxShadow: "-1px 0 5px rgba(0, 0, 0, 0.1)",
@@ -52,14 +66,20 @@ export default function Button({
       {...props}
     >
       <Box>{label}</Box>
-        {showArrow && (
+        {isLoading ? (
+          <CircularProgress sx={{
+            position: "absolute",
+            right: 20,
+            color: 'inherit'
+          }} size="30px" />
+        ) : showArrow ?  (
           <ArrowForwardIcon
             sx={{
               position: "absolute",
               right: 20,
             }}
           />
-        )}
+        ) : null}
         {showBackArrow && (
         <ArrowBackIcon
           sx={{

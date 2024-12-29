@@ -7,28 +7,50 @@ import Input from "@/components/Input";
 import { useTranslations } from "next-intl";
 import Button from "@/components/Button";
 import { createValidationSchema } from "./validation";
+import { useUpdateUserMutation } from "@/api/user";
+import { ApiError } from "@/types/error";
 
 export default function PasswordRecover() {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const [edit, setEdit] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const t = useTranslations('FormPassRecovery');
   const e = useTranslations('Validation');
+  const a = useTranslations('API');
+  const [update] = useUpdateUserMutation();
   
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values, { resetForm }) => {
+    if (edit) return;
+    
     try {
       setSuccessMessage("");
-      setEdit(true);
-      setPassword("");
-      setPasswordConf("");
-      setSuccessMessage(t("successMessage"));
-    } catch(e){
-      console.log(e);
+      const { password } = values;
+      const response = await update({ password }).unwrap();
+  
+      if (response) {
+        resetForm();
+        setSuccessMessage(t("successMessage"));
+        setEdit(true);
+        setPasswordConf("");
+        setPassword("");
+      }
+    } catch (error) {
+      console.log(error);
+      if (error && (error as ApiError).data) {
+        const status = (error as ApiError).status;
+  
+        if ([400, 401, 404, 500].includes(status)) {
+          setErrorMessage(a(`updateUser${status}`));
+        } else {
+          setErrorMessage("An unexpected error occurred");
+        }
+      }
     }
-  }
+  };
 
   const initialValues = useMemo(() => {
     return({
@@ -50,7 +72,7 @@ export default function PasswordRecover() {
       >
         <Form className={styles.form}>
           <div>
-            {successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
+            {errorMessage ? <h5 className={styles.titleError}>{errorMessage}</h5> : successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
           </div>
           <div className={styles.main}>
             <div className={styles.fields}>
@@ -64,6 +86,7 @@ export default function PasswordRecover() {
                     value={password}
                     setValue={setPassword}
                     disabled={edit}
+                    required
                   />
                 </div>
                 <div className={styles.formItem}>
@@ -74,9 +97,22 @@ export default function PasswordRecover() {
                     value={passwordConf}
                     setValue={setPasswordConf}
                     disabled={edit}
+                    required
                   />
                 </div>
               </div>
+            <div className={styles.button}>
+              <Button
+                label={edit ? t("formEdit") : t("formSave")}
+                type={edit ? "button" : "submit"}
+                onClick={(e) => {
+                  if (edit) {
+                    e.preventDefault();
+                    setEdit(false);
+                  }
+                }}
+              />
+            </div>
             </div>
             <div className={styles.rules}>
               <h5>{t('rulesTitle')}</h5>
@@ -89,13 +125,7 @@ export default function PasswordRecover() {
               </ul>
             </div>
           </div>
-          <div className={styles.button}>
-          <Button
-            label={edit ? t("formEdit") : t("formSave")}
-            type={edit ? "button" : "submit"}
-            onClick={() => edit && setEdit(!edit)}
-          />
-          </div>
+          <img className={styles.image} src="./lock.svg"/>
         </Form>
       </Formik>
   )

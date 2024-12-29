@@ -95,6 +95,7 @@ export default function LoginForm({setIsReset}: Props) {
               type="email"
               value={email}
               setValue={setEmail}
+              required
             />
             <Input 
               label={t('password')}
@@ -102,6 +103,7 @@ export default function LoginForm({setIsReset}: Props) {
               type="password"
               value={password}
               setValue={setPassword}
+              required
               InputProps={{
                 endAdornment: setIsReset && (
                   <InputAdornment className={styles.adornment} position="end">
@@ -114,7 +116,7 @@ export default function LoginForm({setIsReset}: Props) {
               <Captcha ref={captchaRef} onChange={handleRecaptchaChange} />
             </div>
             <div className={styles.button}>
-              <Button disabled={!captchaToken || isLoading} label={t('loginFormBtn')} type="submit"/>
+              <Button isLoading={isLoading} disabled={!captchaToken || isLoading} label={t('loginFormBtn')} type="submit"/>
             </div>
             <div className={styles.terms}>
               
