@@ -4,8 +4,7 @@ import * as Yup from 'yup';
 export const createValidationSchema = (e: TranslationsType) => {
   return Yup.object().shape({
     telegram: Yup.string()
-      .typeError(e("typeError"))
-      .required(e("required")),
+      .typeError(e("typeError")),
     phone: Yup.string()
       .typeError(e("typeError"))
       .required(e("required")),

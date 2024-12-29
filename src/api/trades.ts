@@ -11,6 +11,14 @@ export const tradesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['TRADE']
     }),
+    updateTrade: builder.mutation<APITradeGetType, TradeType>({
+      query: ({id, data}) => ({
+        url: `/trades/${id}`,
+        method: 'PATCH',
+        body: data
+      }),
+      invalidatesTags: ['TRADE']
+    }),
     getUserTrade: builder.query<TradeGetType, string>({
       query: (id) => ({
         url: `/trades/${id}`,
@@ -38,5 +46,6 @@ export const {
   usePostTradeMutation,
   useGetUserTradeQuery,
   useDeleteTradeMutation,
-  useGetAllUserTradesQuery
+  useGetAllUserTradesQuery,
+  useUpdateTradeMutation
 } = tradesApi;

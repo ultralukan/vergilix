@@ -48,7 +48,6 @@ export default function LoginForm({setIsReset}: Props) {
     } catch (error: unknown) {
       if (error && (error as ApiError).data) {
         const status = (error as ApiError).status;
-        console.log(status)
         if (status === 400) {
           setErrorMessage(a("loginError400"));
         } else if(status === 401) {

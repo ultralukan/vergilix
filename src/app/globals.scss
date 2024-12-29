@@ -195,6 +195,10 @@ h3, h4, h5 {
 //   font-weight: bold;
 // }
 
+video::-webkit-media-controls {
+  display: none;
+}
+
 body.body-lock {
   overflow: hidden;
   position: fixed;

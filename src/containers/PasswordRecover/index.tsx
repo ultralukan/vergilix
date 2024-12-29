@@ -16,6 +16,7 @@ export default function PasswordRecover() {
   const [edit, setEdit] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const t = useTranslations('FormPassRecovery');
   const e = useTranslations('Validation');
@@ -28,6 +29,7 @@ export default function PasswordRecover() {
     
     try {
       setSuccessMessage("");
+      setIsLoading(true);
       const { password } = values;
       const response = await update({ password }).unwrap();
   
@@ -39,7 +41,6 @@ export default function PasswordRecover() {
         setPassword("");
       }
     } catch (error) {
-      console.log(error);
       if (error && (error as ApiError).data) {
         const status = (error as ApiError).status;
   
@@ -49,6 +50,8 @@ export default function PasswordRecover() {
           setErrorMessage("An unexpected error occurred");
         }
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,6 +108,8 @@ export default function PasswordRecover() {
               <Button
                 label={edit ? t("formEdit") : t("formSave")}
                 type={edit ? "button" : "submit"}
+                isLoading={isLoading}
+                disabled={isLoading}
                 onClick={(e) => {
                   if (edit) {
                     e.preventDefault();

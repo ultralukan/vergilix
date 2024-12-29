@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Box, Typography, Button, IconButton } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRouter } from "next/navigation";
 
 interface ModalComponentProps {
   open: boolean;
@@ -10,9 +11,20 @@ interface ModalComponentProps {
   content?: string;
   status?: boolean;
   btnText: string;
+  link?: string;
+  onButtonClick?: () => void;
 }
 
-const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, content, status = true, btnText }) => {
+const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, content, status = true, btnText, link, onButtonClick }) => {
+
+  const handleButtonClick = () => {
+    if (onButtonClick) {
+      onButtonClick();
+    } else {
+      onClose();
+    }
+  };
+
   return (
     <Modal
       open={open}
@@ -68,9 +80,9 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, c
         </Typography>
         )}
         <Button
-          onClick={onClose}
+          onClick={handleButtonClick}
           variant="contained"
-          sx={{ mt: 6, bgcolor: '#71E0C1', color: '#000', width: '300px', padding: '15px' }}
+          sx={{ mt: 6, bgcolor: '#71E0C1', color: '#000', width: '300px', padding: '15px', fontWeight: 'bold', fontSize: '16px' }}
         >
           {btnText}
         </Button>

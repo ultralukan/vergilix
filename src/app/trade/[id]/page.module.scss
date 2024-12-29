@@ -1,0 +1,244 @@
+.page {
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
+  flex: 1;
+  z-index: 1;
+}
+
+.stepper {
+  width: (calc(60%));
+  margin-bottom: 20px;
+}
+
+.formTitle {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 40px;
+}
+
+.cardsWrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.detais {
+  width: 70%;
+}
+
+.card {
+  width: calc(50%);
+  background-color: $color-white;
+  padding: 40px;
+}
+
+.cardTitle {
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.timerWrapper {
+  margin-top: 20px;
+  border: 1px solid $color-gray-light;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+
+  .timer {
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  .timerInfo {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 50%;
+  }
+
+  .timerContainer {
+    width: 50%;
+  }
+
+  .timerText {
+    font-size: 18px;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+
+  .button {
+    min-width: 400px;
+  }
+
+  .buttonCanc {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: bold;
+  }
+}
+
+.copy {
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
+
+.copyWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.copiedMessage {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6BE8C2;
+  color: #000;
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10%, 90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.linear {
+  width: 80%;
+  margin: 40px auto 0;
+}
+
+.arrowIcon {
+  width: 30px;
+  height: 30px;
+  color: $color-main;
+}
+
+.resultInfo {
+  padding: 40px;
+  background-color: $color-white;
+}
+
+.paymentResult {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.results {
+  width: 50%;
+  gap: 40px;
+
+  order: 1;
+  @include media-down($break-lg) {
+    order: 2;
+    width: 80%;
+  }
+}
+
+.resultsWrapper {
+  display: flex;
+  justify-content: space-between;
+
+  @include media-down($break-lg) {
+    flex-direction: column;
+  }
+}
+
+.resultIcon {
+  margin-right: 5px;
+}
+
+.paymentDetails {
+  border: 1px solid $color-gray-light;
+  margin-top: 20px;
+  padding: 40px;
+}
+
+.paymentDetailsWrapper {
+  display: flex;
+
+  gap: 50px;
+  margin-top: 10px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  div:nth-child(2) {
+    font-weight: bold;
+  }
+}
+
+.video {
+  width: calc(50% - 40px);
+  height: 100%;
+  position: relative;
+  order: 2;
+  @include media-down($break-lg) {
+    order: 1;
+  }
+}
+
+.videoImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.resultButton {
+  width: 50%;
+  margin-top: 40px;
+}

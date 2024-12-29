@@ -9,7 +9,7 @@ import { Option } from "@/types/option";
 import { useFormikContext } from "formik";
 import Input from "../Input";
 import styles from "./index.module.scss";
-import { getIconPath } from "@/services/exchange";
+import { getIconPath, isFiat } from "@/services/exchange";
 import { SxProps } from "@mui/material";
 import { Theme } from "@emotion/react";
 
@@ -186,7 +186,7 @@ export default function DropdownSelect({
   selectedItem,
   options,
   label,
-  customStyles
+  customStyles,
 }: DropdownSelectProps) {
 
   const {setFieldValue, handleBlur, touched, errors} = useFormikContext<FormValues>();

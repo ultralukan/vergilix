@@ -10,6 +10,9 @@
   &-main {
     box-shadow: none;
     color: $color-black;
+    .links {
+      color: $color-white;
+    }
   }
   font-size: 22px;
   @include media-down($break-xxl) {

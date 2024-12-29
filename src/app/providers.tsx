@@ -11,6 +11,8 @@ import { ruRU } from '@mui/material/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useGetUserQuery } from '@/api/user';
+import 'dayjs/locale/ru';
+import 'dayjs/locale/en';
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -34,14 +36,15 @@ export const customBreakpoints = {
 function Providers({ children }: ProvidersProps) {
   const [isClient, setIsClient] = useState(false);
   const [theme, setTheme] = useState(createTheme(ruRU));
+  const language = Cookies.get("language") || 'ru';
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    const language = Cookies.get("language");
     const localeTheme = language === "ru" ? ruRU : enUS;
+    console.log(localeTheme)
     const newTheme = createTheme(
       {
         ...customBreakpoints,
@@ -58,7 +61,7 @@ function Providers({ children }: ProvidersProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"ru"}>
           <StoreInitializer>{children}</StoreInitializer>
         </LocalizationProvider>
       </ThemeProvider>

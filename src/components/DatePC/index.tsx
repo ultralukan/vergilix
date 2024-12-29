@@ -157,7 +157,7 @@ export default function DatePC({
 
   return (
     <DatePicker
-      value={isValidDate ? parsedValue : null} в
+      value={isValidDate ? parsedValue : null}
       onChange={handleChange}
       label={label}
       slots={{

@@ -62,10 +62,14 @@
 }
 
 .formContainer {
-  width: 60%;
+  width: 70%;
   max-width: 800px;
   min-width: 400px;
   margin: 0 auto;
+
+  @include media-down($break-xl) {
+    width: 80%;
+  }
 }
 
 .form {
@@ -169,8 +173,15 @@
   bottom: 0;
   left: 0;
   height: 50vh;
-  width: 70vw;
+  width: 50vw;
+  overflow: hidden;
 
+  video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 50vh;
+  }
 }
 
 .bgColor {
@@ -180,4 +191,15 @@
   height: 100vh;
   bottom: 0;
   right: 0;
+}
+
+.balance {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    text-decoration: underline;
+  }
 }

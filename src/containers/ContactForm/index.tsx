@@ -21,6 +21,7 @@ export default function ContactForm() {
   const [edit, setEdit] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const t = useTranslations("FormContact");
   const e = useTranslations('Validation');
@@ -54,6 +55,7 @@ export default function ContactForm() {
     
     try {
       setSuccessMessage("");
+      setIsLoading(true)
       const { telegram, phone, name, surname, patronymic } = values;
       const fullName = `${surname} ${name} ${patronymic}` ;
       const response = await update({ telegram, fullName, phoneNumber: phone }).unwrap();
@@ -64,7 +66,6 @@ export default function ContactForm() {
         setEdit(true);
       }
     } catch (error) {
-      console.log(error);
       if (error && (error as ApiError).data) {
         const status = (error as ApiError).status;
   
@@ -74,6 +75,8 @@ export default function ContactForm() {
           setErrorMessage("An unexpected error occurred");
         }
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -113,7 +116,6 @@ export default function ContactForm() {
               value={telegram}
               setValue={setTelegram}
               disabled={edit}
-              required
             />
           </div>
           <div className={styles.formItem}>
@@ -168,6 +170,8 @@ export default function ContactForm() {
           <Button
             label={edit ? t("formContactEdit") : t("formContactSave")}
             type={edit ? "button" : "submit"}
+            isLoading={isLoading}
+            disabled={isLoading}
             onClick={(e) => {
               if (edit) {
                 e.preventDefault();

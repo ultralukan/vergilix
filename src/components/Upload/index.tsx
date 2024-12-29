@@ -1,13 +1,14 @@
-import React, { useState, DragEvent } from "react";
+import React, { useState, DragEvent, useEffect } from "react";
 import styles from "./index.module.scss";
 import { useTranslations } from "next-intl";
 
 interface UploadFormProps {
   value: File | null;
   setValue: (file: File | null) => void;
+  errors: boolean;
 }
 
-export default function UploadForm({ value, setValue }: UploadFormProps) {
+export default function UploadForm({ value, setValue, errors }: UploadFormProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const t = useTranslations("FormVerification");
@@ -98,7 +99,13 @@ export default function UploadForm({ value, setValue }: UploadFormProps) {
           />
         </>
       )}
-      {/* {error && <div className={styles.errorMessage}>{error}</div>} */}
+      {(error || errors) && (
+        <div className={styles.errorMessage}>
+          {error}
+          {error && errors && <br />}
+          {errors}
+        </div>
+      )}
     </div>
   );
 }

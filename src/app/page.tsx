@@ -8,13 +8,16 @@ import Button from "@/components/Button";
 import { Form, Formik } from "formik";
 import DropdownSelect from "@/components/DropdownSelect";
 import { useGetRateQuery } from "@/api/rates";
-import { getIconPath, groupRatesByTypeAndCurrency } from "@/services/exchange";
+import { getIconPath, groupRatesByTypeAndCurrency, isFiat } from "@/services/exchange";
 import { Option } from "@/types/option";
 import classNames from "classnames";
 import SwapIcon from '../../public/swap.svg';
 import { useRouter, useSearchParams } from "next/navigation";
 import { createValidationSchema } from "./validation";
 import { useAppSelector } from "@/store";
+import Link from "next/link";
+import { usePostTradeMutation } from "@/api/trades";
+import ModalComponent from "@/components/Modal";
 
 function shouldFixed(value: string) {
   const num = Number(value);
@@ -48,6 +51,35 @@ function Home() {
   const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
   const isAuth = !!token && user;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [sendTrade] = usePostTradeMutation();
+
+  const [modalContent, setModalContent] = useState({
+    title: "",
+    text: "",
+    btn: "",
+    status: false,
+    amounts: {
+      amountFrom: "",
+      amountTo: "",
+      id: ""
+    },
+    onButtonClick: null
+  });
+  const [modal, setModal] = useState(false);
+
+  const isNoBalance = !user?.balance;
+  const isNotVerified = user?.IdentityVerified !== "completed";
+  const isNotPhoneNumber = !user?.phoneNumber;
+
+  const handleOpen = () => setModal(true);
+  
+  const handleClose = () => setModal(false);
+  
+  const isFromFiat = isFiat(selectedItemFrom?.label);
+  const btnLabel = !isAuth ? t('exchangeBtnDisabled') : isFromFiat && isNoBalance ? t('exchangeBtnNoBalance') : t('exchangeBtn');
+  const btnDisabled = !!isFetching || !isAuth || isLoading || (isFromFiat && isNoBalance);
 
   const optionsFrom = useMemo(() => {
     const rates = groupedRates.FROM;
@@ -178,13 +210,34 @@ function Home() {
     { [styles["swap-disabled"]]: !isAvailableSwap }
   );
 
-  const handleSubmit = (values) => {
-    try{
-      if(values && !!Object.keys(values).length) {
-        sessionStorage.setItem('tradeInfo', JSON.stringify({...values, rate}))
-        router.push('/trade')
+  const handleSubmit = async (values) => {
+    try {
+      setIsLoading(true);
+      const { amountFrom, selectedItemFrom, selectedItemTo } = values;
+      const response = await sendTrade({ fromCurrency: selectedItemFrom?.label as string, toCurrency: selectedItemTo?.label as string, telegramLogin: user?.telegram, phoneNumber: user?.phoneNumber, amount: Number(amountFrom) }).unwrap();
+      
+      if(response && response.trade) {
+        const id = response.trade._id;
+
+        if(id) {
+          setTimeout(() => {
+            router.push(`/trade/${id}`);
+          }, 1000);
+        }
       }
-    }catch{}
+    } catch (error: unknown) {
+      setModal(true)
+      setModalContent({
+        title: t("modalErrorTitle"),
+        text: t("modalErrorText"),
+        btn: t("modalErrorBtn"),
+        status: false,
+        onButtonClick: () => router.replace("/"),
+      });
+    } finally {
+      setIsLoading(false);
+      sessionStorage.removeItem('exchangeForm')
+    }
   }
 
   const initialValues = useMemo(() => {
@@ -197,6 +250,13 @@ function Home() {
   }, [amountFrom, amountTo, selectedItemFrom, selectedItemTo])
 
   const validationSchema = useMemo(() => createValidationSchema(e), [e])
+
+  const handleClickLink = (e: React.MouseEvent<HTMLAnchorElement>, condition: boolean) => {
+    if (condition) {
+      e.preventDefault();
+      handleOpen()
+    }
+  };
 
   return (
     <div className={styles.page}>
@@ -230,7 +290,21 @@ function Home() {
                 </>
               )
             }
-            </div>
+          </div>
+          <div>
+          {
+              isFromFiat && (
+                <p className={styles.balance}>
+                  <span>
+                    {t("balance")}: {user?.balance}
+                  </span>
+                  <Link onClick={(e) => handleClickLink(e, isNotPhoneNumber)} href={"https://vergilix.exchange/page2"} target="_blank" >
+                    {t("replenish")}
+                  </Link>
+                </p>
+              )
+            }
+          </div>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -297,18 +371,41 @@ function Home() {
                 </div>
               </div>
               <div className={styles.button}>
-                <Button disabled={!!isFetching || !isAuth} label={!isAuth ? t('exchangeBtnDisabled') :t('exchangeBtn')} type="submit" showArrow={false}/>
+                <Button disabled={btnDisabled} isLoading={isLoading} label={btnLabel} type="submit" showArrow={false}/>
               </div>
               <p className={styles.termsText}>{t("terms")}</p>
             </Form>
             )}}
-
             </Formik>
           </div>
         </div>
       </div>
-      <img className={styles.bgImage} src="./bg.png"/>
+      <div className={styles.bgImage}>
+        <video
+          controls
+          preload="metadata"
+          loop
+          autoPlay
+          muted
+          className={styles.bgImage}
+        >
+          <source src="/promo.mov" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>    
+      </div>
+      {/* <img className={styles.bgImage} src="./bg.png"/> */}
       <span className={styles.bgColor}></span>
+      {
+          <ModalComponent 
+            open={modal} 
+            onClose={handleClose} 
+            title={t("balanceModalTitle")} 
+            content={t("balanceModalText")}
+            btnText={t("balanceModalBtn")}
+            onButtonClick= {() => router.replace("/profile")}
+            status={false}
+          />
+        }
     </div>
   );
 }
