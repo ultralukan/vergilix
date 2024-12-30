@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { store, useAppDispatch } from '../store';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { Language, setAuthLoading, setLanguage, setToken, setUser } from '@/store/slices/authSlice';
+import { Language, setAuthLoading, setLanguage, setRates, setToken, setUser } from '@/store/slices/authSlice';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { enUS } from '@mui/material/locale';
 import { ruRU } from '@mui/material/locale';
@@ -13,6 +13,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { useGetUserQuery } from '@/api/user';
 import 'dayjs/locale/ru';
 import 'dayjs/locale/en';
+import { useGetRateQuery } from '@/api/rates';
+import { VideoComponent } from '@/components/Video';
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -71,28 +73,54 @@ function Providers({ children }: ProvidersProps) {
 function StoreInitializer({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
   const token = Cookies.get("token") || null;
-  const language = Cookies.get('language') || null;
-  const {data: user = null, isFetching} = useGetUserQuery(undefined, {skip: !token});
+  const language = Cookies.get("language") || null;
+  const { data: user = null, isFetching } = useGetUserQuery(undefined, { skip: !token });
+  const { data: rates = [], isFetching: isFetchingRates } = useGetRateQuery();
+
+  const [showVideo, setShowVideo] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
     if (token) {
       dispatch(setToken(token));
-
-      if(user) {
-        dispatch(setUser(user))
-      }
+      if (user) dispatch(setUser(user));
     }
 
-    if (!isFetching) {
+    if (rates.length) {
+      dispatch(setRates(rates));
+    }
+
+    if (!isFetching || !isFetchingRates) {
       dispatch(setAuthLoading(false));
     }
 
     if (language) {
-      dispatch(setLanguage(language as Language));
+      dispatch(setLanguage(language));
     }
-  }, [dispatch, token, user, language, isFetching]);
+  }, [dispatch, token, user, language, isFetching, rates, isFetchingRates]);
 
-  return <>{children}</>;
+  useEffect(() => {
+    const minDisplayTime = 2000;
+    const minTimeTimer = setTimeout(() => {
+
+      if (!isFetching && !isFetchingRates) {
+        setFadeOut(true);
+        setTimeout(() => setShowVideo(false), 1000);
+      }
+    }, minDisplayTime);
+
+    if (!isFetching && !isFetchingRates) {
+      clearTimeout(minTimeTimer);
+      setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => setShowVideo(false), 1000);
+      }, minDisplayTime);
+    }
+
+    return () => clearTimeout(minTimeTimer);
+  }, [isFetching, isFetchingRates]);
+
+  return <>{showVideo ? <VideoComponent fadeOut={fadeOut} /> : children}</>;
 }
 
 export default Providers;

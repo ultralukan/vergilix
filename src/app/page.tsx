@@ -32,7 +32,7 @@ function shouldFixed(value: string) {
 
 
 function Home() {
-  const { data: rates = [], isFetching } = useGetRateQuery();
+  const rates = useAppSelector((state) => state.auth.rates);
   const groupedRates = useMemo(() => groupRatesByTypeAndCurrency(rates), [rates]);
   const t = useTranslations('Main');
   const e = useTranslations('Validation');
@@ -79,7 +79,7 @@ function Home() {
   
   const isFromFiat = isFiat(selectedItemFrom?.label);
   const btnLabel = !isAuth ? t('exchangeBtnDisabled') : isNotVerified ? t("exchangeBtnNoVerif") : isFromFiat && !balance ? t('exchangeBtnNoBalance') : t('exchangeBtn');
-  const btnDisabled = !!isFetching || !isAuth || isLoading || (isFromFiat && !balance) || isNotVerified;
+  const btnDisabled = !isAuth || isLoading || (isFromFiat && !balance) || isNotVerified;
 
   const optionsFrom = useMemo(() => {
     const rates = groupedRates.FROM;

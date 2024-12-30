@@ -1,0 +1,26 @@
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.bg {
+  background-color: #6EE8BE;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity 1s ease;
+}
+
+.video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fadeOut {
+  animation: fadeOut 1s forwards;
+}

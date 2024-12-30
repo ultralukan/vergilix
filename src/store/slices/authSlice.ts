@@ -1,3 +1,4 @@
+import { RateType } from '@/types/rate';
 import { UserType } from '@/types/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -9,6 +10,7 @@ interface AuthState {
   isVerif: boolean;
   language: Language;
   isAuthLoading: boolean;
+  rates: RateType[] | null;
 }
 
 const initialState: AuthState = {
@@ -16,7 +18,8 @@ const initialState: AuthState = {
   user: null,
   language: 'ru',
   isVerif: false,
-  isAuthLoading: true
+  isAuthLoading: true,
+  rates: [],
 };
 
 const authSlice = createSlice({
@@ -35,6 +38,9 @@ const authSlice = createSlice({
     setUser(state, action: PayloadAction<UserType | null>) {
       state.user = action.payload;
     },
+    setRates(state, action: PayloadAction<RateType[] | null>) {
+      state.rates = action.payload;
+    },
     setLanguage(state, action: PayloadAction<'en' | 'ru'>) {
       state.language = action.payload;
     },
@@ -44,5 +50,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken, logout, setUser, setLanguage, setVerif, setAuthLoading } = authSlice.actions;
+export const { setToken, logout, setUser, setLanguage, setVerif, setAuthLoading, setRates } = authSlice.actions;
 export default authSlice.reducer;
