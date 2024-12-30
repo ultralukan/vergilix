@@ -229,6 +229,27 @@
   @include media-down($break-lg) {
     order: 1;
   }
+
+  video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 50vh;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeIn 1s ease-out forwards; 
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 .videoImage {
@@ -236,6 +257,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 .resultButton {
