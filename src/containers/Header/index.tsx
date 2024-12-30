@@ -111,6 +111,7 @@ export default function Header() {
           vertical: "top",
           horizontal: "center",
         }}
+        disableScrollLock={true}
       >
         <MenuItem className={styles.menuItem} onClick={() => {router.push('/profile'); closeDropDown()}}>
           {t("profile")}

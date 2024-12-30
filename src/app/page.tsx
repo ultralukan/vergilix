@@ -248,16 +248,17 @@ function Home() {
     })
   }, [amountFrom, amountTo, selectedItemFrom, selectedItemTo])
 
-  const validationSchema = useMemo(() => createValidationSchema(e, balance), [e, balance])
+  const validationSchema = useMemo(() => createValidationSchema(e, balance, isFromFiat), [e, balance, isFromFiat])
 
   const handleClickLink = (e: React.MouseEvent<HTMLAnchorElement>, condition: boolean) => {
     if (condition) {
       e.preventDefault();
       handleOpen()
+      console.log(1)
       setModalContent({
         title: t("balanceModalTitle"),
-        content: t("balanceModalText"),
-        btnText: t("balanceModalBtn"),
+        text: t("balanceModalText"),
+        btn: t("balanceModalBtn"),
         onButtonClick: () => router.replace("/profile"),
         status: false
       })
