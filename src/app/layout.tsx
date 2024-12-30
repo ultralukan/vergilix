@@ -5,7 +5,6 @@ import {getLocale, getMessages} from 'next-intl/server';
 import Header from "@/containers/Header";
 import Footer from "@/containers/Footer";
 import Providers from "./providers";
-import ChatWidget from "@/components/ChatWidget";
 
 export const metadata: Metadata = {
   title: "Vergilix",
@@ -28,7 +27,6 @@ export default async function RootLayout({
           <Providers>
             <Header/>
               {children}
-              <ChatWidget/>
             <Footer/>
           </Providers>
         </NextIntlClientProvider>

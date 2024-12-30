@@ -15,6 +15,7 @@ import 'dayjs/locale/ru';
 import 'dayjs/locale/en';
 import { useGetRateQuery } from '@/api/rates';
 import { VideoComponent } from '@/components/Video';
+import ChatWidget from '@/components/ChatWidget';
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -120,7 +121,18 @@ function StoreInitializer({ children }: { children: React.ReactNode }) {
     return () => clearTimeout(minTimeTimer);
   }, [isFetching, isFetchingRates]);
 
-  return <>{showVideo ? <VideoComponent fadeOut={fadeOut} /> : children}</>;
+  return (
+    <>
+      {showVideo ? (
+        <VideoComponent fadeOut={fadeOut} />
+      ) : (
+        <>
+          {children}
+          <ChatWidget />
+        </>
+      )}
+    </>
+  );
 }
 
 export default Providers;
