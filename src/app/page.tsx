@@ -300,7 +300,7 @@ function Home() {
           </div>
           <div>
           {
-              isFromFiat && (
+              (isFromFiat && !!isAuth) && (
                 <p className={styles.balance}>
                   <span>
                     {t("balance")}: {user?.balance}
