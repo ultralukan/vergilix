@@ -160,24 +160,21 @@ export default function DatePC({
       value={isValidDate ? parsedValue : null}
       onChange={handleChange}
       label={label}
-      slots={{
-        textField: (textFieldProps) => (
-          <TextField
-            {...textFieldProps}
-            name={name}
-            error={touched[name] && Boolean(errors[name])}
-            helperText={touched[name] && errors[name]}
-            onBlur={handleBlur}
-            className={styles.input}
-            variant="filled"
-            fullWidth
-            sx={{
-              ...(baseStyles as SxProps<Theme>),
-              ...(customStyles as SxProps<Theme>),
-            }}
-            {...props}
-          />
-        ),
+      slotProps={{
+        textField: {
+          name,
+          error: touched[name] && Boolean(errors[name]),
+          helperText: touched[name] && errors[name],
+          onBlur: handleBlur,
+          className: styles.input,
+          variant: "filled",
+          fullWidth: true,
+          sx: {
+            ...(baseStyles as SxProps<Theme>),
+            ...(customStyles as SxProps<Theme>),
+          },
+          ...props,
+        },
       }}
     />
   );

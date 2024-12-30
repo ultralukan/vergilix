@@ -24,7 +24,6 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, c
       onClose();
     }
   };
-
   return (
     <Modal
       open={open}
@@ -38,7 +37,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, c
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 600,
+          minWidth: 600,
           bgcolor: "background.paper",
           boxShadow: 24,
           p: 5,
@@ -75,7 +74,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, c
           {title}
         </Typography>
         {!!content && (
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Typography id="modal-modal-description" component="div" sx={{ mt: 2 }}>
           {content}
         </Typography>
         )}

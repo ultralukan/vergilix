@@ -55,6 +55,7 @@ export default function ContactForm() {
     
     try {
       setSuccessMessage("");
+      setErrorMessage("");
       setIsLoading(true)
       const { telegram, phone, name, surname, patronymic } = values;
       const fullName = `${surname} ${name} ${patronymic}` ;

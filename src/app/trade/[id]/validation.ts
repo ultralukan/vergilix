@@ -1,15 +1,12 @@
 import { TranslationsType } from '@/types/translations';
 import * as Yup from "yup";
 
-export const createValidationSchemaStep1 = (e: TranslationsType) => {
+export const createValidationSchema = (e: TranslationsType) => {
   return Yup.object().shape({
-    // phone: Yup.number()
-    //   .typeError(e("typeError"))
-    //   .required(e("required")),
-    telegram: Yup.string()
+    amount: Yup.string()
       .typeError(e("typeError"))
       .required(e("required")),
-    address: Yup.string()
+    accountNumber: Yup.string()
       .typeError(e("typeError"))
       .required(e("required")),
   });

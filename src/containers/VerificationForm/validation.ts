@@ -20,7 +20,7 @@ export const personalityValidationSchema = (t: TranslationsType) =>
     ),
     birthday: Yup.date().required(t('required')).typeError(t('typeError')),
     place: Yup.string().required(t('required')),
-    phone: Yup.string().matches(/^\d+$/, t('typeError')).required(t('required')),
+    phone: Yup.string().matches(/^\d+$/, t('typeError')).min(2, t('typeError')).required(t('required')),
   });
 
 export const documentValidationSchema = (t: TranslationsType) =>
@@ -28,7 +28,7 @@ export const documentValidationSchema = (t: TranslationsType) =>
     documentNumber: Yup.string().required(t('required')),
     documentDate: Yup.date().required(t('required')).typeError(t('typeError')),
     documentPlace: Yup.string().required(t('required')),
-    inn: Yup.string().matches(/^\d+$/, t('typeError')),
+    inn: Yup.string().matches(/^\d+$/, t('typeError')).min(2, t('typeError')),
   });
 
 export const addressValidationSchema = (t: TranslationsType) =>

@@ -29,6 +29,7 @@ export default function PasswordRecover() {
     
     try {
       setSuccessMessage("");
+      setErrorMessage("");
       setIsLoading(true);
       const { password } = values;
       const response = await update({ password }).unwrap();

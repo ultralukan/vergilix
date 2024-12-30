@@ -172,8 +172,8 @@ export default function VerificationForm() {
   const lastStep = activeStep === steps.length - 1;
 
   const handleSubmit = async (values, { resetForm }) => {
-    setIsLoading(true);
     if (prevLastStep) {
+      setIsLoading(true);
       try {
         const fullName = `${surname} ${name} ${patronymic}`;
         const fileBase64 = await fileToBase64(file);
@@ -509,7 +509,6 @@ export default function VerificationForm() {
         enableReinitialize
       >
         {({errors}) => {
-          console.log(errors)
           return (
             <Form className={styles.form}>
             <Stepper 
@@ -551,13 +550,13 @@ export default function VerificationForm() {
                     <div className={styles.button}>
                       <Button 
                         label={prevLastStep ? t('btnCompleteText') : t('btnNextText')}
-                        type={prevLastStep ? "submit" : "button"}
-                        onClick={(e) => {
-                          if (!prevLastStep) {
-                            e.preventDefault();
-                            handleNext();
-                          }
-                        }}
+                        type={"submit"}
+                        // onClick={(e) => {
+                        //   if (!prevLastStep) {
+                        //     e.preventDefault();
+                        //     handleNext();
+                        //   }
+                        // }}
                       />
                     </div>
                   ) : null

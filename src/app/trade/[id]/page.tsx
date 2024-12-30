@@ -4,14 +4,12 @@ import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { Box, InputAdornment, Step, StepLabel, Stepper, SxProps, useStepContext } from "@mui/material";
+import { Box, InputAdornment, Step, StepLabel, Stepper, SxProps } from "@mui/material";
 import { Theme } from "@emotion/react";
 import { Form, Formik } from "formik";
 import Input from "@/components/Input";
 import Image from "next/image";
 import Button from "@/components/Button";
-import { createValidationSchemaStep1 } from "./validation";
-import TimerIcon from "../../../../public/timer.svg";
 import { useAppSelector } from "@/store";
 import { getIconPath, isFiat } from "@/services/exchange";
 import { useParams, useRouter } from "next/navigation";
@@ -21,6 +19,7 @@ import { LinearIndeterminate } from "@/components/Progress";
 import ModalComponent from "@/components/Modal";
 import ArrowIcon from '../../../../public/arrow.svg';
 import { formatDate } from "@/services/dates";
+import { createValidationSchema } from "./validation";
 
 const baseStyles: SxProps<Theme> = {
   '& .MuiStepLabel-iconContainer .Mui-completed': {
@@ -99,26 +98,12 @@ function Trade() {
 
   const { data: trade = null, error, isFetching } = useGetUserTradeQuery(id as string, { skip: !id });
 
-  const iconFrom = useMemo(() => {
-    if(trade?.fromCurrency) {
-      return getIconPath(trade?.fromCurrency)
-    }
-    else return null
-  }, [trade?.fromCurrency]);
+  const iconFrom = useMemo(() => trade?.fromCurrency ? getIconPath(trade.fromCurrency) : null, [trade?.fromCurrency]);
 
-  const iconTo = useMemo(() => {
-    if(trade?.toCurrency) {
-      return getIconPath(trade?.toCurrency)
-    }
-    else return null
-  }, [trade?.toCurrency]);
+  const iconTo = useMemo(() => trade?.toCurrency ? getIconPath(trade.toCurrency) : null, [trade?.toCurrency]);
+  
+  const isFiatFrom = useMemo(() => isFiat(trade?.fromCurrency), [trade]);
 
-  const isFiatFrom = useMemo(() => {
-    if(trade?.fromCurrency && isFiat(trade?.fromCurrency)) {
-      return true;
-    }
-    return false
-  }, [trade])
 
   const [amount, setAmount] = useState("");
   const [accountNumber, setAccountNumber] = useState(""); 
@@ -146,22 +131,28 @@ function Trade() {
 
   useEffect(() => {
     if(trade) {
-      if(trade?.amount) {
-        setAmount(trade?.amount)
-      }
-      if(trade?.accountNumber) {
-        setAccountNumber(trade?.accountNumber)
+      if(isFiatFrom) {
+        if(trade?.receivedAmount) {
+          setAmount(trade?.receivedAmount)
+        }
+      } else {
+        if(trade?.amount) {
+          setAmount(trade?.amount)
+        }
+        if(trade?.accountNumber) {
+          setAccountNumber(trade?.accountNumber)
+        }
       }
     }
-  }, [trade])
+  }, [trade, isFiatFrom])
 
-  console.log(accountNumber)
-
-  const steps = [
-    t('stepTitle1'),
-    t('stepTitle2'),
-    t('stepTitle3'),
-  ];
+  const steps = useMemo(() => {
+    return ([
+      t('stepTitle1'),
+      t(isFiatFrom ? 'stepTitleFiat2' : 'stepTitle2'),
+      t('stepTitle3'),
+    ])
+  }, [t, isFiatFrom])
 
   const handleNext = () => {
     setActiveStep(prevStep => Math.min(prevStep + 1, steps.length));
@@ -180,11 +171,61 @@ function Trade() {
     })
   }, [amount, accountNumber])
 
+  const validationSchema = useMemo(() => createValidationSchema(e), [e]);
+
+  const renderModalInputs = () => {
+    return(
+      <div className={styles.modalResult}>
+        <div className={styles.modalResultWrapper}>
+        <div className={styles.modalResultRow}>
+        <span className={styles.modalResultInput}>
+          <span>{trade?.amount}</span>
+          {trade?.fromCurrency}
+        </span>
+        </div>
+        <ArrowIcon className={styles.arrowIcon}/> 
+        <div className={styles.modalResultRow}>
+          <span className={styles.modalResultInput}>
+            <span>{trade?.receivedAmount}</span>
+            {trade?.toCurrency}
+          </span>
+        </div>
+        </div>
+        <div className={styles.modalResultRows}>
+          <div className={styles.modalResultRow}>
+            <p className={styles.cardTitle}>
+              {t("walletTitle")}:
+            </p>
+            <span className={styles.modalResultInput}>
+              {accountNumber}
+            </span>
+          </div>
+        </div>
+        <p className={styles.cardTitleId}>
+              {t("detailsId")}: {trade?._id}
+            </p>
+      </div>
+    )
+  }
+
+  const onCompleteTimer = () => {
+    setModal(true)
+    setModalContent({
+      title: t("modalTimerTitle"),
+      text: t("modalTimerText"),
+      btn: t("modalTimerBtn"),
+      status: true,
+      text: renderModalInputs(),
+      onButtonClick: () => router.replace("/"),
+    });
+  }
+
   function step1() {
     return (
       <Formik
         initialValues={initialValuesStep1}
-        onSubmit={handleSubmitStep1}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
         validateOnChange={true}
         validateOnBlur={true}
         enableReinitialize
@@ -204,17 +245,18 @@ function Trade() {
                       disabled
                       value={amount}
                       InputProps={{
-                        endAdornment: trade?.fromCurrency ? (
-                          <InputAdornment position="end">
-                            <Image
-                              src={iconFrom}
-                              alt={trade?.fromCurrency}
-                              width={40}
-                              height={40}
-                            />
-                          </InputAdornment>
-                        ) : null,
+                        endAdornment: (
+                        <InputAdornment position="end">
+                          <Image
+                            src={isFiatFrom ? iconTo : iconFrom}
+                            alt={trade?.fromCurrency}
+                            width={40}
+                            height={40}
+                          />
+                        </InputAdornment>
+                        )
                       }}
+                      required
                       customStyles={customStyles}
                     />
                     <div className={styles.copyWrapper}>
@@ -239,10 +281,11 @@ function Trade() {
                     <Input
                       name="accountNumber"
                       type="text"
-                      disabled
+                      disabled={!isFiatFrom}
                       value={accountNumber}
                       setValue={setAccountNumber}
                       customStyles={customStyles}
+                      required
                     />
                     <div className={styles.copyWrapper}>
                       <Image
@@ -269,7 +312,7 @@ function Trade() {
                   <div className={styles.timer}>
                     <Timer 
                       createdAt={trade?.createdAt} 
-                      onComplete={() => router.push("/")} 
+                      onComplete={onCompleteTimer} 
                     />
                   </div>
                 </div>
@@ -281,7 +324,7 @@ function Trade() {
   
               <div className={styles.buttons}>
                 <div className={styles.button}>
-                  <Button label={t("btCompleteTrade")} type="button" onClick={handleClickButtonStep1} />
+                  <Button isLoading={isLoading} disabled={isLoading} label={ isFiatFrom ? t("btCompleteTradeFiat") : t("btCompleteTrade")} type="submit" />
                 </div>
                 <button className={styles.buttonCanc} type="button" onClick={handleClickButtonCancel}>
                   <Image src="/cancel.svg" alt="copy" width={20} height={20} />
@@ -301,32 +344,43 @@ function Trade() {
       <div className={styles.resultsWrapper}>
         <div className={styles.results}>
           <div className={styles.resultInfo}>
-            <div className={styles.cardTitle}>{t("payTitle")}:</div>
-            <div className={styles.paymentResult}>
-              <span>{trade?.amount}</span>
-              <span>
-                <Image
-                  src={iconFrom}
-                  alt={trade?.fromCurrency}
-                  width={40}
-                  height={40}
-                  className={styles.resultIcon}
-                />   
-                {trade?.fromCurrency}
-                </span>
-              <ArrowIcon className={styles.arrowIcon}/> 
-              <span>{trade?.receivedAmount}</span>    
-              <span>
-                <Image
-                  src={iconTo}
-                  alt={trade?.toCurrency}
-                  width={40}
-                  height={40}
-                  className={styles.resultIcon}
-                />  
-                {trade?.toCurrency}
-                </span>
-            </div>
+          <div className={styles.cardTitle}>
+            {isFiatFrom ? (
+              <>
+                <div>{t("payTitleFiat")}</div>
+                <div>{t("payTitleFiat2")}</div>
+              </>
+            ) : (
+              t("payTitle")
+            )}
+          </div>
+            {!isFiatFrom && (
+                          <div className={styles.paymentResult}>
+                          <span>{trade?.amount}</span>
+                          <span>
+                            <Image
+                              src={iconFrom}
+                              alt={trade?.fromCurrency}
+                              width={40}
+                              height={40}
+                              className={styles.resultIcon}
+                            />   
+                            {trade?.fromCurrency}
+                            </span>
+                          <ArrowIcon className={styles.arrowIcon}/> 
+                          <span>{trade?.receivedAmount}</span>    
+                          <span>
+                            <Image
+                              src={iconTo}
+                              alt={trade?.toCurrency}
+                              width={40}
+                              height={40}
+                              className={styles.resultIcon}
+                            />  
+                            {trade?.toCurrency}
+                            </span>
+                        </div>
+            )}
           </div>
           <div className={styles.paymentDetails}>
             <div className={styles.cardTitle}>{t("detailsTitle")}:</div>
@@ -371,13 +425,25 @@ function Trade() {
   }
 
   const handleClickButtonStep1 = () => {
+    if(isFiatFrom) {
     setModalContent({
-      title: t("modalSubmitStep1Title"),
+      title: t("modalSubmitStep1TitleFiat"),
       status: true,
-      btn: t("btCompleteTrade"),
+      btn: t("btCompleteTradeFiat"),
       onButtonClick: () => handleSubmitStep1('paid'),
+      text: renderModalInputs(),
     });
     setModal(true);
+    } else {
+      setModalContent({
+        title: t("modalSubmitStep1Title"),
+        status: true,
+        btn: t("btCompleteTrade"),
+        onButtonClick: () => handleSubmitStep1('paid'),
+        text: renderModalInputs(),
+      });
+      setModal(true);
+    }
   }
 
   const handleClickButtonCancel = () => {
@@ -391,6 +457,10 @@ function Trade() {
       status: true
     });
     setModal(true);
+  }
+
+  const handleSubmit = () => {
+    handleClickButtonStep1();
   }
 
 
@@ -423,7 +493,7 @@ function Trade() {
     <div className={styles.page}>
       {!isFetching && (
         <>
-                    <Stepper 
+            <Stepper 
               className={styles.stepper} 
               activeStep={activeStep} 
               sx={
@@ -438,7 +508,7 @@ function Trade() {
                 </Step>
               ))}
             </Stepper>
-      <h2 className={styles.formTitle}>{t(`titleStep${activeStep}`)}</h2>
+        <h2 className={styles.formTitle}>{activeStep === 2 && isFiatFrom ? t(`titleStep${activeStep}Fiat`) : t(`titleStep${activeStep}`)}</h2>
         </>
       )}
       {isFetching && ( <Box className={styles.linear}>

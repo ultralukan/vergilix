@@ -44,7 +44,6 @@ function Providers({ children }: ProvidersProps) {
 
   useEffect(() => {
     const localeTheme = language === "ru" ? ruRU : enUS;
-    console.log(localeTheme)
     const newTheme = createTheme(
       {
         ...customBreakpoints,

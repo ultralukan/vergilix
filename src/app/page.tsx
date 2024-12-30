@@ -69,7 +69,7 @@ function Home() {
   });
   const [modal, setModal] = useState(false);
 
-  const isNoBalance = !user?.balance;
+  const balance = user?.balance;
   const isNotVerified = user?.IdentityVerified !== "completed";
   const isNotPhoneNumber = !user?.phoneNumber;
 
@@ -78,8 +78,8 @@ function Home() {
   const handleClose = () => setModal(false);
   
   const isFromFiat = isFiat(selectedItemFrom?.label);
-  const btnLabel = !isAuth ? t('exchangeBtnDisabled') : isFromFiat && isNoBalance ? t('exchangeBtnNoBalance') : t('exchangeBtn');
-  const btnDisabled = !!isFetching || !isAuth || isLoading || (isFromFiat && isNoBalance);
+  const btnLabel = !isAuth ? t('exchangeBtnDisabled') : isNotVerified ? t("exchangeBtnNoVerif") : isFromFiat && !balance ? t('exchangeBtnNoBalance') : t('exchangeBtn');
+  const btnDisabled = !!isFetching || !isAuth || isLoading || (isFromFiat && !balance) || isNotVerified;
 
   const optionsFrom = useMemo(() => {
     const rates = groupedRates.FROM;
@@ -232,7 +232,6 @@ function Home() {
         text: t("modalErrorText"),
         btn: t("modalErrorBtn"),
         status: false,
-        onButtonClick: () => router.replace("/"),
       });
     } finally {
       setIsLoading(false);
@@ -249,12 +248,19 @@ function Home() {
     })
   }, [amountFrom, amountTo, selectedItemFrom, selectedItemTo])
 
-  const validationSchema = useMemo(() => createValidationSchema(e), [e])
+  const validationSchema = useMemo(() => createValidationSchema(e, balance), [e, balance])
 
   const handleClickLink = (e: React.MouseEvent<HTMLAnchorElement>, condition: boolean) => {
     if (condition) {
       e.preventDefault();
       handleOpen()
+      setModalContent({
+        title: t("balanceModalTitle"),
+        content: t("balanceModalText"),
+        btnText: t("balanceModalBtn"),
+        onButtonClick: () => router.replace("/profile"),
+        status: false
+      })
     }
   };
 
@@ -399,11 +405,11 @@ function Home() {
           <ModalComponent 
             open={modal} 
             onClose={handleClose} 
-            title={t("balanceModalTitle")} 
-            content={t("balanceModalText")}
-            btnText={t("balanceModalBtn")}
-            onButtonClick= {() => router.replace("/profile")}
-            status={false}
+            title={modalContent.title} 
+            content={modalContent.text}
+            btnText={modalContent.btn}
+            status={modalContent.status}
+            onButtonClick={modalContent.onButtonClick}
           />
         }
     </div>
