@@ -68,7 +68,7 @@ function VerifyEmail() {
 
 const VerifyEmailWrapper = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <VerifyEmail />
     </Suspense>
   );

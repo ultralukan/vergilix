@@ -419,7 +419,7 @@ function Home() {
 
 const HomeWrapper = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense>
       <Home />
     </Suspense>
   );
