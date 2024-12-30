@@ -28,7 +28,7 @@ export default async function RootLayout({
           <Providers>
             <Header/>
               {children}
-              {/* <ChatWidget/> */}
+              <ChatWidget/>
             <Footer/>
           </Providers>
         </NextIntlClientProvider>
