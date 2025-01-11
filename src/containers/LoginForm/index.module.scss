@@ -27,4 +27,19 @@
 .adornment {
   color: $color-main !important;
   @include typography(lg);
+
+	@include media-down($break-sm) {
+		display: none !important;
+	}
+}
+
+.forgotMobile {
+	color: $color-main;
+	display: flex;
+	justify-content: end;
+	@include typography(xl);
+
+	@include media-up($break-sm) {
+		display: none
+	}
 }

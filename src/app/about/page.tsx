@@ -15,6 +15,19 @@ export default function About() {
         <div className={styles.main}>
           <div className={styles.text}>
             <div className={styles.subTitle}>{t("subTitle")}</div>
+            <div className={styles.imageMobile}>
+              <img src="/about.png" alt={"imgAlt"} />
+              <div className={styles.overlay}>
+                {t("imgTitle")
+                  .split(" ")
+                  .map((word, index) => (
+                    <div key={index}>
+                    <span>{word}</span>
+                    <hr/>
+                    </div>
+                  ))}
+              </div>
+            </div>
             <div className={styles.desc}>
               <p>{t("desc1")}</p>
               <p>{t("desc2")}</p>

@@ -111,14 +111,14 @@ export default function LoginForm({setIsReset}: Props) {
                 ),
               }}
             />
+            <div className={styles.forgotMobile}>
+              <button onClick={() => setIsReset(true)}>{t("forgotMobile")}</button>
+            </div>
             <div className={styles.captcha}>
               <Captcha ref={captchaRef} onChange={handleRecaptchaChange} />
             </div>
             <div className={styles.button}>
               <Button isLoading={isLoading} disabled={!captchaToken || isLoading} label={t('loginFormBtn')} type="submit"/>
-            </div>
-            <div className={styles.terms}>
-              
             </div>
             {errorMessage ? <div className={styles.errorMessage}>{errorMessage}</div> : null}
           </Form>

@@ -160,7 +160,7 @@ export default function Input({
       sx={{
         ...(baseStyles as SxProps<Theme>),
         ...(customStyles as SxProps<Theme>),
-        minWidth: 180,
+        // minWidth: 180,
       }}
       {...props}
     />

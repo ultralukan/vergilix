@@ -12,27 +12,51 @@
   justify-content: space-between;
   padding: 30px 60px;
   z-index: 999;
+  position: relative;
+
+  @include media-down($break-lg) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+    padding: 0;
+    justify-content: end;
+    padding: 20px 20px 0;
+  }
 }
 
 .text {
   width: 50%;
+
+  @include media-down($break-lg) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  @include media-down($break-sm) {
+    justify-content: start;
+  }
 }
 
 .overlay {
   position: relative;
   bottom: 60px;
 
-  @include media-down($break-xl) {
-    height: 120px;
+  @include media-down($break-lg) {
+    bottom: 0;
   }
+
   div {
     height: 100px;
 
     @include media-down($break-xxl) {
       height: 70px;
     }
-    @include media-down($break-xl) {
-      height: 50px;
+    @include media-down($break-lg) {
+      height: 60px;
+    }
+    @include media-down($break-xs) {
+      height: 45px;
     }
   }
   span {
@@ -44,8 +68,12 @@
     @include media-down($break-xxl) {
       font-size: 60px;
     }
-    @include media-down($break-xl) {
-      font-size: 40px;
+    @include media-down($break-lg) {
+      font-size: 50px;
+    }
+
+    @include media-down($break-xs) {
+      font-size: 36px;
     }
   }
 }
@@ -59,16 +87,29 @@
   position: relative;
   bottom: 30px;
   left: 20px;
+
+  @include media-down($break-lg) {
+    background-color: $color-main;
+    width: 100vw;
+    position: static;
+    padding: 40px 20px;
+  }
 }
 
 .formContainer {
   width: 70%;
   max-width: 800px;
-  min-width: 400px;
+  min-width: 450px;
   margin: 0 auto;
 
   @include media-down($break-xl) {
-    width: 80%;
+    width: 50%;
+  }
+
+  @include media-down($break-sm) {
+    width: 100%;
+
+    min-width: auto;
   }
 }
 
@@ -79,6 +120,10 @@
 .rateInfo {
   margin-bottom: 20px;
   min-height: 65px;
+
+  @include media-down($break-sm) {
+    min-height: auto;
+  }
 }
 
 .rateTitle {
@@ -112,9 +157,6 @@
   @include media-down($break-xxl) {
     font-size: 14px;
   }
-  @include media-down($break-xl) {
-    font-size: 12px;
-  }
 }
 
 .formRow {
@@ -127,6 +169,10 @@
   flex: 1;
   display: flex;
   gap: 4px;
+
+  @include media-down($break-sm) {
+    gap: 2px;
+  }
 }
 
 .button {
@@ -161,6 +207,27 @@
     .icon {
       scale: 2;
     }
+
+    @include media-down($break-sm) {
+      background-color: #F2F4F6;
+      transform: rotate(90deg);
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+
+      .icon {
+        scale: 1.5;
+      }
+    }
+  }
+
+  @include media-down($break-sm) {
+    right: 50%;
+    transform: translateX(50%);
+    z-index: 1;
+    top: 28px;
+    width: 40px;
+    height: 40px;
   }
 
   &-disabled {
@@ -175,6 +242,11 @@
   height: 50vh;
   width: 50vw;
   overflow: hidden;
+
+  @include media-down($break-lg) {
+    width: 100vw;
+    display: none;
+  }
 
   video {
     width: 100%;
@@ -205,6 +277,11 @@
   height: 100vh;
   bottom: 0;
   right: 0;
+
+  @include media-down($break-lg) {
+
+    display: none;
+  }
 }
 
 .balance {

@@ -32,6 +32,10 @@
 
 .formItem {
   width: (calc(50% - 20px));
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
 }
 
 .button {
@@ -41,6 +45,10 @@
 
   @include media-down($break-xl) {
     width: 300px;
+  }
+
+  @include media-down($break-sm) {
+    width: 100%;
   }
 }
 

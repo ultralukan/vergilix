@@ -7,6 +7,10 @@
 .title {
 	@include typographyHeading(4xl, bold);
 	text-align: center;
+
+	@include media-down($break-sm) {
+		@include typographyHeading(xxxl, bold);
+	}
 }
 
 .captcha {
@@ -31,4 +35,7 @@
 
 .text {
 	text-align: center;
+	@include media-down($break-sm) {
+		font-size: 16px;
+	}
 }

@@ -1,4 +1,5 @@
 .page {
+  background: $color-gray;
   flex: 1;
 
   padding: 30px 15rem;
@@ -9,6 +10,14 @@
 
   @include media-down($break-xl) {
     padding: 30px 7rem;
+  }
+
+  @include media-down($break-lg) {
+    padding: 30px 2rem;
+  }
+
+  @include media-down($break-sm) {
+    padding: 30px 20px;
   }
 
   position: relative;
@@ -25,6 +34,15 @@
 .main {
   display: flex;
   gap: 4rem;
+
+  @include media-down($break-xl) {
+    gap: 2rem;
+  }
+
+  @include media-down($break-md) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .links {
@@ -54,7 +72,44 @@
     gap: 30px;
     justify-content: center;
     flex-direction: column;
+
+    @include media-down($break-md) {
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+
+      li {
+        white-space: nowrap;
+        min-width: auto;
+        display: inline-flex;
+      }
+    }
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include media-down($break-md) {
+    background: $color-main;
+    width: 100vw;
+    margin-left: -2rem;
+  }
+
+  @include media-down($break-sm) {
+    background: $color-main;
+    width: 100vw;
+    margin-left: -20px;
+    padding: 20px;
+
+    li {
+      display: inline-flex;
+      width: auto;
+    }
+  }
+
   height: 100%;
 }
 
@@ -64,17 +119,36 @@
   &:hover {
     cursor: pointer;
   }
+  @include media-down($break-md) {
+    color: $color-black;
+  }
+
   &-selected {
     color: $color-main;
+    @include media-down($break-md) {
+      color: $color-white;
+    }
   }
 
   .icon {
     width: 30px;
     height: 30px;
     margin-right: 20px;
+
+    @include media-down($break-md) {
+      margin-right: 10px;
+    }
+
+    @include media-down($break-sm) {
+      display: none;
+    }
   }
 }
 
 .formWrapper {
   width: 75%;
+
+  @include media-down($break-md) {
+    width: 100%;
+  }
 }

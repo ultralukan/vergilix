@@ -3,20 +3,28 @@
   align-items: center;
   justify-content: space-between;
   background-color: $color-white;
+  position: relative;
   padding: 30px 40px;
-
-  color: $color-gray-dark;
+  color: $color-black;
   box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
   &-main {
     box-shadow: none;
-    color: $color-black;
+    color: $color-white;
     .links {
+      color: $color-white;
+    }
+
+    @include media-down($break-sm) {
       color: $color-white;
     }
   }
   font-size: 22px;
   @include media-down($break-xxl) {
     font-size: 14px;
+  }
+
+  @include media-down($break-sm) {
+    padding: 40px 20px;
   }
 }
 
@@ -29,8 +37,111 @@
   li:hover {
     color: $color-main;
   }
+
+  @include media-down($break-md) {
+    display: none;
+  }
 }
 
 .content {
   z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @include media-down($break-md) {
+    display: none;
+  }
+}
+
+.contentSocial {
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  @include media-down($break-md) {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+
+    .contentSocialWrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    li {
+      a {
+        display: flex;
+      }
+    }
+    @include media-down($break-md) {
+      gap: 40px;
+    }
+  }
+
+  .language {
+    @include media-up($break-md) {
+      display: none;
+    }
+    @include typography(xxl);
+  }
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include typography(xxl, bold);
+  .language {
+    @include media-up($break-md) {
+      display: none;
+    }
+  }
+
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.bgImage-hidden {
+  display: none !important;
+}
+
+.bgImage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 50vh;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeIn 1s ease-out forwards; 
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }

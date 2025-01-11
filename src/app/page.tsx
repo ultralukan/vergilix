@@ -248,7 +248,7 @@ function Home() {
     })
   }, [amountFrom, amountTo, selectedItemFrom, selectedItemTo])
 
-  const validationSchema = useMemo(() => createValidationSchema(e, balance, isFromFiat), [e, balance, isFromFiat])
+  const validationSchema = useMemo(() => createValidationSchema(e, balance, isFromFiat && !!isAuth), [e, balance, isFromFiat])
 
   const handleClickLink = (e: React.MouseEvent<HTMLAnchorElement>, condition: boolean) => {
     if (condition) {

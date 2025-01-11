@@ -5,6 +5,11 @@
   width: 70%;
   min-width: 800px;
 
+  @include media-down($break-md) {
+    width: 100%;
+    min-width: auto;
+  }
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -14,6 +19,10 @@
     cursor: pointer;
     background-color: $color-white;
     transition: all 0.3s;
+
+    @include media-down($break-sm) {
+      padding: 20px;
+    }
 
     .label {
       font-weight: bold;
@@ -48,7 +57,7 @@
   }
 
   .headerShow {
-    background-color: $color-black;
+    background-color: $color-black-light;
     color: $color-white;
   }
 
@@ -60,6 +69,10 @@
 
     .innerContent {
       padding: 20px 40px 30px;
+
+      @include media-down($break-sm) {
+        padding: 20px;
+      }
     }
   }
 }

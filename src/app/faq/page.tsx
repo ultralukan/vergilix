@@ -4,20 +4,29 @@ import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
 import DropDownItem from "@/components/DropdownItem";
 
-export default function FAQ() {
-  const t = useTranslations('FAQ');
+function sanitizeHTML(content: string): string {
+  const tempDiv = document.createElement("div");
+  tempDiv.textContent = content;
+  return tempDiv.innerHTML;
+}
 
-  const faqItems =Array.from({length: 5}, (_, i) => i + 1).map((el) => ({title: t(`title${el}`), text: t(`text${el}`)}));
+export default function FAQ() {
+  const t = useTranslations("FAQ");
+  const faqItems = t.raw("items");
 
   return (
     <div className={styles.page}>
       <h2 className={styles.title}>{t("title")}</h2>
-      <div>
-        {
-          faqItems.map((el, index) => <DropDownItem key={index} label={el.title} text={el.text}/>)
-        }
+      <div className={styles.content}>
+        {faqItems.map((item: { content: string }, index: number) => (
+          <DropDownItem
+            key={index}
+            label={item.label}
+            text={sanitizeHTML(item.content)}
+          />
+        ))}
       </div>
-      <img className={styles.image} src="./faq.svg"/>
+      <img className={styles.image} src="./faq.svg" alt="FAQ Illustration" />
     </div>
   );
 }

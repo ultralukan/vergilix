@@ -5,19 +5,25 @@
     "news": "Новости",
     "faq": "FAQ",
     "login": "Войти",
-    "profile": "Профиль",
+    "profile": "Личный кабинет",
     "logout": "Выйти",
     "trades": "Сделки"
   },
   "Login": {
     "loginForm": "Вход",
     "signupForm": "Регистрация",
+    "loginFormMobile": "Войти в аккаунт",
+    "signupFormMobile": "Зарегистрируйтесь",
+    "registerQuestionMobile": "У вас еще нет аккаунта?",
+    "loginQuestionMobile": "У вас уже есть аккаунт?",
+    "registerMobile": "Зарегистрируйтесь",
     "loginFormBtn": "Войти",
     "signupFormBtn": "Зарегистрироваться",
     "email": "Почта",
     "password": "Пароль",
     "confPassword": "Повторите пароль",
     "forgot": "Забыли?",
+    "forgotMobile": "Забыли пароль?",
     "reset": "Восстановление пapoля",
     "resetText": "Пожалуйста, введите Email, указанный при регистрации, чтобы получить письмо с ссылкой для сброса пароля.",
     "resetBtn": "Получить письмо",
@@ -38,16 +44,28 @@
   },
   "FAQ": {
     "title": "FAQ",
-    "title1": "Где хранить биткоины и/или альткоины?",
-    "text1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    "title2": "Где купить биткоины (или другую криптовалюту) без комиссии с банковской карты или за наличные?",
-    "text2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    "title3": "Как отслеживать свой портфель?",
-    "text3": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    "title4": "Почему растёт та или иная монета (токен)?",
-    "text4": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    "title5": "Что такое ICO и как заработать на токенах?",
-    "text5": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    "items": [
+      {
+        "label": "Где хранить биткоины и/или альткоины?",
+        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+      },
+      {
+        "label": "Где купить биткоины (или другую криптовалюту) без комиссии с банковской карты или за наличные?",
+        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+      },
+      {
+        "label": "Как отслеживать свой портфель?",
+        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+      },
+      {
+        "label": "Почему растёт та или иная монета (токен)?",
+        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+      },
+      {
+        "label": "Что такое ICO и как заработать на токенах?",
+        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+      }
+    ]
   },
   "Validation": {
     "required": "Обязательное поле",
@@ -69,7 +87,7 @@
   },
   "Main": {
     "title": "thE beSt eXchange rates cryptOcurrEncy_",
-    "rateTitle": "Обмен по курсу",
+    "rateTitle": "Курс",
     "sell": "Отправляете",
     "buy": "Получаете",
     "exchangeBtn": "Обменять",
@@ -77,7 +95,7 @@
     "exchangeBtnDisabled": "Войдите чтобы обменять",
     "exchangeBtnNoBalance": "Пополните баланс",
     "exchangeBtnNoVerif": "Пройдите верификацию в ЛК",
-    "terms": "Нажимая на кнопку, вы соглашаетесь с условиями обмена",
+    "terms": "Нажимая на кнопку, я соглашаюсь с правилами и с AML/KYC политикой сервиса",
     "balance": "Баланс",
     "replenish": "Пополнить",
     "balanceModalTitle": "Ошибка",
@@ -96,7 +114,7 @@
     "cardCurrency": "Показываем только лучшие и актуальные курсы криптовалют",
     "cardTime": "Самая быстрая скорость обмена всех валют",
     "cardHouse": "Ещё какое-то хорошее дополнительное преимущество",
-    "cardComment": "Круглосуточнаяподдержка в любых удобных форматах",
+    "cardComment": "Круглосуточная поддержка в любых удобных форматах",
     "feedbackTitle": "Есть вопросы к нам?",
     "formName": "Как вас зовут?",
     "formEmail": "Email",
@@ -115,7 +133,7 @@
   },
   "Profile": {
     "title": "Мой профиль",
-    "contact": "Контактные данные",
+    "contact": "Настройки",
     "change": "Сменить пароль",
     "verification": "Верификация",
     "trades": "Ваши операции"
@@ -139,11 +157,23 @@
     "password": "Новый пароль",
     "repeatPassword": "Повторите пароль",
     "rulesTitle": "Список требований к паролю:",
-    "rule1": "Хотя бы одна латинская буква нижнего регистра",
-    "rule2": "Хотя бы одна латинская буква верхнего регистра",
-    "rule3": "Хотя бы одна цифра",
-    "rule4": "Хотя бы один спецсимвол (1,%,* /,-,+,@,#,$,&)",
-    "rule5": "Длина пароля 7-20 символов",
+    "items": [
+      {
+        "label": "Хотя бы одна латинская буква нижнего регистра"
+      },
+      {
+        "label": "Хотя бы одна латинская буква верхнего регистра"
+      },
+      {
+        "label": "Хотя бы одна цифра"
+      },
+      {
+        "label": "Хотя бы один спецсимвол (1,%,* /,-,+,@,#,$,&)"
+      },
+      {
+        "label": "Длина пароля 7-20 символов"
+      }
+    ],
     "formSave": "Сохранить",
     "formEdit": "Редактировать",
     "successMessage": "Пароль успешно изменен"

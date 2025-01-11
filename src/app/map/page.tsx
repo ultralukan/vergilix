@@ -13,7 +13,7 @@ export default function Map() {
       <h2 className={styles.title}>{t("title")}</h2>
       <div className={styles.main}>
         <div className={styles.info}>
-          <div className={styles.list}>
+          {/* <div className={styles.list}>
             <Link href={'/'} className={styles.listTitle}>{t("titleExchange")}</Link>
             <Link href={'/'} className={styles.item}>{t("BTC-EUR")}</Link>
             <Link href={'/'} className={styles.item}>{t("EUR-BTC")}</Link>
@@ -21,7 +21,7 @@ export default function Map() {
             <Link href={'/'} className={styles.item}>{t("USD-BTC")}</Link>
             <Link href={'/'} className={styles.item}>{t("BTC-RUB")}</Link>
             <Link href={'/'} className={styles.item}>{t("RUB-BTC")}</Link>
-          </div>
+          </div> */}
           <div className={styles.list}>
             <Link href={'/'} className={styles.listTitle}>{t("titleMap")}</Link>
             <Link href={'/'} className={styles.item}>{t("Main")}</Link>

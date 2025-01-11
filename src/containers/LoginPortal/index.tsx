@@ -59,10 +59,30 @@ export default function SlideInPanel({ isOpen, onClose }: Props) {
                 </>
               )}
             </ul>
+            <div className={classNames(styles.headerMobile)}>
+              { 
+                !isReset && (selected === 'login' ? t("loginForm") : t("signupForm"))
+              }
+            </div>
           </nav>
           <div className={styles.form}>
             {
               !isReset ? selected === 'login' && !isRegistered ? <LoginForm setIsReset={setIsReset}/> : <SignupForm isRegistered={isRegistered} setSelected={setSelected} setIsRegistered={setIsRegistered}/> : <ResetForm/>
+            }
+          </div>
+          <div className={styles.registerMobile}>
+            {
+              !isRegistered && (selected === 'login' ? (
+                <>
+                  <div>{t("registerQuestionMobile")}</div>
+                  <div className={styles.registerMobileTitle} onClick={() => setSelected('signup')}>{t("registerMobile")}</div>
+                </>
+              ) : (
+                <>
+                  <div>{t("loginQuestionMobile")}</div>
+                  <div className={styles.registerMobileTitle} onClick={() => setSelected('login')}>{t("loginFormBtn")}</div>
+                </>
+              ))
             }
           </div>
           {!isRegistered && !isReset && (

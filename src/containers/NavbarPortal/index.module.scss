@@ -1,0 +1,119 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 99999999;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.panel {
+  position: relative;
+  width: 50%;
+  max-width: 500px;
+  height: 100%;
+  background-color: $color-white;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+
+  @include media-down($break-lg) {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: $color-black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 3;
+    transition: color 0.3s;
+    font-size: 60px;
+  
+    &:hover {
+      color: $color-main;
+    }
+  }
+
+  .closeButton {
+    right: 1.5rem;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    gap: 1rem;
+    color: $color-black;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    max-width: 500px;
+  }
+}
+
+.overlay.open .panel {
+  transform: translateX(0);
+}
+
+.overlay:not(.open) .panel {
+  transform: translateX(100%);
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  @include typography(xxxl, bold);
+  margin-bottom: 40px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  @include typography(lg);
+  color: $color-gray-dark;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+}

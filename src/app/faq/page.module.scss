@@ -2,7 +2,7 @@
   flex: 1;
   position: relative;
   z-index: 1;
-
+  background: $color-gray;
   padding: 30px 15rem;
   
   @include media-down($break-xxl) {
@@ -11,6 +11,14 @@
 
   @include media-down($break-xl) {
     padding: 30px 7rem;
+  }
+
+  @include media-down($break-lg) {
+    padding: 30px 2rem;
+  }
+
+  @include media-down($break-sm) {
+    padding: 30px 20px;
   }
 }
 
@@ -27,4 +35,15 @@
   right: 25%;
   top: 280px;
   scale: 4;
+
+  @include media-down($break-sm) {
+    display: none;
+  }
+}
+
+.content {
+  @include media-down($break-sm) {
+    min-width: 100vw;
+    margin-left: -20px;
+  }
 }

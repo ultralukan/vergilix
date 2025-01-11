@@ -16,16 +16,31 @@
 
     .main {
       gap: 80px;
+
+      @include media-down($break-xl) {
+        gap: 40px;
+      }
     }
+  }
+
+  @include media-down($break-sm) {
+    padding: 20px;
   }
 }
 
 .logo {
+  width: 140px;
   @include media-down($break-xxl) {
-    scale: 0.85;
+
   }
   @include media-down($break-xl) {
-    scale: 0.7;
+    width: 100px;
+  }
+}
+
+.nav {
+  @include media-down($break-md) {
+    display: none;
   }
 }
 
@@ -37,9 +52,38 @@
 .buttons {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 30px;
   z-index: 9999;
+
+  @include media-down($break-md) {
+    gap: 20px;
+    .language, .profile {
+      display: none;
+    }
+  }
 }
+
+// .buttonsMobile {
+//   display: flex;
+//   align-items: center;
+//   gap: 30px;
+//   z-index: 9999;
+
+//   @include media-down($break-md) {
+//     display: flex;
+
+//     .login {
+//       border: none;
+//       padding: 0;
+//     }
+//   }
+
+//   @include media-down($break-md) {
+//     .language {
+//       display: none;
+//     }
+//   }
+// }
 
 .main {
   display: flex;
@@ -49,7 +93,7 @@
 }
 
 .login {
-  border-bottom: 2px solid $color-black;
+  // border-bottom: 2px solid $color-black;
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -57,12 +101,17 @@
   .icon {
     margin-right: 10px;
   }
+  &-hidden {
+    @include media-down($break-md) {
+      display: none;
+    }
+  }
 }
 
 .language, .login {
   font-weight: bold;
   border-radius: 0;
-  padding-bottom: 8px;
+  // padding-bottom: 8px;
 }
 
 .link, .language, .login {
@@ -87,4 +136,19 @@
 .menuItem {
   padding: 10px 25px;
   font-weight: bold;
+}
+
+.menuToggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+  @include media-up($break-md) {
+    display: none;
+  }
 }

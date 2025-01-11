@@ -17,7 +17,11 @@
     background: $color-main;
     padding: 5px 15px 0;
     margin-bottom: 20px;
-  }  
+  }
+
+  @include media-down($break-sm) {
+    background: $color-black-light;
+  }
 }
 
 
@@ -27,6 +31,11 @@
   gap: 20px;
   width: 55%;
   min-width: 600px;
+
+  @include media-down($break-lg) {
+    width: 100%;
+    min-width: auto;
+  }
 }
 
 .formRow {
@@ -34,12 +43,41 @@
   justify-content: space-between;
   width: 100%;
   gap: 20px;
+
+  @include media-down($break-lg) {
+    flex-direction: column;
+  }
 }
 
 .formItem {
   width: 50%;
+
+  @include media-down($break-lg) {
+    width: 100%;
+  }
 }
 
 .button {
   width: 250px;
+  
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}
+
+.terms {
+	@include typography(xl);
+
+	@include media-down($break-xxl) {
+		@include typography(md);
+	}
+
+  @include media-down($break-sm) {
+    text-align: center;
+	}
+
+	color: $color-gray-dark;
+	a {
+		color: $color-white;
+	}
 }

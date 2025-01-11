@@ -13,11 +13,14 @@ import { logout } from "@/store/slices/authSlice";
 import Cookies from "js-cookie";
 import classNames from "classnames";
 import PersonIcon from "../../../public/person.svg"
+import NavBarPortal from "../NavbarPortal";
+import { ArrowDropDown } from "@mui/icons-material";
 
 export default function Header() {
   const user = useAppSelector((state) => state.auth.user);
   const token = useAppSelector((state) => state.auth.token);
   const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isAuth = !!token && user;
   const router = useRouter();
   const location = usePathname();
@@ -26,12 +29,17 @@ export default function Header() {
   const dispatch = useAppDispatch();
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isNavBarOpen, setIsNavBarOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const t = useTranslations("Header");
 
   const toggleLoginForm = () => {
     setIsLoginOpen((prev) => !prev);
+  };
+
+  const toggleNavBarForm = () => {
+    setIsNavBarOpen((prev) => !prev);
   };
 
   const toggleDropDown = (event: React.MouseEvent<HTMLElement>) => {
@@ -57,19 +65,25 @@ export default function Header() {
     }
   }, [isVerif])
 
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header className={classNames(styles.header, {[styles["header-main"]]: isMain})}>
       <div className={styles.main}>
         <Link href={"/"}>
-        <Image
-          src={"/logo.png"}
-          alt={"logo"}
-          width={160}
-          height={50}
-          className={styles.logo}
-        /></Link>
+          <Image
+            src={"/logo.png"}
+            alt={"logo"}
+            width={160}
+            height={50}
+            className={styles.logo}
+          />
+        </Link>
 
-        <nav className={styles.nav}>
+        <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ""}`}>
           <ul className={styles.navList}>
             <li className={styles.link}>
               <Link href={"/"}>{t("exchange")}</Link>
@@ -90,15 +104,32 @@ export default function Header() {
         <button className={styles.language}>EN</button>
         {!isAuthLoading && (
           <button
+            className={classNames(styles.login, {[styles["login-hidden"]]: isAuth, [styles["login-main"]]: isMain})}
+            onClick={!isAuth ? toggleLoginForm : toggleNavBarForm}
+          >
+            <PersonIcon className={styles.icon}/><span className={styles.profile}>{isAuth ? (user?.email || t("profile")) : t("login")}</span>
+            {isAuth && <ArrowDropDown/>}
+          </button>
+        )}
+        <button className={styles.menuToggle} onClick={toggleNavBarForm}>
+          <Image src={"/burger.svg"} alt="logo" width="150" height="30" />
+        </button>
+      </div>
+      {/* <div className={classNames(styles.buttonsMobile, {[styles["buttons-main"]]: isMain})}>
+        {!isAuthLoading && (
+          <button
             className={classNames(styles.login, {[styles["login-main"]]: isMain})}
             onClick={isAuth ? toggleDropDown : toggleLoginForm}
           >
-            <PersonIcon className={styles.icon}/>{isAuth ? t("profile") : t("login")}
+            <PersonIcon className={styles.icon}/>
           </button>
         )}
-      </div>
-      <LoginPortal isOpen={isLoginOpen} onClose={toggleLoginForm} />
-      
+        <button className={styles.menuToggle} onClick={toggleNavBarForm}>
+          <Image src={"/burger.svg"} alt="logo" width="150" height="30" />
+        </button>
+      </div> */}
+      <LoginPortal isOpen={isLoginOpen} onClose={toggleLoginForm}/>
+      <NavBarPortal isOpen={isNavBarOpen} onClose={toggleNavBarForm} isAuth={isAuth} handleLogout={handleClick} handleLogin={toggleLoginForm}/>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

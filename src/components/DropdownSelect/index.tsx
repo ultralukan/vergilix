@@ -174,7 +174,7 @@ const baseStyles: SxProps<Theme> = {
     marginRight: "6px",
   },
   "& .MuiInputBase-root": {
-    padding: "10px 10px 10px 20px !important",
+    padding: "10px 10px 10px 10px !important",
     height: "100%",
   },
 };
@@ -204,7 +204,9 @@ export default function DropdownSelect({
   return (
     <Box sx={{
       ...(customStyles as SxProps<Theme>),
-      minWidth: 190,
+      '@media (min-width: 400px)': {
+        minWidth: 160,
+      },
     }}>
       <Autocomplete
         options={options}

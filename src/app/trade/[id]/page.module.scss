@@ -1,4 +1,5 @@
 .page {
+  background: $color-gray;
   padding: 30px 15rem;
   
   @include media-down($break-xxl) {
@@ -8,6 +9,14 @@
   @include media-down($break-xl) {
     padding: 30px 7rem;
   }
+
+  @include media-down($break-lg) {
+    padding: 30px 2rem;
+  }
+
+  @include media-down($break-sm) {
+    padding: 30px 20px;
+  }
   flex: 1;
   z-index: 1;
 }
@@ -15,6 +24,10 @@
 .stepper {
   width: 80%;
   margin-bottom: 20px;
+
+  @include media-down($break-lg) {
+    width: 100%;
+  }
 }
 
 .formTitle {
@@ -32,6 +45,11 @@
 .cardsWrapper {
   display: flex;
   gap: 40px;
+
+  @include media-down($break-lg) {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .detais {
@@ -42,6 +60,11 @@
   width: calc(50%);
   background-color: $color-white;
   padding: 40px;
+
+  @include media-down($break-lg) {
+    width: 100%;
+    padding: 20px;
+  }
 }
 
 .cardTitle {
@@ -81,6 +104,14 @@
 
   .timerText {
     font-size: 18px;
+  }
+
+  @include media-down($break-lg) {
+    flex-direction: column;
+    gap: 20px;
+    .timerContainer, .timerInfo{
+      width: 100%;
+    }
   }
 }
 

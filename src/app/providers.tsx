@@ -37,13 +37,8 @@ export const customBreakpoints = {
 
 
 function Providers({ children }: ProvidersProps) {
-  const [isClient, setIsClient] = useState(false);
   const [theme, setTheme] = useState(createTheme(ruRU));
   const language = Cookies.get("language") || 'ru';
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     const localeTheme = language === "ru" ? ruRU : enUS;
@@ -55,10 +50,6 @@ function Providers({ children }: ProvidersProps) {
     );
     setTheme(newTheme);
   }, []);
-
-  if (!isClient) {
-    return <Provider store={store}>{children}</Provider>;
-  }
 
   return (
     <Provider store={store}>

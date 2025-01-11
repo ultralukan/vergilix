@@ -20,7 +20,7 @@ body {
   max-width: 100vw;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  background: $color-gray;
+
   font-family: 'HelveticaNeueCyr', Arial, sans-serif;
   min-height: 100vh;
   display: flex;
@@ -29,14 +29,6 @@ body {
   
   @include media-down($break-xxl) {
     @include typography(xl);
-  }
-
-  @include media-down($break-xl) {
-    @include typography(lg);
-  }
-
-  @include media-down($break-lg) {
-    @include typography(md);
   }
 }
 
@@ -162,10 +154,6 @@ h1, h2 {
 
   @include media-down($break-lg) {
     @include typographyHeading(xxl, bold)
-  }
-
-  @include media-down($break-xs) {
-    @include typographyHeading(lg, bold)
   }
 }
 

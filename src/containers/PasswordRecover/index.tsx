@@ -10,6 +10,12 @@ import { createValidationSchema } from "./validation";
 import { useUpdateUserMutation } from "@/api/user";
 import { ApiError } from "@/types/error";
 
+function sanitizeHTML(content: string): string {
+  const tempDiv = document.createElement("div");
+  tempDiv.textContent = content;
+  return tempDiv.innerHTML;
+}
+
 export default function PasswordRecover() {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
@@ -22,6 +28,8 @@ export default function PasswordRecover() {
   const e = useTranslations('Validation');
   const a = useTranslations('API');
   const [update] = useUpdateUserMutation();
+
+  const faqItems = t.raw("items");
   
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -123,11 +131,9 @@ export default function PasswordRecover() {
             <div className={styles.rules}>
               <h5>{t('rulesTitle')}</h5>
               <ul>
-                <li>{t('rule1')}</li>
-                <li>{t('rule2')}</li>
-                <li>{t('rule3')}</li>
-                <li>{t('rule4')}</li>
-                <li>{t('rule5')}</li>
+              {faqItems.map((item: { content: string }, index: number) => (
+                <li>{item.label}</li>
+              ))}
               </ul>
             </div>
           </div>

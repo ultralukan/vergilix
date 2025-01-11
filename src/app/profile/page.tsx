@@ -22,8 +22,8 @@ export default function Profile() {
         <div className={styles.links}>
           <ul>
             <li onClick={() => setSelectedNav('contact')} className={classNames(styles.item, {[styles["item-selected"]]: selectedNav === 'contact'})}><PersonOutlineIcon className={styles.icon}/> {t("contact")}</li>
-            <li onClick={() => setSelectedNav('change')} className={classNames(styles.item, {[styles["item-selected"]]: selectedNav === 'change'})}><LockIcon className={styles.icon}/>{t("change")}</li>
             <li onClick={() => setSelectedNav('verification')} className={classNames(styles.item, {[styles["item-selected"]]: selectedNav === 'verification'})}><ShieldIcon className={styles.icon}/>{t("verification")}</li>
+            <li onClick={() => setSelectedNav('change')} className={classNames(styles.item, {[styles["item-selected"]]: selectedNav === 'change'})}><LockIcon className={styles.icon}/>{t("change")}</li>
           </ul>
         </div>
         <div className={styles.formWrapper}>
