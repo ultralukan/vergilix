@@ -83,9 +83,7 @@ export default function PasswordRecover() {
         enableReinitialize
       >
         <Form className={styles.form}>
-          <div>
-            {errorMessage ? <h5 className={styles.titleError}>{errorMessage}</h5> : successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
-          </div>
+        {errorMessage ? <h5 className={styles.titleError}>{errorMessage}</h5> : successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
           <div className={styles.main}>
             <div className={styles.fields}>
               <h5>{t('title')}</h5>

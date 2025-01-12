@@ -13,18 +13,34 @@
   display: flex;
   width: 100%;
   gap: 20px;
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+  }
 }
 
 .formItemFull {
   width: (calc(100% - 20px));
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
 }
 
 .formItem {
   width: (calc(50% - 20px));
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
 }
 
 .formItemLittle {
   width: (calc(25% - 20px));
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
 }
 
 
@@ -36,17 +52,39 @@
   @include media-down($break-xl) {
     width: 300px;
   }
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
 }
 
 .stepper {
   border: 1px solid #DDD;
   padding: 20px;
   width: (calc(100% - 20px));
+
+  @include media-down($break-md) {
+    border: none;
+    padding: 0 0 20px;
+    width: 100%;
+    .stepperLabel {
+      display: none;
+    }
+  }
 }
 
 .buttons {
   display: flex;
   gap: 1rem;
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 0;
+
+    .button:nth-child(1) {
+      order: 2;
+    }
+  }
 }
 
 .instruction {
@@ -58,6 +96,17 @@
   .image {
     img {
       width: 150px;
+    }
+  }
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 16px;
+    .image {
+      img {
+        width: 100px;
+      }
     }
   }
 }
@@ -96,12 +145,25 @@
     gap: 4rem;
     background-color: $color-white;
     padding: 50px 80px;
-    width: 920px;
+    max-width: 920px;
     @include typographyHeading(md, bold);
 
     .image {
       img {
         width: 300px;
+      }
+    }
+
+    @include media-down($break-sm) {
+      flex-direction: column;
+      gap: 2rem;
+      padding: 20px;
+      font-size: 20px;
+      text-align: center;
+      .image {
+        img {
+          width: 100px;
+        }
       }
     }
   }

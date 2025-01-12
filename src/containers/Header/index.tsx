@@ -23,8 +23,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isAuth = !!token && user;
   const router = useRouter();
-  const location = usePathname();
-  const isMain = location === '/';
+  const pathName = usePathname();
+  const isMain = pathName === '/';
   const isVerif = useAppSelector((state) => state.auth.isVerif);
   const dispatch = useAppDispatch();
 
@@ -85,16 +85,16 @@ export default function Header() {
 
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ""}`}>
           <ul className={styles.navList}>
-            <li className={styles.link}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/'})}>
               <Link href={"/"}>{t("exchange")}</Link>
             </li>
-            <li className={styles.link}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/about'})}>
               <Link href={"/about"}>{t("about")}</Link>
             </li>
-            <li className={styles.link}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/news'})}>
               <Link href={"/news"}>{t("news")}</Link>
             </li>
-            <li className={styles.link}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/faq'})}>
               <Link href={"/faq"}>{t("faq")}</Link>
             </li>
           </ul>
@@ -103,6 +103,17 @@ export default function Header() {
       <div className={classNames(styles.buttons, {[styles["buttons-main"]]: isMain})}>
         <button className={styles.language}>EN</button>
         {!isAuthLoading && (
+          <>
+          {
+            isAuth && (
+              <Link
+                className={classNames(styles.profile, styles["profile-mobile"], {[styles["profile-mobile-selected"]]: pathName === '/profile'})}
+                href={"/profile"}
+              >
+                <PersonIcon className={styles.icon}/>
+              </Link>  
+            )
+          }        
           <button
             className={classNames(styles.login, {[styles["login-hidden"]]: isAuth, [styles["login-main"]]: isMain})}
             onClick={!isAuth ? toggleLoginForm : toggleNavBarForm}
@@ -110,6 +121,7 @@ export default function Header() {
             <PersonIcon className={styles.icon}/><span className={styles.profile}>{isAuth ? (user?.email || t("profile")) : t("login")}</span>
             {isAuth && <ArrowDropDown/>}
           </button>
+          </>
         )}
         <button className={styles.menuToggle} onClick={toggleNavBarForm}>
           <Image src={"/burger.svg"} alt="logo" width="150" height="30" />
@@ -130,28 +142,6 @@ export default function Header() {
       </div> */}
       <LoginPortal isOpen={isLoginOpen} onClose={toggleLoginForm}/>
       <NavBarPortal isOpen={isNavBarOpen} onClose={toggleNavBarForm} isAuth={isAuth} handleLogout={handleClick} handleLogin={toggleLoginForm}/>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={closeDropDown}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        disableScrollLock={true}
-      >
-        <MenuItem className={styles.menuItem} onClick={() => {router.push('/profile'); closeDropDown()}}>
-          {t("profile")}
-        </MenuItem>
-        <MenuItem className={styles.menuItem} onClick={() => {router.push('/trades'); closeDropDown()}}>
-          {t("trades")}
-        </MenuItem>
-        <MenuItem className={styles.menuItem} onClick={handleClick}>{t("logout")}</MenuItem>
-      </Menu>
     </header>
   );
 }

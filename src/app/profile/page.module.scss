@@ -9,10 +9,6 @@
   }
 
   @include media-down($break-xl) {
-    padding: 30px 7rem;
-  }
-
-  @include media-down($break-lg) {
     padding: 30px 2rem;
   }
 
@@ -134,6 +130,9 @@
     width: 30px;
     height: 30px;
     margin-right: 20px;
+    svg {
+      color: red;
+    }
 
     @include media-down($break-md) {
       margin-right: 10px;

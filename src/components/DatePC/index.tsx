@@ -3,6 +3,7 @@ import { useFormikContext } from "formik";
 import styles from "./index.module.scss";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { useTranslations } from "next-intl";
 
 type PropsType = {
   value: string;
@@ -147,6 +148,7 @@ export default function DatePC({
   ...props
 }: PropsType) {
   const { touched, errors, handleBlur } = useFormikContext<{ [key: string]: string }>();
+  const t = useTranslations('DatePicker');
 
   const handleChange = (newValue: any) => {
     setValue(newValue);
@@ -156,26 +158,63 @@ export default function DatePC({
   const isValidDate = parsedValue && parsedValue.isValid();
 
   return (
-    <DatePicker
-      value={isValidDate ? parsedValue : null}
-      onChange={handleChange}
-      label={label}
-      slotProps={{
-        textField: {
-          name,
-          error: touched[name] && Boolean(errors[name]),
-          helperText: touched[name] && errors[name],
-          onBlur: handleBlur,
-          className: styles.input,
-          variant: "filled",
-          fullWidth: true,
-          sx: {
-            ...(baseStyles as SxProps<Theme>),
-            ...(customStyles as SxProps<Theme>),
+<DatePicker
+  value={isValidDate ? parsedValue : null}
+  onChange={handleChange}
+  label={label}
+  localeText={{
+    toolbarTitle: t("toolbarTitle"),
+    cancelButtonLabel: t("cancelButtonLabel"),
+    okButtonLabel: t("okButtonLabel"),
+  }}
+  slotProps={{
+    textField: {
+      name,
+      error: touched[name] && Boolean(errors[name]),
+      helperText: touched[name] && errors[name],
+      onBlur: handleBlur,
+      className: styles.input,
+      variant: "filled",
+      fullWidth: true,
+      sx: {
+        ...(baseStyles as SxProps<Theme>),
+        ...(customStyles as SxProps<Theme>),
+      },
+      ...props,
+    },
+    actionBar: {
+      actions: ["cancel", "accept"],
+      sx: {
+        backgroundColor: "#f5f5f5",
+        padding: "10px",
+        borderTop: "1px solid #ddd",
+      },
+    },
+    desktopPaper: {
+      sx: {
+        "& .Mui-selected": {
+          backgroundColor: "#6BE8C2 !important",
+        }
+      },
+    },
+    mobilePaper: {
+      sx: {
+        "& .MuiDialogActions-root .MuiButtonBase-root": {
+          backgroundColor: "black",
+          color: "#fff",
+          borderRadius: "5px",
+          padding: "10px 20px",
+          margin: "0 5px",
+          "&:hover": {
+            backgroundColor: "#4ECB9F",
           },
-          ...props,
         },
-      }}
-    />
+        "& .Mui-selected": {
+          backgroundColor: "#6BE8C2 !important",
+        }
+      },
+    },
+  }}
+/>
   );
 }

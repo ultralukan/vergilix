@@ -8,6 +8,7 @@ import ResetForm from "../ResetForm";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from "next/link";
 import { Mail, Telegram, WhatsApp } from "@mui/icons-material";
+import { usePathname } from "next/navigation";
 
 type Props = {
   isOpen: boolean,
@@ -20,6 +21,7 @@ type Props = {
 export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, handleLogin}: Props) {
   const f = useTranslations('Footer');
   const h = useTranslations('Header');
+  const pathName = usePathname();
 
   const handleClose = () => {
     onClose();
@@ -50,7 +52,7 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
           <ul className={styles.navList}>
             {
               isAuth ? (
-              <li className={styles.link} onClick={handleClose}>
+              <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/profile'})} onClick={handleClose}>
                 <Link href={"/profile"}>{h("profile")}</Link>
               </li>
               ) : (
@@ -59,16 +61,16 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
               </li>
               )
             }
-            <li className={styles.link} onClick={handleClose}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/'})} onClick={handleClose}>
               <Link href={"/"}>{h("exchange")}</Link>
             </li>
-            <li className={styles.link} onClick={handleClose}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/about'})} onClick={handleClose}>
               <Link href={"/about"}>{h("about")}</Link>
             </li>
-            <li className={styles.link} onClick={handleClose}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/news'})} onClick={handleClose}>
               <Link href={"/news"}>{h("news")}</Link>
             </li>
-            <li className={styles.link} onClick={handleClose}>
+            <li className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/faq'})} onClick={handleClose}>
               <Link href={"/faq"}>{h("faq")}</Link>
             </li>
             {
@@ -85,7 +87,7 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
           <li onClick={handleClose}><Link href={'/'}>{f("policy")}</Link></li>
           <li onClick={handleClose}><Link href={'/'}>{f("AML")}</Link></li>
           <li onClick={handleClose}><Link href={'/'}>{f("support")}</Link></li>
-          <li onClick={handleClose}><Link href={'/map'}>{f("map")}</Link></li>
+          <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/map'})}><Link href={'/map'}>{f("map")}</Link></li>
         </ul>
         </div>
         <ul className={styles.social}>

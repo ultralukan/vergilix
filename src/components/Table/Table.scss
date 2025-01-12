@@ -14,7 +14,7 @@
 // }
 
 .MuiTableRow-head, .MuiTableHead-root {
-  background-color: $color-gray;
+  background-color: $color-gray !important;
   border: none !important;
   box-shadow: none !important;
 }

@@ -19,9 +19,9 @@ export const NewsCardMain = ({data}: {data: NewsType}) => {
             <div className={styles.dateDay}>
               {date[0]}
             </div>
-            <div>
-              <p>{date[1]}</p>
-              <p>{date[2]}</p>
+            <div className={styles.dateText}>
+              <div>{date[1]}</div>
+              <div>{date[2]}</div>
             </div>
           </div>
           <div className={styles.text}>

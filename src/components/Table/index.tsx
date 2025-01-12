@@ -1,199 +1,329 @@
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-  type MRT_ColumnDef,
-} from "material-react-table";
-import { useEffect, useMemo, useState } from "react";
-import { MRT_Localization_RU } from "material-react-table/locales/ru";
-import { useAppSelector } from "@/store";
-import { useTranslations } from "next-intl";
-import { Box, Typography } from "@mui/material";
-import "./Table.scss";
-import PlusIcon from "./../../../public/plus.svg";
-import MinusIcon from "./../../../public/minus.svg";
-import styles from "./index.module.scss";
-import classNames from "classnames";
-import Button from "../Button";
-import { TradeGetType } from "@/types/trades";
-import { CustomPagination } from "../CustomPagination";
-import { formatDate } from "@/services/dates";
+"use client";
 
-const statusType = {
-  "paid": "Оплачена",
-  "cancelled": "Отменена",
-  "pending": "Ожидает",
-  "completed": "Завершена",
+import React, { useEffect, useMemo, useState } from "react";
+import styles from "./index.module.scss";
+import PlusIcon from "../../../public/plus.svg";
+import MinusIcon from "../../../public/minus.svg";
+import { formatDate } from "@/services/dates";
+import { useTranslations } from "next-intl";
+import Button from "../Button";
+import { CustomPagination } from "../CustomPagination";
+import { FormControl, MenuItem, Select } from "@mui/material";
+import Image from "next/image";
+
+interface TableRow {
+  _id: string;
+  status: string;
+  amount: string;
+  fromCurrency: string;
+  toCurrency: string;
+  name: string;
+  rate: string;
+  receivedAmount: string;
+  accountNumber: string;
+  createdAt: string;
 }
 
-export const TradesTable = ({ data }: {data: TradeGetType[]}) => {
-  const lang = useAppSelector((state) => state.auth.language);
+interface CustomTableProps {
+  data: TableRow[];
+}
+
+export const TradesTable: React.FC<CustomTableProps> = ({ data }) => {
   const t = useTranslations("Trades");
+
+  const statusLabels = {
+    paid: t("statusPaid"),
+    pending: t("statusPending"),
+    completed: t("statusCompleted"),
+    cancelled: t("statusCancelled"),
+  };
+
+  const statusFilterLabels = {
+    all: t("labelFilterAll"),
+    paid: t("labelFilterPaid"),
+    pending: t("labelFilterPending"),
+    completed: t("labelFilterCompleted"),
+    cancelled: t("labelFilterCancelled"),
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [expandedRow, setExpandedRow] = useState<string[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 6,
   });
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof TableRow | null;
+    direction: "asc" | "desc" | null;
+  }>({ key: null, direction: null });
 
   useEffect(() => {
-    if(data.length) {
-      setTotalPages(Math.ceil(data.length / pagination.pageSize))
+    if (isMenuOpen) {
+      document.body.classList.add("body-lock");
+    } else {
+      document.body.classList.remove("body-lock");
     }
-  }, [data, pagination.pageSize])
+    return () => {
+      document.body.classList.remove("body-lock");
+    };
+  }, [isMenuOpen]);
 
-  const [timeLeft, setTimeLeft] = useState(600);
+  const [selectedStatus, setSelectedStatus] = useState<string>('all');
+
+  const statusOptions = [...Object.keys(statusFilterLabels)];
+
+  const filteredData = useMemo(() => {
+    if (selectedStatus === "all" || !selectedStatus) return data;
+    return data.filter((row) => row.status === selectedStatus);
+  }, [data, selectedStatus]);
 
   useEffect(() => {
-    if (timeLeft <= 0) return;
+    if (filteredData.length) {
+      setTotalPages(Math.ceil(filteredData.length / pagination.pageSize));
+    } else {
+      setTotalPages(1)
+    }
+  }, [filteredData, pagination.pageSize]);
 
-    const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
-    }, 1000);
+  const sortedData = useMemo(() => {
+    if (!sortConfig.key || !sortConfig.direction) return filteredData;
 
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
+    return [...filteredData].sort((a, b) => {
+      if (a[sortConfig.key!] < b[sortConfig.key!]) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig.key!] > b[sortConfig.key!]) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }, [filteredData, sortConfig]);
 
-
-  const preparedData:TradeGetType[]  = useMemo(() => {
+  const preparedData = useMemo(() => {
     const startIndex = pagination.pageIndex * pagination.pageSize;
     const endIndex = startIndex + pagination.pageSize;
-  
-    return [...data.slice(startIndex, endIndex)];
-  }, [data, pagination.pageIndex, pagination.pageSize]);
-  
 
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
-    .toString()
-    .padStart(2, "0")}`;
+    return [...sortedData.slice(startIndex, endIndex)];
+  }, [sortedData, pagination.pageIndex, pagination.pageSize]);
 
-  const columns = useMemo<MRT_ColumnDef<typeof data[0]>[]>(
-    () => [
-      {
-        accessorKey: "_id",
-        header: t("id"),
-        size: 130,
-      },
-      {
-        accessorKey: "status",
-        header: t("status"),
-        size: 140,
-        Cell: ({ cell }) =>
-          cell.getValue() ? statusType[cell.getValue() as 'pending' | 'completed' | 'cancelled'] : '',
-      },
-      {
-        accessorKey: "amountSell",
-        header: t("amountSell"),
-        size: 140,
-        Cell: ({ row }) => {
-          return `${row.original.amount} ${row.original.fromCurrency}`
-        }
-      },
-      {
-        accessorKey: "name",
-        header: t("name"),
-      },
-      {
-        accessorKey: "rate",
-        header: t("currency"),
-        size: 250,
-      },
-      {
-        accessorKey: "amountBuy",
-        header: t("amountBuy"),
-        Cell: ({ row }) => {
-          return `${row.original.receivedAmount} ${row.original.toCurrency}`
-        }
-      },
-      {
-        accessorKey: "accountNumber",
-        header: t("details"),
-        size: 130,
-      },
-      {
-        accessorKey: "createdAt",
-        header: t("date"),
-        size: 130,
-        Cell: ({ cell }) =>
-          cell.getValue() ? formatDate(cell.getValue())?.ru : null,
-      },
-    ],
-    [t]
-  );
+  const toggleRow = (id: string) => {
+    setExpandedRow((prev) =>
+      prev.includes(id) ? prev.filter((el) => el !== id) : [...prev, id]
+    );
+  };
 
-  const table = useMaterialReactTable({
-    columns,
-    data: preparedData,
-    localization: lang === "ru" ? MRT_Localization_RU : undefined,
-    initialState: { density: "compact", columnPinning: { right: ['mrt-row-expand'] } },
-    enableHiding: false,
-    enableSorting: false,
-    enableTopToolbar: false,
-    enableBottomToolbar: false,
-    enableColumnActions: false,
-    // renderDetailPanel: ({ row }) => (
-    //   <Box className={styles.details}>
-    //     <Box className={styles.detailsWrapper}>
-    //       <Box className={styles.detailsTitles}>
-    //         <Typography>{t("status")}:</Typography>
-    //         <Typography>{t("amountSell")}:</Typography>
-    //         <Typography>{t("name")}:</Typography>
-    //         <Typography>{t("date")}:</Typography>
-    //         <Typography>{t("amountBuy")}:</Typography>
-    //         <Typography>{t("currency")}:</Typography>
-    //         <Typography>{t("details")}:</Typography>
-    //       </Box>
-    //       <Box className={styles.detailsValues}>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.status}</Typography>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.amountSell}</Typography>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.name}</Typography>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.date}</Typography>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.amountBuy}</Typography>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.currency}</Typography>
-    //         <Typography sx={{ fontWeight: "bold" }}>{row.original.details}</Typography>
-    //       </Box>
-    //     </Box>
-    //     <Box className={styles.detailsPay}>
-    //       <Box className={styles.detailsPayTitle}>
-    //         <Box className={styles.detailsPayTitleStatus}>
-    //           <Box sx={{ marginBottom: "10px" }}>{t("status")}</Box>
-    //           <Box sx={{ fontWeight: "bold" }}>{row.original.status}</Box>
-    //         </Box>
-    //         <Box className={styles.detailsPayTitleDate}>
-    //           <Box sx={{ marginBottom: "10px" }}>{t("date")}</Box>
-    //           <Box sx={{ fontWeight: "bold" }}>{row.original.date}</Box>
-    //         </Box>
-    //       </Box>
-    //       <Box className={styles.detailsPayForm}>
-    //         <Box className={styles.detailsPayTitleDate}>
-    //           <Box sx={{ fontWeight: "bold" }}>{t("time")}</Box>
-    //           <Box sx={{ fontWeight: "bold", fontSize: "28px" }}>{formattedTime}</Box>
-    //         </Box>
-    //         <Box className={styles.button}>
-    //           <Button sx={{ marginTop: 2 }} label={t("btnPay")} type={"button"} />
-    //         </Box>
-    //       </Box>
-    //     </Box>
-    //   </Box>
-    // ),
-    muiTableBodyRowProps: ({ row }) => ({
-      className: classNames({
-        "MuiTableRow-expanded": row.getIsExpanded(),
-      }),
-    }),
-    muiExpandButtonProps: ({ row }) => ({
-      children: !row.getIsExpanded() ? <PlusIcon className={styles.icon} /> : <MinusIcon className={styles.icon} />,
-    }),
-    manualPagination: true,
-    rowCount: data.length,
-  });
+  const handleSort = (key: keyof TableRow) => {
+    let direction: "asc" | "desc" | null = "asc";
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === "asc") {
+        direction = "desc";
+      } else if (sortConfig.direction === "desc") {
+        direction = null;
+      }
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortIcon = (key: keyof TableRow) => {
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === "asc") return "▲";
+      if (sortConfig.direction === "desc") return "▼";
+    }
+    return null;
+  };
 
   return (
-    <Box>
-      <Typography variant="h5" sx={{ marginBottom: 3 }}></Typography>
-      <MaterialReactTable table={table} />
-      {totalPages > 1 && <CustomPagination pagination={pagination} setPagination={setPagination} totalPages={totalPages}/>}
-    </Box>
+    <>
+      <div className={styles.selectContainer}>
+        <FormControl  sx={{
+          '@media (min-width: 500px)': {
+            width: '300px'
+          }}} fullWidth>
+          <Select
+            labelId="status-select-label"
+            value={selectedStatus}
+            onChange={(e) => {
+              setPagination((prev) => ({...prev, pageIndex: 0}))
+              setSelectedStatus(e.target.value as string)
+              setIsMenuOpen(false)
+            }}
+            className={styles.select}
+            sx={{
+              background: '#FFF',
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                border: '1px solid #71E0C1'
+              },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                border: '1px solid #71E0C1'
+              },
+            }}
+            MenuProps={{
+              open: isMenuOpen,
+              onClose: () => setIsMenuOpen(false),
+            }}
+            onOpen={() => setIsMenuOpen(true)}
+          >
+            {statusOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {statusFilterLabels[option]}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+      {
+        !!preparedData.length ? (
+          <div className={styles.tableContainer}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                {/* <th onClick={() => handleSort("_id")}>
+                  {t("id")} {getSortIcon("_id")}
+                </th> */}
+                <th onClick={() => handleSort("status")}>
+                  {t("status")} {getSortIcon("status")}
+                </th>
+                <th onClick={() => handleSort("amount")}>
+                  {t("amountSell")} {getSortIcon("amount")}
+                </th>
+                {/* <th onClick={() => handleSort("rate")}>
+                  {t("currency")} {getSortIcon("rate")}
+                </th> */}
+                <th onClick={() => handleSort("receivedAmount")}>
+                  {t("amountBuy")} {getSortIcon("receivedAmount")}
+                </th>
+                <th onClick={() => handleSort("createdAt")}>
+                  {t("date")} {getSortIcon("createdAt")}
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {preparedData.map((row) => (
+                <React.Fragment key={row._id}>
+                  <tr
+                    className={`${styles.tableRow} ${
+                      expandedRow.includes(row._id) ? styles.expandedRow : ""
+                    }`}
+                    onClick={() => toggleRow(row._id)}
+                  >
+                    {/* <td className={styles.idColumn}>{row._id}</td> */}
+                    <td className={styles.statusColumn}>
+                      {statusLabels[row.status] || row.status}
+                    </td>
+                    <td className={styles.amount}>
+                      {row.amount} {row.fromCurrency}
+                    </td>
+                    {/* <td>{row.rate}</td> */}
+                    <td>{row.receivedAmount} {row.toCurrency}</td>
+                    <td>{formatDate(row.createdAt).ru}</td>
+                    <td>
+                      {expandedRow.includes(row._id) ? (
+                        <MinusIcon className={styles.icon} />
+                      ) : (
+                        <PlusIcon className={styles.icon} />
+                      )}
+                    </td>
+                  </tr>
+                  {expandedRow.includes(row._id) && (
+                    <tr className={styles.detailsRow}>
+                      <td colSpan={9}>
+                        <div className={styles.details}>
+                          <div className={styles.detailsText}>
+                            {row?._id && (
+                              <p>
+                                <span>{t("id")}:</span> {row._id}
+                              </p>
+                            )}
+                            {row?.status && (
+                              <p>
+                                <span>{t("status")}:</span>{" "}
+                                {statusLabels[row.status] || row.status}
+                              </p>
+                            )}
+                            {row?.amount && (
+                              <p>
+                                <span>{t("amountSellLabel")}:</span> {row.amount}
+                              </p>
+                            )}
+                            {row?.fromCurrency && (
+                              <p>
+                                <span>{t("currencySellLabel")}:</span>{" "}
+                                {row.fromCurrency}
+                              </p>
+                            )}
+                            {row?.rate && (
+                              <p>
+                                <span>{t("currency")}:</span> {row.rate}
+                              </p>
+                            )}
+                            {row?.receivedAmount && (
+                              <p>
+                                <span>{t("amountBuyLabel")}:</span>{" "}
+                                {row.receivedAmount}
+                              </p>
+                            )}
+                            {row?.toCurrency && (
+                              <p>
+                                <span>{t("currencyBuyLabel")}:</span>{" "}
+                                {row.toCurrency}
+                              </p>
+                            )}
+                            {row?.accountNumber && (
+                              <p>
+                                <span>{t("walletNumber")}:</span>{" "}
+                                {row.accountNumber}
+                              </p>
+                            )}
+                            {row?.createdAt && (
+                              <p>
+                                <span>{t("date")}:</span>{" "}
+                                {formatDate(row.createdAt).ru}
+                              </p>
+                            )}
+                          </div>
+
+                          {
+                            !['completed', 'cancelled'].includes(row?.status) && (
+                              <div className={styles.button}>
+                              <Button
+                                onClick={() => window.open(`/trade/${row._id}`, "_blank")}
+                                label={t("tradeButton")}
+                              />
+                            </div>
+                            )
+                          }
+
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        ) : <div className={styles.helperText}>
+          <Image
+            src={"/error.png"}
+            alt="icon"
+            width={40}
+            height={40}
+          />
+        {t("noData")}
+      </div>
+      }
+
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          <CustomPagination
+            pagination={pagination}
+            setPagination={setPagination}
+            totalPages={totalPages}
+          />
+        </div>
+      )}
+    </>
   );
 };
-

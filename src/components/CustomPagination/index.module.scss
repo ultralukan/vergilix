@@ -1,63 +1,3 @@
-.icon {
-  width: 20px;
-  height: 20px;
-  scale: (1.5);
-}
-
-.details {
-  display: flex;
-  color: $color-black;
-  padding: 20px;
-  justify-content: center;
-  gap: 40px;
-}
-
-.detailsWrapper {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  gap: 100px;
-  margin-right: 10px;
-}
-
-.detailsTitles, .detailsValues {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-}
-
-.detailsPay {
-  display: flex;
-  flex-direction: column;
-  background-color: $color-gray;
-  min-width: 500px;
-  border-radius: 3px;
-}
-
-.detailsPayTitle {
-  display: flex;
-  border-bottom: 1px solid $color-gray-light;
-  padding: 40px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.detailsPayForm {
-  padding: 40px;
-}
-
-
-.button {
-  button {
-    background: $color-main;
-    color: $color-black;
-    padding: 20px 0;
-    text-transform: none;
-    font-weight: bold;
-    width: 300px;
-  }
-}
 
 .pagination {
   background-color: $color-white;
@@ -70,6 +10,10 @@
 
   button {
     display: flex;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   .pagArrow {

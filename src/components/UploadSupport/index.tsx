@@ -6,9 +6,10 @@ interface UploadFormProps {
   value: File | null;
   setValue: (file: File | null) => void;
   errors: boolean;
+  label: string;
 }
 
-export default function UploadForm({ value, setValue, errors }: UploadFormProps) {
+export default function UploadFormSupport({ value, setValue, errors, label }: UploadFormProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const t = useTranslations("FormVerification");
@@ -86,6 +87,7 @@ export default function UploadForm({ value, setValue, errors }: UploadFormProps)
         </div>
       ) : (
         <>
+          <div className={styles.label}>{label}</div>
           <img src={"./upload.png"} className={styles.uploadIcon} />
           <div className={styles.uploadText}>
             <p>{t("formFileFormat")}</p>

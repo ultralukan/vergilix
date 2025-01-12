@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
 import Link from "next/link";
+import MapIcon from "../../../public/map.svg"
 
 export default function Map() {
   const t = useTranslations('Map');
@@ -42,7 +43,7 @@ export default function Map() {
 
         </div>
       </div>
-      <img className={styles.image} src="./map.svg"/>
+      <MapIcon className={styles.image}/>
     </div>
   );
 }

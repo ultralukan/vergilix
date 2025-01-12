@@ -5,7 +5,7 @@
     "news": "Новости",
     "faq": "FAQ",
     "login": "Войти",
-    "profile": "Личный кабинет",
+    "profile": "Мой профиль",
     "logout": "Выйти",
     "trades": "Сделки"
   },
@@ -99,8 +99,8 @@
     "balance": "Баланс",
     "replenish": "Пополнить",
     "balanceModalTitle": "Ошибка",
-    "balanceModalText": "Пожалуйста, заполните все обязательные поля в личном кабинете",
-    "balanceModalBtn": "Перейти в личный кабинет",
+    "balanceModalText": "Пожалуйста, заполните все обязательные поля в настройках профиля",
+    "balanceModalBtn": "Перейти в профиль",
     "modalErrorTitle": "Произошла ошибка",
     "modalErrorText": "Нам очень жаль, но что-то пошло не так. Попробуйте еще раз, вдруг мы уже всё починили",
     "modalErrorBtn": "Спасибо, всё понятно"
@@ -135,8 +135,9 @@
     "title": "Мой профиль",
     "contact": "Настройки",
     "change": "Сменить пароль",
+    "balance": "Баланс",
     "verification": "Верификация",
-    "trades": "Ваши операции"
+    "trades": "Заявки"
   },
   "FormContact": {
     "titleContact": "Заполнить контактные данные",
@@ -244,13 +245,29 @@
     "id": "ID заявки",
     "status": "Статус заявки",
     "amountSell": "Сумма и валюта продажи",
+    "amountSellLabel": "Сумма продажи",
+    "currencySellLabel": "Валюта продажи",
+    "amountBuyLabel": "Сумма покупки",
+    "currencyBuyLabel": "Валюта покупки",
     "name": "Плательщик",
     "currency": "Курс обмена",
     "amountBuy": "Сумма и валюта покупки",
     "details": "Реквизиты для оплаты",
     "date": "Дата и время создания",
     "time": "Время для оплаты",
-    "btnPay": "Оплатить"
+    "btnPay": "Оплатить",
+    "statusPaid": "Оплачено",
+    "statusCancelled": "Отменено",
+    "statusCompleted": "Успешно",
+    "statusPending": "Ожидает оплаты",
+    "walletNumber": "Реквизиты для оплаты",
+    "tradeButton": "Перейти в заявку",
+    "labelFilterAll": "Все заявки",
+    "labelFilterCompleted": "Успешные",
+    "labelFilterCancelled": "Отмененные",
+    "labelFilterPending": "Ожидают оплаты",
+    "labelFilterPaid": "Оплаченные",
+    "noData": "Данных нет"
   },
   "EmailVerif": {
     "success": "Ваш email успешно подтвержден!",
@@ -291,5 +308,24 @@
     "detailsId": "ID заявки",
     "detailsDate": "Дата заявки",
     "resultButton": "На главную страницу"
+  },
+  "DatePicker": {
+    "toolbarTitle": "Выбранная дата",
+    "cancelButtonLabel": "Отменить",
+    "okButtonLabel": "ОК"
+  },
+  "Balance": {
+    "title": "Ваш баланс",
+    "btnLabel": "Пополнить баланс"
+  },
+  "Support": {
+    "title": "Поддержка",
+    "email": "Email",
+    "telegram": "Telegram",
+    "id": "ID заявки",
+    "topic": "Тема сообщения",
+    "problem": "Описание проблемы",
+    "btnText": "Отправить",
+    "uploadText": "Приложить файлы"
   }
 }

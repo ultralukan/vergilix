@@ -55,10 +55,22 @@
   gap: 30px;
   z-index: 9999;
 
+  .profile-mobile {
+    display: none;
+  }
+
+  .profile-mobile-selected {
+    color: $color-main;
+  }
+
   @include media-down($break-md) {
     gap: 20px;
     .language, .profile {
       display: none;
+    }
+
+    .profile-mobile {
+      display: flex;
     }
   }
 }
@@ -121,6 +133,10 @@
     border-color: $color-main;
     border-color: $color-main;
   }
+}
+
+.link-selected {
+  color: $color-main;
 }
 
 .header-main {

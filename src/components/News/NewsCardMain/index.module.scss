@@ -38,6 +38,10 @@
   &:hover img {
     transform: scale(0.5);
   }
+
+  @include media-down($break-md) {
+    padding: 20px;
+  }
 }
 
 .wrapper {
@@ -58,6 +62,11 @@
     font-size: 24px;
     line-height: 24px;
   }
+
+  @include media-down($break-md) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
 
 .dateDay {
@@ -68,6 +77,10 @@
   @include media-down($break-xxl) {
     font-size: 60px;
   }
+
+  @include media-down($break-md) {
+    font-size: 44px;
+  }
 }
 
 .text {
@@ -75,6 +88,10 @@
   font-weight: bold;
   @include media-down($break-xxl) {
     @include typographyHeading(xxl, bold);
+  }
+
+  @include media-down($break-md) {
+    font-size: 18px;
   }
 }
 
@@ -84,8 +101,9 @@
   color: $color-main;
   margin-top: 20px;
   position: absolute;
-  bottom: 20px;
+  top: 10px;
   right: 20px;
+  z-index: 10;
 
   @include media-down($break-xxl) {
     width: 30px;

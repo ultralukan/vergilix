@@ -100,7 +100,7 @@ import { LinearIndeterminate } from "@/components/Progress";
 //   },
 // ];
 
-export default function Trades() {
+export default function TradesComponent() {
   const t = useTranslations("Trades");
   const {data = [], isFetching} = useGetAllUserTradesQuery();
 

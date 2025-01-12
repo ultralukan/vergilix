@@ -29,7 +29,7 @@
 }
 
 .main {
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -41,6 +41,7 @@
   }
 
   @include media-down($break-xl) {
+    margin-top: 10px;
     @include typography(xl, bold);
   }
 }
@@ -89,6 +90,9 @@
   top: 330px;
   z-index: -1;
   scale: 2.5;
+  width: 100px;
+  height: 100px;
+  color: $color-main;
 
   @include media-down($break-sm) {
     display: none;

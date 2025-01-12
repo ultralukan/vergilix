@@ -9,6 +9,15 @@
   @include media-down($break-xl) {
     padding: 30px 7rem;
   }
+
+  @include media-down($break-xl) {
+    padding: 30px 2rem;
+  }
+
+  @include media-down($break-sm) {
+    padding: 30px 20px;
+  }
+
   flex: 1;
 }
 

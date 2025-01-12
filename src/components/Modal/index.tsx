@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, Box, Typography, Button, IconButton } from "@mui/material";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
@@ -24,12 +24,29 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, c
       onClose();
     }
   };
+
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add("body-lock");
+    } else {
+      document.body.classList.remove("body-lock");
+    }
+    return () => {
+      document.body.classList.remove("body-lock");
+    };
+  }, [open]);
+
+
   return (
     <Modal
       open={open}
       onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      sx={{
+        zIndex: 999999999999,
+
+      }}
     >
       <Box
         sx={{
@@ -37,12 +54,27 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, onClose, title, c
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          minWidth: 600,
           bgcolor: "background.paper",
           boxShadow: 24,
-          p: 5,
+          p: 1,
+          overflow: 'scroll',
           textAlign: 'center',
-          outline: 'none'
+          outline: 'none',
+          '@media (min-width: 350px)': {
+            minWidth: 'calc(100% - 20px)',
+            p: 3,
+          },
+          '@media (min-width: 500px)': {
+            overflow: 'hidden',
+            p: 5,
+          },
+          '@media (min-width: 768px)': {
+            minWidth: 600,
+            p: 5,
+          },
+          '@media (max-height: 700px)': {
+            maxHeight: 650,
+          },
         }}
       >
         <IconButton

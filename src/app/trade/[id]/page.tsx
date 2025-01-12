@@ -117,6 +117,7 @@ function Trade() {
         btn: t("modalErrorBtn"),
         status: false,
         onButtonClick: () => router.replace("/"),
+        onClose: () => router.replace("/"),
       });
     }
   }, [id, router, error, t]);
@@ -217,6 +218,7 @@ function Trade() {
       status: true,
       text: renderModalInputs(),
       onButtonClick: () => router.replace("/"),
+      onClose: () => router.replace("/"),
     });
   }
 
@@ -351,13 +353,15 @@ function Trade() {
                 <div>{t("payTitleFiat2")}</div>
               </>
             ) : (
-              t("payTitle")
+              <>
+              {t("payTitle")}:
+              </>
             )}
           </div>
             {!isFiatFrom && (
                           <div className={styles.paymentResult}>
-                          <span>{trade?.amount}</span>
                           <span>
+                            {trade?.amount}
                             <Image
                               src={iconFrom}
                               alt={trade?.fromCurrency}
@@ -368,8 +372,8 @@ function Trade() {
                             {trade?.fromCurrency}
                             </span>
                           <ArrowIcon className={styles.arrowIcon}/> 
-                          <span>{trade?.receivedAmount}</span>    
                           <span>
+                          {trade?.receivedAmount}
                             <Image
                               src={iconTo}
                               alt={trade?.toCurrency}
@@ -386,13 +390,13 @@ function Trade() {
             <div className={styles.cardTitle}>{t("detailsTitle")}:</div>
             <div className={styles.paymentDetailsWrapper}>
               <div>
-                <p>{t("detailsId")}:</p>
-                <p>{t("detailsDate")}:</p>
+                <p>{t("detailsId")}: <b>{trade?._id}</b></p>
+                <p>{t("detailsDate")}: <b>{formatDate(trade?.createdAt)[lang]}</b></p>
               </div>
-              <div>
+              {/* <div>
                 <p>{trade?._id}</p>
-                <p>{formatDate(trade?.createdAt)[lang]}</p>
-              </div>
+                <p></p>
+              </div> */}
             </div>
           </div>
           <div className={styles.resultButton}>
@@ -504,7 +508,7 @@ function Trade() {
               >
               {steps.map((label) => (
                 <Step key={label} sx={baseStyles}>
-                  <StepLabel>{label}</StepLabel>
+                  <StepLabel><span className={styles.step}>{label}</span></StepLabel>
                 </Step>
               ))}
             </Stepper>
@@ -523,7 +527,7 @@ function Trade() {
           }
           <ModalComponent 
             open={modal} 
-            onClose={handleClose} 
+            onClose={modalContent?.onClose || handleClose} 
             title={modalContent.title} 
             content={modalContent.text}
             btnText={modalContent.btn}

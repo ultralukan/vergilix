@@ -204,7 +204,7 @@ export default function DropdownSelect({
   return (
     <Box sx={{
       ...(customStyles as SxProps<Theme>),
-      '@media (min-width: 400px)': {
+      '@media (min-width: 360px)': {
         minWidth: 160,
       },
     }}>

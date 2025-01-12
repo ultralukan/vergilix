@@ -9,6 +9,15 @@
   @include media-down($break-xl) {
     padding: 30px 7rem;
   }
+
+  @include media-down($break-lg) {
+    padding: 30px 2rem;
+  }
+
+  @include media-down($break-sm) {
+    padding: 30px 20px;
+  }
+
   flex: 1;
 
   h2 {
@@ -19,39 +28,25 @@
   }
 }
 
-
 // .titles {
-//   h2 {
-//     display: inline-block;
-//     margin-bottom: 0;
+//   div {
+//     height: 85px;
 
-//     @include typographyHeading(xxxl, bold);
-
-//     @include media-down($break-xl) {
-//       @include typographyHeading(xxl, bold);
+//     @include media-down($break-xxl) {
+//       height: 70px;
 //     }
+
+//     @include media-down($break-lg) {
+//       height: 50px;
+//     }
+
+//   }
+//   span {
+//     font-weight: bold;
+//     background: $color-main;
+//     color: $color-black;
 //   }
 // }
-
-.titles {
-  div {
-    height: 85px;
-
-    @include media-down($break-xxl) {
-      height: 70px;
-    }
-
-    @include media-down($break-lg) {
-      height: 50px;
-    }
-
-  }
-  span {
-    font-weight: bold;
-    background: $color-main;
-    color: $color-black;
-  }
-}
 
 .header {
   display: flex;
@@ -82,6 +77,11 @@
     font-size: 24px;
     line-height: 24px;
   }
+
+  @include media-down($break-md) {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
 
 .dateDay {
@@ -91,6 +91,10 @@
 
   @include media-down($break-xxl) {
     font-size: 60px;
+  }
+
+  @include media-down($break-md) {
+    font-size: 44px;
   }
 }
 
@@ -109,6 +113,22 @@
     width: auto;
     object-fit: contain;
   }
+
+  @include media-down($break-md) {
+    height: 340px;
+    margin: 20px 0;
+  }
+
+  @include media-down($break-sm) {
+    height: auto;
+  }
+}
+
+.title {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
 }
 
 .content {
@@ -117,7 +137,7 @@
   gap: 20px;
   max-width: 80%;
 
-  @include media-down(lg) {
+  @include media-down($break-lg) {
     max-width: 100%;
   }
 

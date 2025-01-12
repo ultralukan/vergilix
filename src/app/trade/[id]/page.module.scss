@@ -30,6 +30,12 @@
   }
 }
 
+.step {
+  @include media-down($break-sm) {
+    display: none;
+  }
+}
+
 .formTitle {
   display: inline-block;
   background: $color-main;
@@ -46,14 +52,14 @@
   display: flex;
   gap: 40px;
 
-  @include media-down($break-lg) {
+  @include media-down($break-md) {
     flex-direction: column;
     gap: 20px;
   }
 }
 
-.detais {
-  width: 70%;
+.details {
+  max-width: 100%;
 }
 
 .card {
@@ -69,7 +75,11 @@
 
 .cardTitle {
   font-weight: bold;
-  font-size: 26px;
+  font-size: 24px;
+
+  @include media-down($break-sm) {
+    font-size: 20px;
+  }
 }
 
 .inputRow {
@@ -106,11 +116,16 @@
     font-size: 18px;
   }
 
-  @include media-down($break-lg) {
+  @include media-down($break-sm) {
     flex-direction: column;
     gap: 20px;
+    padding: 20px;
+    justify-content: center;
     .timerContainer, .timerInfo{
       width: 100%;
+    }
+    .timerContainer {
+      text-align: center;
     }
   }
 }
@@ -131,6 +146,16 @@
     align-items: center;
     font-weight: bold;
   }
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 40px;
+    .button {
+      width: 100%;
+      min-width: auto;
+    }
+  }
+
 }
 
 .copy {
@@ -158,6 +183,12 @@
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   animation: fadeInOut 2s ease;
+
+  @include media-down($break-sm) {
+    left: -50px;
+    top: -35px;
+    transform: translateX(0);
+  }
 }
 
 @keyframes fadeInOut {
@@ -176,7 +207,7 @@
 }
 
 .linear {
-  width: 80%;
+  width: 100%;
   margin: 40px auto 0;
 }
 
@@ -189,6 +220,11 @@
 .resultInfo {
   padding: 40px;
   background-color: $color-white;
+
+  @include media-down($break-sm) {
+    overflow-x: scroll;
+    padding: 20px;
+  }
 }
 
 .paymentResult {
@@ -204,6 +240,12 @@
     display: flex;
     align-items: center;
   }
+
+  @include media-down($break-sm) {
+    align-items: start;
+    gap: 10px;
+    font-size: 22px;
+  }
 }
 
 .results {
@@ -213,7 +255,7 @@
   order: 1;
   @include media-down($break-lg) {
     order: 2;
-    width: 80%;
+    width: 100%;
   }
 }
 
@@ -227,13 +269,18 @@
 }
 
 .resultIcon {
-  margin-right: 5px;
+  margin: 0 10px;
 }
 
 .paymentDetails {
   border: 1px solid $color-gray-light;
   margin-top: 20px;
   padding: 40px;
+
+  @include media-down($break-sm) {
+    overflow-x: scroll;
+    padding: 20px;
+  }
 }
 
 .paymentDetailsWrapper {
@@ -247,9 +294,6 @@
     flex-direction: column;
     gap: 10px;
   }
-  div:nth-child(2) {
-    font-weight: bold;
-  }
 }
 
 .video {
@@ -259,6 +303,7 @@
   order: 2;
   @include media-down($break-lg) {
     order: 1;
+    width: 100%;
   }
 
   video {
@@ -268,7 +313,12 @@
     min-height: 50vh;
     opacity: 0;
     transform: scale(0.95);
-    animation: fadeIn 1s ease-out forwards; 
+    animation: fadeIn 1s ease-out forwards;
+
+    @include media-down($break-lg) {
+      min-height: auto;
+      max-height: 30vh;
+    }
   }
 
   @keyframes fadeIn {
@@ -289,11 +339,21 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+
+  @include media-down($break-lg) {
+    width: 200px;
+  }
 }
 
 .resultButton {
   width: 50%;
   margin-top: 40px;
+  min-width: 400px;
+
+  @include media-down($break-sm) {
+    width: 100%;
+    min-width: auto;
+  }
 }
 
 .modalResult {
@@ -330,7 +390,12 @@
     padding: 10px;
     box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    gap: 10px
+    gap: 10px;
+
+    @include media-down($break-sm) {
+      max-width: 300px;
+      overflow-x: scroll;
+    }
   }
 
   .cardTitle {
@@ -343,6 +408,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 10px;
+
+    .arrowIcon {
+      transform: rotate(90deg);
+    }
+  }
 }
 
 .modalResultRows {
@@ -356,4 +430,9 @@
     font-weight: normal;
     text-align: center;
   }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
 }

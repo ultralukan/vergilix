@@ -220,9 +220,7 @@ function Home() {
         const id = response.trade._id;
 
         if(id) {
-          setTimeout(() => {
-            router.push(`/trade/${id}`);
-          }, 1000);
+          router.push(`/trade/${id}`);
         }
       }
     } catch (error: unknown) {
@@ -254,7 +252,6 @@ function Home() {
     if (condition) {
       e.preventDefault();
       handleOpen()
-      console.log(1)
       setModalContent({
         title: t("balanceModalTitle"),
         text: t("balanceModalText"),

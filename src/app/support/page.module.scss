@@ -1,0 +1,95 @@
+.page {
+  background: $color-gray;
+  padding: 30px 15rem;
+  
+  @include media-down($break-xxl) {
+    padding: 30px 10rem;
+  }
+
+  @include media-down($break-xl) {
+    padding: 30px 7rem;
+  }
+
+  @include media-down($break-lg) {
+    padding: 30px 2rem;
+  }
+
+  @include media-down($break-sm) {
+    padding: 30px 20px;
+  }
+  flex: 1;
+  z-index: 1;
+}
+
+.title {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
+}
+
+.formInputs {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}
+
+.form {
+  display: flex;
+  gap: 20px;
+
+  @include media-down($break-lg) {
+    flex-direction: column;
+  }
+}
+
+
+.formRow {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.formItem {
+  width: (calc(50% - 10px));
+
+  @include media-down($break-md) {
+    width: 100%;
+  }
+}
+
+.formItemFull {
+  width: 100%;
+}
+
+.button {
+  width: 400px;
+  min-width: 300px;
+  margin-top: 20px;
+
+  @include media-down($break-xl) {
+    width: 300px;
+  }
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}
+
+.upload {
+  width: 30%;
+  @include media-down($break-xl) {
+    width: 70%;
+  }
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}

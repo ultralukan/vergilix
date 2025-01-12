@@ -10,10 +10,11 @@ import ArrowIcon from "../../../../public/arrow-short.svg"
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { NewsSameCard } from "@/components/News/NewsSame";
+import { title } from "process";
 
 const dataEx: NewsType = {
   "_id": "1",
-  "title": "Заголовок 1. Заголовок 3",
+  "title": "Заголовок 1",
   "content": `<h4>Ethereum показал худший результат среди 10 крупнейших по капитализации монет, токен Synthetix Network подорожал на 40%, а только один альткоин потерял свыше 20% от цены</h4><p>Специально для «РБК-Крипто» компания Cindicator проанализировала ситуацию на рынке криптовалют.Альткоины показали боковое движение, стоимость Bitcoin снизилась, а худший результат среди крупнейших по капитализации цифровых денег продемонстрировал Ethereum.</p><div>Неделя для биткоина началась с падения ниже уровня $8000
 18 сентября и попыток вернуться выше этого уровня в следующие два дня.</div><p> худший результат среди 10 крупнейших по капитализации монет, токен Synthetix Network подорож</p><div> худший результат среди 10 крупнейших по капитализации монет, токен Synthetix Network подорож</div>`,
   "date": "2024-12-17T14:00:00.000Z",
@@ -29,7 +30,6 @@ export default function NewsDetailPage() {
   // const sameData = {...dataEx, date: formatDateNoTime(dataEx.date)[lang].noTime};
   const date = data?.date.split(" ");
   const image = data?.img || "./news-example.png";
-  const title = data?.title.split(". ");
   const safeContent = DOMPurify.sanitize(data.content);
 
   return (
@@ -51,7 +51,8 @@ export default function NewsDetailPage() {
           </div>
         </div>
       </div>
-      {
+      <h2 className={styles.title}>{data?.title}</h2>
+      {/* {
         !!title.length && (
           <div className={styles.titles}>
             {title.map((el, index) => (
@@ -62,7 +63,7 @@ export default function NewsDetailPage() {
             ))}
            </div> 
         )
-      }
+      } */}
       <div className={styles.image}>
         <img src={image} alt="news" />
       </div>

@@ -408,7 +408,7 @@ export default function VerificationForm() {
               <Input
                 label={t('formHouse')}
                 name='house'
-                type="text"
+                type="number"
                 value={house}
                 setValue={setHouse}
                 required
@@ -418,7 +418,7 @@ export default function VerificationForm() {
               <Input
                 label={t('formCorps')}
                 name='corps'
-                type="text"
+                type="number"
                 value={corps}
                 setValue={setCorps}
               />
@@ -427,7 +427,7 @@ export default function VerificationForm() {
               <Input
                 label={t('formApart')}
                 name='appart'
-                type="text"
+                type="number"
                 value={appart}
                 setValue={setAppart}
               />
@@ -436,7 +436,7 @@ export default function VerificationForm() {
               <Input
                 label={t('formIndx')}
                 name='homeIndex'
-                type="text"
+                type="number"
                 value={homeIndex}
                 setValue={setHomeIndex}
               />
@@ -522,7 +522,7 @@ export default function VerificationForm() {
               >
               {[...steps.slice(0, -1)].map((label) => (
                 <Step key={label} sx={baseStyles}>
-                  <StepLabel>{label}</StepLabel>
+                  <StepLabel><span className={styles.stepperLabel}>{label}</span></StepLabel>
                 </Step>
               ))}
             </Stepper>
