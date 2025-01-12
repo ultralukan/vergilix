@@ -1,3 +1,16 @@
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  transition: transform 0.3s ease-in-out;
+}
+
+.header-wrapper.hidden {
+  transform: translateY(-100%);
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -64,7 +77,6 @@
   }
 
   @include media-down($break-md) {
-    gap: 20px;
     .language, .profile {
       display: none;
     }

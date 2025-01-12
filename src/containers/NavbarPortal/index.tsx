@@ -86,7 +86,7 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
           <li onClick={handleClose}><Link href={'/'}>{f("terms")}</Link></li>
           <li onClick={handleClose}><Link href={'/'}>{f("policy")}</Link></li>
           <li onClick={handleClose}><Link href={'/'}>{f("AML")}</Link></li>
-          <li onClick={handleClose}><Link href={'/'}>{f("support")}</Link></li>
+          <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/support'})}><Link href={'/support'}>{f("support")}</Link></li>
           <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/map'})}><Link href={'/map'}>{f("map")}</Link></li>
         </ul>
         </div>

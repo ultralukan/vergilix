@@ -1,21 +1,21 @@
 .page {
   background: $color-gray;
-  padding: 30px 15rem;
+  padding: 120px 15rem 30px;
   
   @include media-down($break-xxl) {
-    padding: 30px 10rem;
+    padding: 120px 10rem 30px;
   }
 
   @include media-down($break-xl) {
-    padding: 30px 7rem;
+    padding: 100px 7rem 30px;
   }
 
   @include media-down($break-lg) {
-    padding: 30px 2rem;
+    padding: 100px 2rem 30px;
   }
 
   @include media-down($break-sm) {
-    padding: 30px 20px;
+    padding: 100px 20px 30px;
   }
   flex: 1;
   z-index: 1;

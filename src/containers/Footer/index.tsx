@@ -19,7 +19,7 @@ export default function Footer() {
           <li><Link href={'/'}>{t("terms")}</Link></li>
           <li><Link href={'/'}>{t("policy")}</Link></li>
           <li><Link href={'/'}>{t("AML")}</Link></li>
-          <li><Link href={'/'}>{t("support")}</Link></li>
+          <li><Link href={'/support'}>{t("support")}</Link></li>
           <li><Link href={'/map'}>{t("map")}</Link></li>
         </ul>
       </div>

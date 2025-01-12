@@ -102,8 +102,8 @@
 .links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  @include typography(lg);
+  gap: 15px;
+  @include typography(xl);
   color: $color-gray-dark;
 }
 

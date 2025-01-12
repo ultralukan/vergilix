@@ -4,23 +4,23 @@
 
 .page {
   flex: 1;
-  padding: 30px 15rem 0;
+  padding: 120px 15rem 0;
   background: $color-gray;
   
   @include media-down($break-xxl) {
-    padding: 30px 10rem 0;
+    padding: 120px 10rem 0;
   }
 
   @include media-down($break-xl) {
-    padding: 30px 7rem 0;
+    padding: 100px 7rem 0;
   }
 
   @include media-down($break-lg) {
-    padding: 30px 2rem 0;
+    padding: 100px 2rem 0;
   }
 
   @include media-down($break-sm) {
-    padding: 30px 20px 0;
+    padding: 100px 20px 0;
   }
 }
 

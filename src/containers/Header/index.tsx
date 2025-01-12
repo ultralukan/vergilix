@@ -27,6 +27,8 @@ export default function Header() {
   const isMain = pathName === '/';
   const isVerif = useAppSelector((state) => state.auth.isVerif);
   const dispatch = useAppDispatch();
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollTop, setLastScrollTop] = useState(0);
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isNavBarOpen, setIsNavBarOpen] = useState(false);
@@ -65,13 +67,34 @@ export default function Header() {
     }
   }, [isVerif])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+
+      if (currentScroll > lastScrollTop && currentScroll > 100) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      setLastScrollTop(currentScroll <= 0 ? 0 : currentScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollTop]);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <header className={classNames(styles.header, {[styles["header-main"]]: isMain})}>
+    <header
+      className={`${!isMain ? styles["header-wrapper"] : ""} ${isHidden ? styles.hidden : ""}`}
+    >
+    <div className={classNames(styles.header, {[styles["header-main"]]: isMain,})}>
       <div className={styles.main}>
         <Link href={"/"}>
           <Image
@@ -142,6 +165,7 @@ export default function Header() {
       </div> */}
       <LoginPortal isOpen={isLoginOpen} onClose={toggleLoginForm}/>
       <NavBarPortal isOpen={isNavBarOpen} onClose={toggleNavBarForm} isAuth={isAuth} handleLogout={handleClick} handleLogin={toggleLoginForm}/>
+    </div>
     </header>
   );
 }

@@ -49,4 +49,8 @@
 		@include typographyHeading(4xl, bold);
 		text-align: center;
 	}
+
+	h5 {
+		margin-bottom: 20px;
+	}
 }
