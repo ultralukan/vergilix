@@ -107,6 +107,10 @@
   color: $color-gray-dark;
 }
 
+.link:hover {
+  cursor: pointer;
+}
+
 .link-selected {
   color: $color-main;
 }
