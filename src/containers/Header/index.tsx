@@ -141,7 +141,7 @@ export default function Header() {
             className={classNames(styles.login, {[styles["login-hidden"]]: isAuth, [styles["login-main"]]: isMain})}
             onClick={!isAuth ? toggleLoginForm : toggleNavBarForm}
           >
-            <PersonIcon className={styles.icon}/><span className={styles.profile}>{isAuth ? (user?.email || t("profile")) : t("login")}</span>
+            <PersonIcon className={styles.iconDesc}/><span className={styles.profile}>{isAuth ? (user?.email || t("profile")) : t("login")}</span>
             {isAuth && <ArrowDropDown/>}
           </button>
           </>

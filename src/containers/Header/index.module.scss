@@ -117,11 +117,14 @@
 }
 
 .login {
-  // border-bottom: 2px solid $color-black;
+  border-bottom: 2px solid $color-black;
   padding: 0 10px;
   display: flex;
   align-items: center;
 
+  .iconDesc {
+    margin-right: 10px;
+  }
   &-hidden {
     @include media-down($break-md) {
       display: none;
