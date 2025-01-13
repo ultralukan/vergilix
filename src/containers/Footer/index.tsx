@@ -36,7 +36,7 @@ export default function Footer() {
       </div>
       <div className={classNames(styles["bgImage"], {[styles["bgImage-hidden"]]: !isMain})}>
         <video
-          controls
+          playsInline
           preload="metadata"
           loop
           autoPlay

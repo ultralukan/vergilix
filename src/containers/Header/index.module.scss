@@ -122,9 +122,6 @@
   display: flex;
   align-items: center;
 
-  .icon {
-    margin-right: 10px;
-  }
   &-hidden {
     @include media-down($break-md) {
       display: none;

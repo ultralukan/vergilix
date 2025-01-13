@@ -4,7 +4,7 @@ export const VideoComponent = ({ fadeOut }: { fadeOut: boolean }) => {
   return (
     <div className={`${styles.bg} ${fadeOut ? styles.fadeOut : ""}`}>
       <video
-        controls
+        playsInline
         preload="metadata"
         loop
         autoPlay

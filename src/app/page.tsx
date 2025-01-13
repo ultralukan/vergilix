@@ -386,7 +386,7 @@ function Home() {
       </div>
       <div className={styles.bgImage}>
         <video
-          controls
+          playsInline
           preload="metadata"
           loop
           autoPlay

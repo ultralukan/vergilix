@@ -412,7 +412,7 @@ function Trade() {
             className={styles.videoImage}
           />
           <video
-            controls
+            playsInline
             width="100%"
             height="auto"
             preload="metadata"
