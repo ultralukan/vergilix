@@ -56,10 +56,15 @@
 	display: flex;
 	justify-content: center;
 	@include typographyHeading(sm, bold);
+	gap: 20px;
+	@include media-down($break-sm) {
+		flex-direction: column;
+		gap: 0;
+	}
 }
 
 .resendedVerifBtn {
-	margin-left: 20px;
+
 
 	&:hover {
 		cursor: pointer;
