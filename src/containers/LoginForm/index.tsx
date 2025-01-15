@@ -15,6 +15,7 @@ import { setToken } from "@/store/slices/authSlice";
 import Cookies from 'js-cookie';
 import { InputAdornment } from "@mui/material";
 import { ApiError } from "@/types/error";
+import Image from "next/image";
 
 type Props = {
   setIsReset: (value: boolean) => void,
@@ -32,6 +33,7 @@ export default function LoginForm({setIsReset}: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
+  const [hidePassword, setHidePassword] = useState(true);
   
   const handleSubmit = async (values: { email: string; password: string }) => {
     try {
@@ -99,14 +101,23 @@ export default function LoginForm({setIsReset}: Props) {
             <Input 
               label={t('password')}
               name='password'
-              type="password"
+              type={hidePassword ? "password" : "text"}
               value={password}
               setValue={setPassword}
               required
               InputProps={{
-                endAdornment: setIsReset && (
+                endAdornment: (
                   <InputAdornment className={styles.adornment} position="end">
-                    <button onClick={() => setIsReset(true)}>{t("forgot")}</button>
+                    {password && (
+                      <Image
+                        src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                        width={30}
+                        height={30}
+                        alt="showPassword"
+                        onClick={() => setHidePassword(prev => !prev)}
+                        style={{ cursor: 'pointer' }}
+                      />
+                    )}
                   </InputAdornment>
                 ),
               }}

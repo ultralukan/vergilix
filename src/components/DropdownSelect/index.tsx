@@ -2,15 +2,14 @@
 
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Autocomplete from "@mui/material/Autocomplete";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import InputAdornment from "@mui/material/InputAdornment";
 import Image from "next/image";
 import { Option } from "@/types/option";
 import { useFormikContext } from "formik";
-import Input from "../Input";
-import styles from "./index.module.scss";
-import { getIconPath, isFiat } from "@/services/exchange";
-import { SxProps } from "@mui/material";
+import { getIconPath } from "@/services/exchange";
+import { FormControl, SxProps } from "@mui/material";
 import { Theme } from "@emotion/react";
 
 interface DropdownSelectProps {
@@ -27,56 +26,6 @@ interface DropdownSelectProps {
 interface FormValues {
   [key: string]: string;
 }
-
-
-// const baseStyles: SxProps<Theme> = {
-//   "& .MuiFilledInput-root": {
-//     color: "#000",
-//     backgroundColor: "#fff !important",
-//     boxShadow: "-1px 0 5px rgba(0, 0, 0, 0.1)",
-//     borderRadius: "3px",
-//     height: "100%",
-//     "&:before": {
-//       display: "none",
-//     },
-//     "&:after": {
-//       display: "none",
-//     },
-//     ":hover:not(.Mui-focused)": {
-//       "&:before": {
-//         border: "none",
-//       },
-//       backgroundColor: "#fff",
-//     },
-//   },
-//   "& .MuiInputLabel-filled": {
-//     color: "#A3A3A3",
-//     fontWeight: "bold",
-//     "&.Mui-focused": {
-//       color: "#A3A3A3",
-//     },
-//     "&.Mui-disabled": {
-//       color: "#75777F",
-//     },
-//   },
-//   "& .MuiInputLabel-root": {
-//     paddingLeft: "5px",
-//   },
-//   "& .MuiInputLabel-shrink": {
-//     position: "absolute",
-//     right: "0",
-//     left: "0",
-//     top: "-2px",
-//     maxWidth: "100%",
-//   },
-//   "& .MuiInputBase-root": {
-//     padding: '10px',
-//     height: "100%",
-//   },
-//   "& .MuiInputAdornment-root": {
-//     margin: '0 !important',
-//   },
-// };
 
 const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
@@ -96,16 +45,11 @@ const baseStyles: SxProps<Theme> = {
       },
       backgroundColor: "#fff",
     },
-    "@media (min-width: 800px)": {
-      borderRadius: "5px",
-    },
-    "@media (min-width: 1100px)": {
-      boxShadow: "-1px 0 10px rgba(0, 0, 0, 0.1)",
-    },
   },
   "& .MuiInputLabel-filled": {
-    color: "#A3A3A3",
     fontWeight: "bold",
+    fontSize: "22px",
+    color: "#A3A3A3",
     "&.Mui-focused": {
       color: "#A3A3A3",
     },
@@ -127,7 +71,7 @@ const baseStyles: SxProps<Theme> = {
   },
   "& .MuiInputBase-input": {
     height: "36px",
-    padding: "20px",
+    paddingLeft: "20px",
     borderRadius: "3px",
     fontWeight: "bold",
     fontSize: "22px",
@@ -150,10 +94,13 @@ const baseStyles: SxProps<Theme> = {
   },
   "& .MuiInputLabel-root": {
     right: 0,
-    top: "5px",
+    top: "3px",
     paddingLeft: "10px",
     "@media (min-width: 800px)": {
       top: "7px",
+    },
+    "@media (min-width: 1100px)": {
+      top: "3px",
     },
     "@media (min-width: 2000px)": {
       top: "12px",
@@ -174,11 +121,9 @@ const baseStyles: SxProps<Theme> = {
     marginRight: "6px",
   },
   "& .MuiInputBase-root": {
-    padding: "10px 10px 10px 10px !important",
     height: "100%",
   },
 };
-
 
 export default function DropdownSelect({
   name,
@@ -188,54 +133,36 @@ export default function DropdownSelect({
   label,
   customStyles,
 }: DropdownSelectProps) {
+  const { setFieldValue, handleBlur, touched, errors } = useFormikContext<FormValues>();
 
-  const {setFieldValue, handleBlur, touched, errors} = useFormikContext<FormValues>();
-
-	const handleChange = (event: React.SyntheticEvent<Element, Event>, value: Option | null) => {
-		if(value) {
-			setSelectedItem(value);
-			setFieldValue(name, value.label);
-		} else {
-			setSelectedItem(null);
-			setFieldValue(name, '');
-		}
-	}
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const value = event.target.value as string;
+    const selectedOption = options.find((option) => option.label === value) || null;
+    setSelectedItem(selectedOption);
+    setFieldValue(name, value);
+  };
 
   return (
-    <Box sx={{
-      ...(customStyles as SxProps<Theme>),
-      '@media (min-width: 360px)': {
-        minWidth: 160,
-      },
-    }}>
-      <Autocomplete
-        options={options}
-        value={selectedItem}
-        id={name}
+    <FormControl
+      sx={{
+        ...(baseStyles as SxProps<Theme>),
+        ...(customStyles as SxProps<Theme>),
+        minWidth: 155
+      }}
+      variant="filled"
+    >
+      <Select
+        value={selectedItem ? selectedItem.label : ""}
         onChange={handleChange}
-        getOptionLabel={(option) => option.label || ""}
-        renderOption={(props, option) => {
-          const { key, ...rest } = props;
-          return (
-            <li key={key} {...rest} style={{ borderBottom: '1px solid #ccc', padding: '8px 16px' }}>
-              <Image
-                className={styles.icon}
-                width={24}
-                height={24}
-                alt={option.label as string}
-                src={option.icon as string}
-              />
-              {option.label}
-            </li>
-          )
+        onBlur={handleBlur}
+        displayEmpty
+        inputProps={{
+          "aria-labelledby": name,
         }}
-        renderInput={(params) => (
-          <Input
-            {...params}
-            placeholder={label || ""}
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: selectedItem ? (
+        renderValue={(value) => {
+          if (selectedItem) {
+            return (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <InputAdornment position="start">
                   <Image
                     src={getIconPath(selectedItem.label)}
@@ -244,17 +171,28 @@ export default function DropdownSelect({
                     height={24}
                   />
                 </InputAdornment>
-              ) : null,
-            }}
-            sx={{
-              ...(baseStyles as SxProps<Theme>),
-            }}
-            required
-            error={touched[name] && Boolean(errors[name])}
-            helperText={touched[name] && errors[name]}
-          />
-        )}
-      />
-    </Box>
+                {selectedItem.label}
+              </Box>
+            );
+          }
+          return label || "";
+        }}
+        error={touched[name] && Boolean(errors[name])}
+      >
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.label}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Image
+                width={24}
+                height={24}
+                alt={option.label as string}
+                src={option.icon as string}
+              />
+              <Box sx={{ ml: 1 }}>{option.label}</Box>
+            </Box>
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

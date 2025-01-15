@@ -1,7 +1,4 @@
 .page {
-  flex: 1;
-  position: relative;
-  z-index: 1;
   background: $color-gray;
   padding: 120px 15rem 30px;
   
@@ -20,6 +17,7 @@
   @include media-down($break-sm) {
     padding: 100px 20px 30px;
   }
+  flex: 1;
 }
 
 .title {
@@ -27,24 +25,4 @@
   background: $color-main;
   padding: 5px 15px 0;
   margin-bottom: 20px;
-}
-
-.image {
-  position: absolute;
-  z-index: -1;
-  right: 20%;
-  top: 280px;
-  scale: 4;
-
-  @include media-down($break-sm) {
-    display: none;
-  }
-}
-
-.content {
-  min-width: 90vw;
-  @include media-down($break-sm) {
-    min-width: 100vw;
-    margin-left: -20px;
-  }
 }

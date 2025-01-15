@@ -2,17 +2,12 @@
 
 import { useTranslations } from "next-intl";
 import styles from "./index.module.scss";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { Form, Formik } from "formik";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { Captcha } from "@/components/Captcha";
-import ReCAPTCHA from "react-google-recaptcha";
 import { createValidationSchema } from "./validation";
-import { useAppDispatch } from "@/store";
-import { useRegisterMutation } from "@/api/auth";
-import { setToken } from "@/store/slices/authSlice";
-import Cookies from 'js-cookie';
+import { useResetPasswordRequestMutation } from "@/api/auth";
 import { ApiError } from "next/dist/server/api-utils";
 
 export default function ResetForm() {
@@ -23,8 +18,7 @@ export default function ResetForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useAppDispatch();
-  const [register] = useRegisterMutation();
+  const [resetPassword] = useResetPasswordRequestMutation();
   
   const handleSubmit = async (
     values: { email: string },
@@ -35,19 +29,19 @@ export default function ResetForm() {
       setSuccessMessage('');
       setIsLoading(true);
       const { email } = values;
-      const response = await register({ email }).unwrap();
+      const response = await resetPassword({ email }).unwrap();
       if (response) {
-        setSuccessMessage(a("registerSuccess"));
+        setSuccessMessage(a("resetPasswordSuccess"));
         resetForm();
       }
     } catch (error: unknown) {
       if (error && (error as ApiError).data) {
         const status = (error as ApiError).status;
     
-        if (status === 400 || status === 401) {
-          setErrorMessage(a("registerError"));
+        if (status === 404) {
+          setErrorMessage(a("resetPassword404"));
         } else {
-          setErrorMessage('An unexpected error occurred');
+          setErrorMessage(a("resetPassword500"));
         }
       }
     } finally {

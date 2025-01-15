@@ -1,0 +1,113 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+
+  @include media-down($break-xxl) {
+    max-width: 1000px;
+  }
+
+  h5 {
+    margin-bottom: 20px;
+  }
+
+  .title {
+    display: inline-block;
+    background: $color-main;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }
+
+  .titleError {
+    display: inline-block;
+    background: red;
+    padding: 5px 15px 0;
+    margin-bottom: 20px;
+  }
+}
+
+.formItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button {
+  width: 400px;
+  min-width: 300px;
+  margin-top: 40px;
+  max-width: 100%;
+
+  @include media-down($break-xl) {
+    width: 300px;
+  }
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+  z-index: 2;
+
+
+  .fields, .rules {
+    width: (calc(50% - 20px));
+
+    @include media-down($break-sm) {
+      width: 100%;
+    }
+  }
+  
+  .rules {
+    @include media-down($break-sm) {
+     h5 {
+      @include typography(xxl, bold);
+     }
+     ul {
+      li {
+        @include typography(md);
+      }
+     }
+    }
+  }
+
+  ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+  }
+  
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 2px;
+    background-color: $color-main;
+  }
+
+  @include media-down($break-md) {
+    flex-direction: column;
+  }
+}
+
+.image {
+  position: absolute;
+  right: 10%;
+  z-index: 1;
+  top: 250px;
+  scale: 3;
+
+  @include media-down($break-md) {
+    display: none;
+  }
+}

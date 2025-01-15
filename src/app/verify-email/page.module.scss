@@ -1,5 +1,6 @@
 .page {
   padding: 120px 15rem 30px;
+  background: $color-gray;
   
   @include media-down($break-xxl) {
     padding: 120px 10rem 30px;

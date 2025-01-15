@@ -7,10 +7,12 @@ import Input from "@/components/Input";
 import { useTranslations } from "next-intl";
 import Button from "@/components/Button";
 import { createValidationSchema } from "./validation";
-import { useUpdateUserMutation } from "@/api/user";
+import { useResetPasswordMutation } from "@/api/auth";
 import { ApiError } from "@/types/error";
+import ModalComponent from "@/components/Modal";
 import { InputAdornment } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function sanitizeHTML(content: string): string {
   const tempDiv = document.createElement("div");
@@ -18,50 +20,53 @@ function sanitizeHTML(content: string): string {
   return tempDiv.innerHTML;
 }
 
-export default function PasswordRecover() {
+export default function PasswordRecoverReset({token}) {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
-  const [edit, setEdit] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const router = useRouter();
 
-  const t = useTranslations('FormPassRecovery');
+  const handleOpen = () => setModal(true);
+  
+  const handleClose = () => {
+    setModal(false);
+    if(isSuccess) {
+      router.push('/')
+    }
+  }
+
+
+  const t = useTranslations('ResetPassword');
+  const r = useTranslations('FormPassRecovery');
   const e = useTranslations('Validation');
   const a = useTranslations('API');
-  const [update] = useUpdateUserMutation();
+  const [update] = useResetPasswordMutation();
 
-  const faqItems = t.raw("items");
-  
+  const faqItems = r.raw("items");
 
   const handleSubmit = async (values, { resetForm }) => {
-    if (edit) return;
     
     try {
       setSuccessMessage("");
       setErrorMessage("");
       setIsLoading(true);
       const { password } = values;
-      const response = await update({ password }).unwrap();
-  
+      const response = await update({ token, newPassword: password }).unwrap();
       if (response) {
         resetForm();
-        setSuccessMessage(t("successMessage"));
-        setEdit(true);
+        setIsSuccess(true);
+        handleOpen()
         setPasswordConf("");
         setPassword("");
       }
-    } catch (error) {
-      if (error && (error as ApiError).data) {
-        const status = (error as ApiError).status;
-  
-        if ([400, 401, 404, 500].includes(status)) {
-          setErrorMessage(a(`updateUser${status}`));
-        } else {
-          setErrorMessage("An unexpected error occurred");
-        }
-      }
+    } catch {
+      setIsSuccess(false);
+      handleOpen()
     } finally {
       setIsLoading(false);
     }
@@ -77,6 +82,7 @@ export default function PasswordRecover() {
   const validationSchema = useMemo(() => createValidationSchema(e), [e])
 
   return(
+    <>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -89,16 +95,15 @@ export default function PasswordRecover() {
         {errorMessage ? <h5 className={styles.titleError}>{errorMessage}</h5> : successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
           <div className={styles.main}>
             <div className={styles.fields}>
-              <h5>{t('title')}</h5>
+
               <div className={styles.formItems}>
                 <div className={styles.formItem}>
                   <Input
-                    label={t('password')}
+                    label={r('password')}
                     name='password'
                     type={hidePassword ? "password" : "text"}
                     value={password}
                     setValue={setPassword}
-                    disabled={edit}
                     required
                     InputProps={{
                       endAdornment: (
@@ -120,12 +125,11 @@ export default function PasswordRecover() {
                 </div>
                 <div className={styles.formItem}>
                   <Input
-                    label={t('repeatPassword')}
+                    label={r('repeatPassword')}
                     name='passwordConf'
                     type={hidePassword ? "password" : "text"}
                     value={passwordConf}
                     setValue={setPasswordConf}
-                    disabled={edit}
                     required
                     InputProps={{
                       endAdornment: (
@@ -148,21 +152,15 @@ export default function PasswordRecover() {
               </div>
             <div className={styles.button}>
               <Button
-                label={edit ? t("formEdit") : t("formSave")}
-                type={edit ? "button" : "submit"}
+                label={r("formSave")}
+                type={"submit"}
                 isLoading={isLoading}
                 disabled={isLoading}
-                onClick={(e) => {
-                  if (edit) {
-                    e.preventDefault();
-                    setEdit(false);
-                  }
-                }}
               />
             </div>
             </div>
             <div className={styles.rules}>
-              <h5>{t('rulesTitle')}</h5>
+              <h5>{r('rulesTitle')}</h5>
               <ul>
               {faqItems.map((item: { content: string }, index: number) => (
                 <li>{item.label}</li>
@@ -173,5 +171,13 @@ export default function PasswordRecover() {
           <img className={styles.image} src="./lock.svg"/>
         </Form>
       </Formik>
+      <ModalComponent 
+        open={modal} 
+        onClose={handleClose} 
+        title={isSuccess ? t("success") : t("error")} 
+        btnText={isSuccess ? t("btnSuccess") : t("btnError")}
+        status={isSuccess}
+      />
+    </>
   )
 }

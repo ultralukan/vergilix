@@ -20,7 +20,7 @@
 .errorMessage, .successMessage {
 	border-radius: 5px;
 	padding: 20px;
-	@include typography(md);
+	@include typography(md, bold);
 }
 
 .errorMessage {

@@ -33,7 +33,9 @@
     "and": "и",
     "registerSuccessTitle": "Вы успешно зарегистрировались!",
     "registerSuccessText": "Спасибо за регистрацию! Мы отправили письмо с подтверждением на указанный вами адрес электронной почты.",
-    "registerSuccessBtn": "Спасибо, всё понятно"
+    "registerSuccessBtn": "Спасибо, всё понятно",
+    "registerSendVerif": "Не пришло письмо?",
+    "registerSendVerifBtn": "Отправить повторно"
   },
   "Footer": {
     "terms": "Условия использования",
@@ -47,23 +49,23 @@
     "items": [
       {
         "label": "Где хранить биткоины и/или альткоины?",
-        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+        "content": "Для безопасного хранения криптовалюты рекомендуется использовать аппаратные кошельки, такие как Ledger или Trezor, либо программные кошельки, поддерживающие мультиподпись и шифрование. Не оставляйте значительные суммы на биржах, так как они подвержены взлому."
       },
       {
         "label": "Где купить биткоины (или другую криптовалюту) без комиссии с банковской карты или за наличные?",
-        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+        "content": "Купите биткоины и другие криптовалюты на Vergilix с использованием вашей банковской карты. Мы обеспечиваем быстрые и безопасные транзакции, минимальные комиссии и простой интерфейс для удобства пользователей. Начните прямо сейчас!"
       },
       {
         "label": "Как отслеживать свой портфель?",
-        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+        "content": "Используйте приложения для мониторинга криптовалют, такие как CoinGecko, CoinMarketCap или специализированные трекеры портфеля, такие как Delta и Blockfolio. Они помогут вам отслеживать изменения цен и прибыль по вашим инвестициям."
       },
       {
         "label": "Почему растёт та или иная монета (токен)?",
-        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+        "content": "Рост стоимости криптовалюты может быть вызван многими факторами: новостями, технологическими обновлениями, увеличением интереса со стороны инвесторов или снижением предложения. Всегда анализируйте фундаментальные и технические показатели перед покупкой."
       },
       {
         "label": "Что такое ICO и как заработать на токенах?",
-        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s..."
+        "content": "ICO (Initial Coin Offering) — это способ привлечения инвестиций для новых криптовалютных проектов. Инвесторы покупают токены проекта на ранних стадиях по сниженной цене. Чтобы заработать, важно изучить проект, команду и его планы, чтобы избежать мошенничества."
       }
     ]
   },
@@ -129,7 +131,14 @@
     "updateUser400": "Переданные данные не прошли проверку валидации",
     "updateUser401": "Не передан или недействителен токен авторизации",
     "updateUser404": "Пользователь не найден",
-    "updateUser500": "Внутренняя ошибка сервера при обновлении данных"
+    "updateUser500": "Внутренняя ошибка сервера при обновлении данных",
+    "resetPasswordSuccess": "Письмо с ссылкой на сброс пароля успешно отправлено.",
+    "resetPassword404": "Письмо с ссылкой на сброс пароля успешно отправлено.",
+    "resetPassword500": "Ошибка сервера при обработке запроса.",
+    "resendVerifSuccess": "Письмо отправлено повторно",
+    "resendVerif404": "Пользователь с указанной почтой не найден",
+    "resendVerif400": "Почта уже подтверждена",
+    "resendVerif500": "Ошибка сервера при обработке запроса"
   },
   "Profile": {
     "title": "Мой профиль",
@@ -273,7 +282,8 @@
     "success": "Ваш email успешно подтвержден!",
     "error": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте еще раз.",
     "btnSuccess": "Завершить",
-    "btnError": "Спасибо, все понятно"
+    "btnError": "Спасибо, все понятно",
+    "title": "Верификация"
   }, 
   "Trade": {
     "titleStep1": "Ожидание перевода",
@@ -327,5 +337,13 @@
     "problem": "Описание проблемы",
     "btnText": "Отправить",
     "uploadText": "Приложить файлы"
+  },
+  "ResetPassword": {
+    "title": "Сброс пароля",
+    "formEdit": "Сохранить",
+    "success": "Пароль успешно изменен",
+    "error": "Произошла ошибка. Повторите позднее",
+    "btnSuccess": "Завершить",
+    "btnError": "Спасибо, все понятно"
   }
 }
