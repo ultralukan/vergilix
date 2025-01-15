@@ -123,7 +123,10 @@
   align-items: center;
 
   .iconDesc {
-    margin-right: 10px;
+
+    @include media-up($break-md) {
+      margin-right: 10px;
+    }
   }
   &-hidden {
     @include media-down($break-md) {
