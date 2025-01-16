@@ -120,9 +120,6 @@ const baseStyles: SxProps<Theme> = {
     marginTop: "0 !important",
     marginRight: "6px",
   },
-  "& .MuiInputBase-root": {
-    height: "100%",
-  },
 };
 
 export default function DropdownSelect({
