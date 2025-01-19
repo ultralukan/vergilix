@@ -41,12 +41,12 @@ export default function Footer() {
           loop
           autoPlay
           muted
-          className={styles.bgImage}
         >
-          <source src="/promo.mov" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>    
+          <source src="/promo.mov" type="video/mp4"/>
+          Your browser does not support the video tag.
+        </video>
       </div>
+      <img className={classNames(styles.bgImage, {[styles["bgImage-mobile"]]: true})} src="./video-image.png" alt={'video'}/>
     </footer>
   )
 }

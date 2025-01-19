@@ -18,7 +18,6 @@ const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
     color: "#000",
     backgroundColor: "#fff !important",
-    boxShadow: "-1px 0 5px rgba(0, 0, 0, 0.1)",
     borderRadius: "3px",
     "&:before": {
       display: "none",
@@ -35,8 +34,9 @@ const baseStyles: SxProps<Theme> = {
   },
   "& .MuiInputLabel-filled": {
     fontWeight: "bold",
-    fontSize: "22px",
+    fontSize: "20px",
     color: "#A3A3A3",
+    lineHeight: "34px",
     "&.Mui-focused": {
       color: "#A3A3A3",
     },
@@ -59,9 +59,10 @@ const baseStyles: SxProps<Theme> = {
   "& .MuiInputBase-input": {
     height: "36px",
     paddingLeft: "20px",
-    borderRadius: "3px",
+    borderRadius: "5px",
     fontWeight: "bold",
-    fontSize: "22px",
+    fontSize: "20px",
+    letterSpacing: "-0.5px",
     "@media (min-width: 800px)": {
       height: "32px",
       fontSize: "20px",
@@ -107,6 +108,7 @@ const baseStyles: SxProps<Theme> = {
     right: 0,
     top: "3px",
     paddingLeft: "10px",
+    letterSpacing: "-0.5px",
     "@media (min-width: 800px)": {
       top: "7px",
     },
@@ -121,12 +123,31 @@ const baseStyles: SxProps<Theme> = {
     position: "absolute",
     right: "0",
     left: "0",
-    top: "-3px",
+    top: "2px",
     maxWidth: "100%",
+    textTransform: "uppercase",
+    fontSize: "16px",
+    letterSpacing: "normal",
+    fontWeight: "bold",
     "@media (min-width: 800px)": {
       top: "-1px",
+      fontSize: "18px",
     },
   },
+  "& .MuiInputBase-root": {
+    height: "69px",
+  },
+};
+
+const deepMergeStyles = (base: SxProps<Theme>, custom: SxProps<Theme>): SxProps<Theme> => {
+  return {
+    ...base,
+    ...custom,
+    "& .MuiFilledInput-root": {
+      ...(base["& .MuiFilledInput-root"] as object),
+      ...(custom["& .MuiFilledInput-root"] as object),
+    },
+  };
 };
 
 export default function Input({
@@ -144,6 +165,8 @@ export default function Input({
     setValue(e.target.value);
   };
 
+  const mergedStyles = deepMergeStyles(baseStyles, customStyles || {});
+
   return (
     <TextField
       id={name}
@@ -158,8 +181,7 @@ export default function Input({
       variant="filled"
       fullWidth
       sx={{
-        ...(baseStyles as SxProps<Theme>),
-        ...(customStyles as SxProps<Theme>),
+        ...mergedStyles,
         // minWidth: 180,
       }}
       {...props}

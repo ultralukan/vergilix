@@ -8,7 +8,7 @@ export const userApi = baseApi.injectEndpoints({
         url: '/user',
         method: 'GET',
       }),
-      providesTags: ['USER']
+      providesTags: ['USER', 'WITHDRAWAL']
     }),
     updateUser: builder.mutation<UserType, UserTypeApi>({
       query: (data) => ({

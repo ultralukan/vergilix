@@ -10,6 +10,7 @@ import Button from "../Button";
 import { CustomPagination } from "../CustomPagination";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import Image from "next/image";
+import {black} from "next/dist/lib/picocolors";
 
 interface TableRow {
   _id: string;
@@ -136,10 +137,16 @@ export const TradesTable: React.FC<CustomTableProps> = ({ data }) => {
   return (
     <>
       <div className={styles.selectContainer}>
-        <FormControl  sx={{
-          '@media (min-width: 500px)': {
-            width: '300px'
-          }}} fullWidth>
+        <FormControl
+          sx={{
+            width: "100%",
+            "@media (min-width: 500px)": {
+              width: "300px",
+              marginLeft: "0",
+            },
+          }}
+          fullWidth
+        >
           <Select
             labelId="status-select-label"
             value={selectedStatus}
@@ -150,14 +157,35 @@ export const TradesTable: React.FC<CustomTableProps> = ({ data }) => {
             }}
             className={styles.select}
             sx={{
-              background: '#FFF',
-              "&:hover .MuiOutlinedInput-notchedOutline": {
-                border: '1px solid #71E0C1'
+              background: "#F3F5F7",
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none",
               },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                border: '1px solid #71E0C1'
+              "&:before": {
+                display: "none",
+              },
+              "&:after": {
+                display: "none",
+              },
+              "& .MuiSelect-select": {
+                fontWeight: "bold",
+                color: black,
+                padding: '20px 0',
+                fontSize: "20px",
+                letterSpacing: "-0.5px",
+                "@media (max-width: 768px)": {
+                  padding: '0',
+                },
+              },
+              "& .MuiSelect-icon": {
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                top: "0",
               },
             }}
+            IconComponent={(props) => (<Image src={"/dropdown.svg"} width={15} height={15} alt="more" {...props}/>)}
             MenuProps={{
               open: isMenuOpen,
               onClose: () => setIsMenuOpen(false),

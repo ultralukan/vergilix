@@ -18,7 +18,6 @@ const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
     color: "#000",
     backgroundColor: "#fff !important",
-    boxShadow: "-1px 0 5px rgba(0, 0, 0, 0.1)",
     borderRadius: "3px",
     "&:before": {
       display: "none",
@@ -35,8 +34,9 @@ const baseStyles: SxProps<Theme> = {
   },
   "& .MuiInputLabel-filled": {
     fontWeight: "bold",
-    fontSize: "22px",
+    fontSize: "20px",
     color: "#A3A3A3",
+    lineHeight: "34px",
     "&.Mui-focused": {
       color: "#A3A3A3",
     },
@@ -59,9 +59,10 @@ const baseStyles: SxProps<Theme> = {
   "& .MuiInputBase-input": {
     height: "36px",
     paddingLeft: "20px",
-    borderRadius: "3px",
+    borderRadius: "5px",
     fontWeight: "bold",
-    fontSize: "22px",
+    fontSize: "20px",
+    letterSpacing: "-0.5px",
     "@media (min-width: 800px)": {
       height: "32px",
       fontSize: "20px",
@@ -107,6 +108,7 @@ const baseStyles: SxProps<Theme> = {
     right: 0,
     top: "3px",
     paddingLeft: "10px",
+    letterSpacing: "-0.5px",
     "@media (min-width: 800px)": {
       top: "7px",
     },
@@ -121,11 +123,19 @@ const baseStyles: SxProps<Theme> = {
     position: "absolute",
     right: "0",
     left: "0",
-    top: "-3px",
+    top: "2px",
     maxWidth: "100%",
+    textTransform: "uppercase",
+    fontSize: "16px",
+    letterSpacing: "normal",
+    fontWeight: "bold",
     "@media (min-width: 800px)": {
       top: "-1px",
+      fontSize: "18px",
     },
+  },
+  "& .MuiInputBase-root": {
+    height: "69px",
   },
   "& .MuiSvgIcon-root": {
     color: "#6BE8C2",
@@ -158,63 +168,63 @@ export default function DatePC({
   const isValidDate = parsedValue && parsedValue.isValid();
 
   return (
-<DatePicker
-  value={isValidDate ? parsedValue : null}
-  onChange={handleChange}
-  label={label}
-  localeText={{
-    toolbarTitle: t("toolbarTitle"),
-    cancelButtonLabel: t("cancelButtonLabel"),
-    okButtonLabel: t("okButtonLabel"),
-  }}
-  slotProps={{
-    textField: {
-      name,
-      error: touched[name] && Boolean(errors[name]),
-      helperText: touched[name] && errors[name],
-      onBlur: handleBlur,
-      className: styles.input,
-      variant: "filled",
-      fullWidth: true,
-      sx: {
-        ...(baseStyles as SxProps<Theme>),
-        ...(customStyles as SxProps<Theme>),
-      },
-      ...props,
-    },
-    actionBar: {
-      actions: ["cancel", "accept"],
-      sx: {
-        backgroundColor: "#f5f5f5",
-        padding: "10px",
-        borderTop: "1px solid #ddd",
-      },
-    },
-    desktopPaper: {
-      sx: {
-        "& .Mui-selected": {
-          backgroundColor: "#6BE8C2 !important",
-        }
-      },
-    },
-    mobilePaper: {
-      sx: {
-        "& .MuiDialogActions-root .MuiButtonBase-root": {
-          backgroundColor: "black",
-          color: "#fff",
-          borderRadius: "5px",
-          padding: "10px 20px",
-          margin: "0 5px",
-          "&:hover": {
-            backgroundColor: "#4ECB9F",
+    <DatePicker
+      value={isValidDate ? parsedValue : null}
+      onChange={handleChange}
+      label={label}
+      localeText={{
+        toolbarTitle: t("toolbarTitle"),
+        cancelButtonLabel: t("cancelButtonLabel"),
+        okButtonLabel: t("okButtonLabel"),
+      }}
+      slotProps={{
+        textField: {
+          name,
+          error: touched[name] && Boolean(errors[name]),
+          helperText: touched[name] && errors[name],
+          onBlur: handleBlur,
+          className: styles.input,
+          variant: "filled",
+          fullWidth: true,
+          sx: {
+            ...(baseStyles as SxProps<Theme>),
+            ...(customStyles as SxProps<Theme>),
+          },
+          ...props,
+        },
+        actionBar: {
+          actions: ["cancel", "accept"],
+          sx: {
+            backgroundColor: "#f5f5f5",
+            padding: "10px",
+            borderTop: "1px solid #ddd",
           },
         },
-        "& .Mui-selected": {
-          backgroundColor: "#6BE8C2 !important",
-        }
-      },
-    },
-  }}
-/>
+        desktopPaper: {
+          sx: {
+            "& .Mui-selected": {
+              backgroundColor: "#6BE8C2 !important",
+            }
+          },
+        },
+        mobilePaper: {
+          sx: {
+            "& .MuiDialogActions-root .MuiButtonBase-root": {
+              backgroundColor: "black",
+              color: "#fff",
+              borderRadius: "5px",
+              padding: "10px 20px",
+              margin: "0 5px",
+              "&:hover": {
+                backgroundColor: "#4ECB9F",
+              },
+            },
+            "& .Mui-selected": {
+              backgroundColor: "#6BE8C2 !important",
+            }
+          },
+        },
+      }}
+    />
   );
 }

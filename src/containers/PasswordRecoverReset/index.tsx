@@ -110,7 +110,7 @@ export default function PasswordRecoverReset({token}) {
                         <InputAdornment className={styles.adornment} position="end">
                           {password && (
                             <Image
-                              src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                              src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                               width={30}
                               height={30}
                               alt="showPassword"
@@ -136,7 +136,7 @@ export default function PasswordRecoverReset({token}) {
                         <InputAdornment className={styles.adornment} position="end">
                           {passwordConf && (
                             <Image
-                              src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                              src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                               width={30}
                               height={30}
                               alt="showPassword"
@@ -163,7 +163,7 @@ export default function PasswordRecoverReset({token}) {
               <h5>{r('rulesTitle')}</h5>
               <ul>
               {faqItems.map((item: { content: string }, index: number) => (
-                <li>{item.label}</li>
+                <li key={index}>{item.label}</li>
               ))}
               </ul>
             </div>

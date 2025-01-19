@@ -1,6 +1,12 @@
 .icon {
   width: 140px;
   color: $color-main;
+
+  @include media-down($break-sm) {
+    width: 80px;
+    min-width: 80px;
+    margin-top: 0;
+  }
 }
 
 .card {
@@ -11,34 +17,38 @@
   gap: 30px;
   justify-content: space-between;
   border-radius: 5px;
-  margin: 20px 0 40px;
+  margin: 20px 0 30px;
 
   @include media-down($break-sm) {
-    flex-direction: column;
-    gap: 20px;
     width: 100%;
+    margin-top: 0;
+    justify-content: left;
   }
 }
 
 .text {
   @include typographyHeading(xxxl, bold);
+  font-weight: bold;
 
   @include media-down($break-sm) {
-    @include typographyHeading(xxl, bold);
+    font-size: 35px;
   }
 }
 
 .textBalance {
   @include media-down($break-xs) {
     max-width: 240px;
-    overflow-x: scroll;
-    white-space: nowrap;
+    white-space: wrap;
+    word-break: break-all;
+    line-height: 1;
   }
 }
 
 .textLabel {
-  @include typography(xl);
+  @include typography(xl, bold);
+  line-height: 1;
   color: #7A7A7A;
+  margin-bottom: 10px;
 }
 
 .button {
@@ -47,4 +57,48 @@
     width: 100%;
     max-width: none;
   }
+}
+
+.title {
+  @include media-down($break-sm) {
+    display: none;
+  }
+}
+
+.main {
+  display: flex;
+  gap: 40px;
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}
+
+.formItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+
+  @include media-down($break-sm) {
+    gap: 10px;
+  }
+}
+
+.successMessage {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
 }

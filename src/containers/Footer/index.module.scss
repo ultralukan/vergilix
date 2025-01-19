@@ -21,6 +21,10 @@
     .content, .contentSocial {
       z-index: 99999;
     }
+
+    .bgImage-mobile {
+      display: block;
+    }
   }
   font-size: 22px;
   @include media-down($break-xxl) {
@@ -146,4 +150,8 @@
       transform: scale(1);
     }
   }
+}
+
+.bgImage-mobile {
+  display: none;
 }

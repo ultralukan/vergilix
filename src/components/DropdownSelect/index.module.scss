@@ -1,0 +1,12 @@
+.customSelectIcon {
+  margin-right: 20px;
+  height: 15px;
+  width: 15px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.MuiSelect-icon {
+  display: none;
+}

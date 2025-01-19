@@ -1,6 +1,6 @@
 .wrapper {
   background-color: $color-white;
-  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 25px 6px #70778A12;
   padding: 40px;
   width: 100%;
   display: flex;
@@ -11,6 +11,7 @@
     flex-direction: row;
     padding: 30px;
   }
+  border-radius: 5px;
 }
 
 .image {

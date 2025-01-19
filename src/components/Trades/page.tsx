@@ -106,8 +106,8 @@ export default function TradesComponent() {
 
   return (
     <div className={styles.page}>
-      <h2 className={styles.title}>{t("title")}</h2>
-      {isFetching ? ( <Box className={styles.linear}>
+      <h5 className={styles.title}>{t("title")}</h5>
+      {isFetching ? ( <Box className={styles.linear} sx={{marginTop: '20px'}}>
           <LinearIndeterminate />
         </Box>) :
       <TradesTable data={data}/>

@@ -45,6 +45,9 @@ function Providers({ children }: ProvidersProps) {
     const newTheme = createTheme(
       {
         ...customBreakpoints,
+        typography: {
+          fontFamily: "'HelveticaNeueCyr', Arial, sans-serif",
+        },
       },
       localeTheme
     );

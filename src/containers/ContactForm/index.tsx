@@ -105,13 +105,13 @@ export default function ContactForm() {
     >
       <Form className={styles.form}>
       {errorMessage ? <h5 className={styles.titleError}>{errorMessage}</h5> : successMessage ? <h5 className={styles.title}>{t('successMessage')}</h5> : null}
-        <h5>{t("titleContact")}</h5>
+        <h5 className={styles.header}>{t("titleContact")}</h5>
         <div className={styles.formRow}>
           <div className={styles.formItem}>
             <Input
               label={t("formTelegram")}
               name="telegram"
-              type="telegram"
+              type="text"
               value={telegram}
               setValue={setTelegram}
               disabled={edit}

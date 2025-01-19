@@ -17,7 +17,7 @@
   }
 
   @include media-down($break-sm) {
-    padding: 100px 20px 30px;
+    padding: 80px 20px 30px;
   }
 
   position: relative;
@@ -29,6 +29,10 @@
   background: $color-main;
   padding: 5px 15px 0;
   margin-bottom: 20px;
+
+  @include media-down($break-sm) {
+    display: none;
+  }
 }
 
 .main {

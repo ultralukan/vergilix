@@ -53,3 +53,9 @@
   }
 }
 
+.header {
+  line-height: 30px;
+  @include media-down($break-sm) {
+    display: none;
+  }
+}

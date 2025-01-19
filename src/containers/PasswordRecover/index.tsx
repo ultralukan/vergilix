@@ -105,7 +105,7 @@ export default function PasswordRecover() {
                         <InputAdornment className={styles.adornment} position="end">
                           {password && (
                             <Image
-                              src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                              src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                               width={30}
                               height={30}
                               alt="showPassword"
@@ -132,7 +132,7 @@ export default function PasswordRecover() {
                         <InputAdornment className={styles.adornment} position="end">
                           {passwordConf && (
                             <Image
-                              src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                              src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                               width={30}
                               height={30}
                               alt="showPassword"
@@ -164,9 +164,9 @@ export default function PasswordRecover() {
             <div className={styles.rules}>
               <h5>{t('rulesTitle')}</h5>
               <ul>
-              {faqItems.map((item: { content: string }, index: number) => (
-                <li>{item.label}</li>
-              ))}
+                {faqItems.map((item: { content: string }, index: number) => (
+                  <li key={index}>{item.label}</li>
+                ))}
               </ul>
             </div>
           </div>

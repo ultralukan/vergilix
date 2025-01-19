@@ -107,10 +107,10 @@ export default function LoginForm({setIsReset}: Props) {
               required
               InputProps={{
                 endAdornment: (
-                  <InputAdornment className={styles.adornment} position="end">
+                  <InputAdornment position="end">
                     {password && (
                       <Image
-                        src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                        src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                         width={30}
                         height={30}
                         alt="showPassword"

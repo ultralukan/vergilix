@@ -88,19 +88,19 @@ export default function NewsDetailPage() {
           </div>
         </div>
       </div>
-      {/* <h2 className={styles.title}>{data?.title}</h2> */}
-      {
-        !!title.length && (
-          <div className={styles.titles}>
-            {title.map((el, index) => (
-              <div key={index}>
-                <h2>{el}.</h2>
-                <hr/>
-              </div> 
-            ))}
-           </div> 
-        )
-      }
+       <h2 className={styles.title}>{data?.title}</h2>
+      {/*{*/}
+      {/*  !!title.length && (*/}
+      {/*    <div className={styles.titles}>*/}
+      {/*      {title.map((el, index) => (*/}
+      {/*        <div key={index}>*/}
+      {/*          <h2>{el}.</h2>*/}
+      {/*          <hr/>*/}
+      {/*        </div> */}
+      {/*      ))}*/}
+      {/*     </div> */}
+      {/*  )*/}
+      {/*}*/}
       <div className={styles.image}>
         <img src={image} alt="news" />
       </div>

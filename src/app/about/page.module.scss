@@ -67,6 +67,7 @@
     padding: 0;
     box-shadow: none;
     margin-bottom: 20px;
+    line-height: 31px;
   }
 }
 
@@ -147,6 +148,10 @@
   left: 40px;
   z-index: 2;
 
+  @include media-down($break-md) {
+    left: 20px;
+  }
+
   span {
     background: $color-main;
     color: $color-black;
@@ -162,6 +167,7 @@
 
     @include media-down($break-md) {
       @include typographyHeading(lg, bold);
+      padding: 0 5px;
     }
   }
 }
@@ -185,6 +191,7 @@
 
   @include media-down($break-md) {
     width: calc(50% - 30px);
+    margin-bottom: 20px;
   }
 
   @include media-down($break-sm) {

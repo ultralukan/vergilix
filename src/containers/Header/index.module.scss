@@ -19,6 +19,7 @@
   padding: 20px 40px;
   box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
   font-weight: bold;
+  min-height: 80px;
   &-main {
     box-shadow: none;
     padding-top: 40px;
@@ -70,10 +71,12 @@
 
   .profile-mobile {
     display: none;
+    padding: 5px 10px;
   }
 
   .profile-mobile-selected {
-    color: $color-main;
+    border-radius: 5px;
+    background-color: $color-main;
   }
 
   @include media-down($break-md) {
@@ -181,5 +184,11 @@
 
   @include media-up($break-md) {
     display: none;
+  }
+}
+
+.login {
+  @include media-down($break-md) {
+    border: none;
   }
 }

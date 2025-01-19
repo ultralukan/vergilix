@@ -161,7 +161,7 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
                     <InputAdornment className={styles.adornment} position="end">
                       {password && (
                         <Image
-                          src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                          src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                           width={30}
                           height={30}
                           alt="showPassword"
@@ -185,7 +185,7 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
                     <InputAdornment className={styles.adornment} position="end">
                       {confPassword && (
                         <Image
-                          src={!hidePassword ? "/eye-hidden.png" : "/eye.png"}
+                          src={!hidePassword ? "/eye-hidden.svg" : "/eye.svg"}
                           width={30}
                           height={30}
                           alt="showPassword"

@@ -11,6 +11,7 @@ import { useFormikContext } from "formik";
 import { getIconPath } from "@/services/exchange";
 import { FormControl, SxProps } from "@mui/material";
 import { Theme } from "@emotion/react";
+import {black} from "next/dist/lib/picocolors";
 
 interface DropdownSelectProps {
   label?: string;
@@ -31,8 +32,10 @@ const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
     color: "#000",
     backgroundColor: "#fff !important",
-    boxShadow: "-1px 0 5px rgba(0, 0, 0, 0.1)",
     borderRadius: "3px",
+    height: "69px",
+    display: "flex",
+    alignItems: "center",
     "&:before": {
       display: "none",
     },
@@ -71,10 +74,11 @@ const baseStyles: SxProps<Theme> = {
   },
   "& .MuiInputBase-input": {
     height: "36px",
-    padding: "auto 32px auto 20px",
-    borderRadius: "3px",
+    padding: "10px 32px 10px 20px",
     fontWeight: "bold",
-    fontSize: "22px",
+    letterSpacing: "-0.5px",
+    display: "flex",
+    alignItems: "center",
     "@media (min-width: 800px)": {
       height: "32px",
       fontSize: "20px",
@@ -122,6 +126,17 @@ const baseStyles: SxProps<Theme> = {
   },
 };
 
+const deepMergeStyles = (base: SxProps<Theme>, custom: SxProps<Theme>): SxProps<Theme> => {
+  return {
+    ...base,
+    ...custom,
+    "& .MuiFilledInput-root": {
+      ...(base["& .MuiFilledInput-root"] as object),
+      ...(custom["& .MuiFilledInput-root"] as object),
+    },
+  };
+};
+
 export default function DropdownSelect({
   name,
   setSelectedItem,
@@ -139,12 +154,13 @@ export default function DropdownSelect({
     setFieldValue(name, value);
   };
 
+  const mergedStyles = deepMergeStyles(baseStyles, customStyles || {});
+
   return (
     <FormControl
       sx={{
-        ...(baseStyles as SxProps<Theme>),
-        ...(customStyles as SxProps<Theme>),
-        minWidth: 155
+        ...mergedStyles,
+        minWidth: 145
       }}
       variant="filled"
     >
@@ -156,6 +172,17 @@ export default function DropdownSelect({
         inputProps={{
           "aria-labelledby": name,
         }}
+        sx={{
+          "& .MuiSelect-icon": {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            top: "0",
+            marginRight: "10px",
+          },
+        }}
+        IconComponent={(props) => (<Image src={"/dropdown.svg"} width={15} height={15} alt="more" {...props}/>)}
         renderValue={(value) => {
           if (selectedItem) {
             return (

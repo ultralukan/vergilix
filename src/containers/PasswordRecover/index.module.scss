@@ -68,30 +68,38 @@
     @include media-down($break-sm) {
      h5 {
       @include typography(xxl, bold);
+       margin-bottom: 10px;
      }
      ul {
       li {
         @include typography(md);
+        color: $color-gray-dark;
       }
      }
     }
   }
 
   ul li {
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 5px;
+    @include media-up($break-md) {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: flex-start;
+    }
   }
-  
+
   ul li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 2px;
-    background-color: $color-main;
+    @include media-up($break-md) {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 20px;
+      height: 2px;
+      background-color: $color-main;
+      margin-top: 0.5em;
+    }
   }
 
   @include media-down($break-md) {

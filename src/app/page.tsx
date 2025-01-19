@@ -328,7 +328,7 @@ function Home() {
                     type="text"
                     value={amountFrom}
                     setValue={handleAmountFromChange}
-                    customStyles={{width: '63%'}}
+                    customStyles={{width: '63%', "& .MuiFilledInput-root": {borderRadius: '5px 0 0 5px', boxShadow: 'none'} }}
                     type="number"
                     required
                   />
@@ -338,7 +338,7 @@ function Home() {
                     setSelectedItem={setSelectedItemFrom}
                     selectedItem={selectedItemFrom}
                     options={optionsFrom as Option[]}
-                    customStyles={{width: '37%'}}
+                    customStyles={{width: '37%', "& .MuiFilledInput-root": {borderRadius: '0 5px 5px 0', boxShadow: 'none', right: '1px'} }}
                     label={t('currencyDrop')}
                   />
                 </div>
@@ -359,7 +359,7 @@ function Home() {
                     type="text"
                     value={amountTo}
                     setValue={handleAmountToChange}
-                    customStyles={{width: '63%'}}
+                    customStyles={{width: '63%', "& .MuiFilledInput-root": {borderRadius: '5px 0 0 5px', boxShadow: 'none'} }}
                     type="number"
                     required
                   />
@@ -370,7 +370,7 @@ function Home() {
                     setSelectedItem={setSelectedItemTo}
                     selectedItem={selectedItemTo}
                     options={optionsTo as Option[]}
-                    customStyles={{width: '37%'}}
+                    customStyles={{width: '37%', "& .MuiFilledInput-root": {borderRadius: '0 5px 5px 0', boxShadow: 'none', right: '1px'} }}
                   />
                 </div>
               </div>
@@ -391,11 +391,10 @@ function Home() {
           loop
           autoPlay
           muted
-          className={styles.bgImage}
         >
           <source src="/promo.mov" type="video/mp4" />
             Your browser does not support the video tag.
-        </video>    
+        </video>
       </div>
       {/* <img className={styles.bgImage} src="./bg.png"/> */}
       <span className={styles.bgColor}></span>

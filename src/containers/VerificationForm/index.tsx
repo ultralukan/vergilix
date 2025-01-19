@@ -15,6 +15,7 @@ import { getValidationSchema } from "./validation";
 import { useUpdateUserMutation } from "@/api/user";
 import { ApiError } from "@/types/error";
 import { useAppSelector } from "@/store";
+import {black} from "next/dist/lib/picocolors";
 
 const baseStyles: SxProps<Theme> = {
   '& .MuiStepLabel-iconContainer .Mui-completed': {
@@ -513,12 +514,38 @@ export default function VerificationForm() {
             <Form className={styles.form}>
             <Stepper 
               className={styles.stepper} 
-              activeStep={activeStep} 
+              activeStep={activeStep}
               sx={
                 {
                   '& .MuiStepConnector-line': {
                     borderColor: '#DDD',
-                }}}
+                  },
+                  '& .MuiStep-root': {
+                    fontWeight: 'bold',
+                    "@media (max-width: 1024px)": {
+                      padding: 0,
+                    },
+                  },
+                  '& .MuiStepLabel-iconContainer': {
+                    "@media (max-width: 1024px)": {
+                      padding: 0,
+                    },
+                  },
+                  "@media (min-width: 768px)": {
+                    fontSize: "20px",
+                  },
+                  "& .Mui-active": {
+                    svg: {
+                      text: {
+                        fill: 'black !important',
+                      }
+                    },
+                    '& .MuiStepConnector-line': {
+                      borderColor: '#71E0C1',
+                    },
+                  }
+                }
+              }
               >
               {[...steps.slice(0, -1)].map((label) => (
                 <Step key={label} sx={baseStyles}>

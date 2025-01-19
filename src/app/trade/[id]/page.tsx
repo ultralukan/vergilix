@@ -3,8 +3,8 @@
 import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
-import { Box, InputAdornment, Step, StepLabel, Stepper, SxProps } from "@mui/material";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
+import {Box, FormControl, InputAdornment, MenuItem, Select, Step, StepLabel, Stepper, SxProps} from "@mui/material";
 import { Theme } from "@emotion/react";
 import { Form, Formik } from "formik";
 import Input from "@/components/Input";
@@ -20,6 +20,7 @@ import ModalComponent from "@/components/Modal";
 import ArrowIcon from '../../../../public/arrow.svg';
 import { formatDate } from "@/services/dates";
 import { createValidationSchema } from "./validation";
+import {black} from "next/dist/lib/picocolors";
 
 const baseStyles: SxProps<Theme> = {
   '& .MuiStepLabel-iconContainer .Mui-completed': {
@@ -65,6 +66,8 @@ function Trade() {
   const e = useTranslations('Validation');
   const [activeStep, setActiveStep] = useState(1);
   const user = useAppSelector((state) => state.auth.user);
+  const [network, setNetwork] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [updateTrade] = useUpdateTradeMutation();
@@ -104,9 +107,23 @@ function Trade() {
   
   const isFiatFrom = useMemo(() => isFiat(trade?.fromCurrency), [trade]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("body-lock");
+    } else {
+      document.body.classList.remove("body-lock");
+    }
+    return () => {
+      document.body.classList.remove("body-lock");
+    };
+  }, [isMenuOpen]);
 
   const [amount, setAmount] = useState("");
-  const [accountNumber, setAccountNumber] = useState(""); 
+  const [accountNumber, setAccountNumber] = useState("");
+
+  const networkOptions = useMemo(() => {
+    return trade?.wallets
+  }, [trade])
 
 	useEffect(() => {
     if (error || !id || !isValidId(id as string)) {
@@ -146,6 +163,12 @@ function Trade() {
       }
     }
   }, [trade, isFiatFrom])
+
+  useEffect(() => {
+    if(network?.address) {
+      setAccountNumber(network.address)
+    }
+  }, [network, setAccountNumber])
 
   const steps = useMemo(() => {
     return ([
@@ -278,9 +301,88 @@ function Trade() {
                 </div>
   
                 <div className={styles.card}>
-                  <p className={styles.cardTitle}>{t("walletTitle")}</p>
+                  <div className={styles.network}>
+                    <p className={styles.cardTitle}>{t("walletTitle")}</p>
+                    {
+                      !!networkOptions.length && (
+                        <FormControl
+                          sx={{
+                            width: "100%",
+                            "@media (min-width: 480px)": {
+                              width: 160,
+                              marginLeft: "0",
+                              alignItems: 'end',
+                            },
+                            display: 'flex',
+                            textTransform: "uppercase"
+                          }}
+                          fullWidth
+                          required
+                        >
+                          <Select
+                            labelId="network-select-label"
+                            value={network}
+                            placeholder={"asss"}
+                            onChange={(e) => {
+                              setNetwork(e.target.value as string)
+                              setIsMenuOpen(false)
+                            }}
+                            displayEmpty
+                            renderValue={(selected) => {
+                              if (!selected) {
+                                return <span style={{ color: "gray" }}>{t("network")}</span>;
+                              }
+                              return selected.network;
+                            }}
+                            className={styles.select}
+                            sx={{
+                              background: "#F3F5F7",
+                              width: 160,
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                border: "none",
+                              },
+                              "&:before": {
+                                display: "none",
+                              },
+                              "&:after": {
+                                display: "none",
+                              },
+                              "& .MuiSelect-select": {
+                                fontWeight: "bold",
+                                color: black,
+                                fontSize: "20px",
+                                letterSpacing: "-0.5px",
+                                "@media (min-width: 480px)": {
+                                  padding: "10px",
+                                },
+                              },
+                              "& .MuiSelect-icon": {
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: "100%",
+                                top: "0",
+                              },
+                            }}
+                            IconComponent={(props) => (<Image src={"/dropdown.svg"} width={15} height={15} alt="more" {...props}/>)}
+                            MenuProps={{
+                              open: isMenuOpen,
+                              onClose: () => setIsMenuOpen(false),
+                            }}
+                            onOpen={() => setIsMenuOpen(true)}
+                          >
+                            {networkOptions.map((option) => (
+                              <MenuItem key={option.network} value={option} sx={{textTransform: "uppercase"}}>
+                                {option.network}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      )
+                    }
+                  </div>
                   <div className={styles.inputRow}>
-                    <Input
+                  <Input
                       name="accountNumber"
                       type="text"
                       disabled={!isFiatFrom}
@@ -472,7 +574,7 @@ function Trade() {
     try {
       handleClose();
       setIsLoading(true);
-      const response = await updateTrade({ id: trade._id, data: { status: status } }).unwrap();
+      const response = await updateTrade({ id: trade._id, data: { status: status, network: (isFiatFrom && network) ? network : undefined } }).unwrap();
       
       if(response) {
         handleNext()
@@ -499,12 +601,38 @@ function Trade() {
         <>
             <Stepper 
               className={styles.stepper} 
-              activeStep={activeStep} 
+              activeStep={activeStep}
               sx={
                 {
                   '& .MuiStepConnector-line': {
                     borderColor: '#DDD',
-                }}}
+                  },
+                  '& .MuiStep-root': {
+                    fontWeight: 'bold',
+                    "@media (max-width: 768px)": {
+                      padding: 0,
+                    },
+                  },
+                  '& .MuiStepLabel-iconContainer': {
+                    "@media (max-width: 768px)": {
+                      padding: 0,
+                    },
+                  },
+                  "@media (min-width: 768px)": {
+                    fontSize: "20px",
+                  },
+                  "& .Mui-active": {
+                    svg: {
+                      text: {
+                        fill: 'black !important',
+                      }
+                    },
+                    '& .MuiStepConnector-line': {
+                      borderColor: '#71E0C1',
+                    },
+                  }
+                }
+              }
               >
               {steps.map((label) => (
                 <Step key={label} sx={baseStyles}>
