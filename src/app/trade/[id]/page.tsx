@@ -574,7 +574,7 @@ function Trade() {
     try {
       handleClose();
       setIsLoading(true);
-      const response = await updateTrade({ id: trade._id, data: { status: status, network: (isFiatFrom && network) ? network : undefined } }).unwrap();
+      const response = await updateTrade({ id: trade._id, data: { status: status, network: (isFiatFrom && network) ? network : undefined, accountNumber } }).unwrap();
       
       if(response) {
         handleNext()
