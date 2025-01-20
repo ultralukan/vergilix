@@ -347,6 +347,8 @@ function Trade() {
                                 display: "none",
                               },
                               "& .MuiSelect-select": {
+                                position: "relative",
+                                top: '5px',
                                 fontWeight: "bold",
                                 color: black,
                                 fontSize: "20px",
