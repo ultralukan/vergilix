@@ -322,7 +322,6 @@ function Trade() {
                           <Select
                             labelId="network-select-label"
                             value={network}
-                            placeholder={"asss"}
                             onChange={(e) => {
                               setNetwork(e.target.value as string)
                               setIsMenuOpen(false)
