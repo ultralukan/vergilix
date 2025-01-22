@@ -39,3 +39,39 @@ export function getIconPath(value: string) {
 		return null
 	}
 }
+
+export function getCurrenciesOptions(rates: RateType[] = []) {
+	const grouped: { value: number, label: string, icon: string | null }[] = []
+
+	if(rates.length) {
+		rates.forEach((rate, index) => {
+			const valueTo = rate.toCurrency;
+			if (!grouped.map((el) => el.label).includes(valueTo)) {
+				grouped.push({
+					value: index,
+					label: valueTo,
+					icon: getIconPath(valueTo)
+				})
+			}
+		});
+	}
+	return grouped.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+export const getStakingIncome = (amount: number, month: number) => {
+	const percentages: Record<number, number> = {
+		3: 22,
+		6: 28,
+		9: 32,
+		12: 36,
+	};
+
+	const percentage = percentages[month];
+	const totalIncome = amount * (percentage / 100);
+
+	return ({
+		totalIncome: Number(totalIncome.toFixed(2)),
+		totalAmount: Number((Number(totalIncome) + Number(amount)).toFixed(2)),
+		percentage
+	})
+}

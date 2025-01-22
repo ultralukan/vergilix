@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Option } from "@/types/option";
 import { useFormikContext } from "formik";
 import { getIconPath } from "@/services/exchange";
-import { FormControl, SxProps } from "@mui/material";
+import {FormControl, FormHelperText, SxProps} from "@mui/material";
 import { Theme } from "@emotion/react";
 import {black} from "next/dist/lib/picocolors";
 
@@ -169,10 +169,16 @@ export default function DropdownSelect({
         onChange={handleChange}
         onBlur={handleBlur}
         displayEmpty
+        required
         inputProps={{
           "aria-labelledby": name,
         }}
         sx={{
+          "& .MuiSelect-select": {
+            display: "flex",
+            alignItems: "center",
+            color: selectedItem ? "#000" : "#A3A3A3",
+          },
           "& .MuiSelect-icon": {
             display: "flex",
             alignItems: "center",
@@ -191,11 +197,13 @@ export default function DropdownSelect({
                   <Image
                     src={getIconPath(selectedItem.label)}
                     alt={selectedItem.label}
-                    width={24}
-                    height={24}
+                    width={26}
+                    height={26}
                   />
                 </InputAdornment>
-                {selectedItem.label}
+                <Box sx={{lineHeight: 1, pt: "5px"}}>
+                  {selectedItem.label}
+                </Box>
               </Box>
             );
           }
@@ -205,18 +213,21 @@ export default function DropdownSelect({
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.label}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", p: 0.5 }}>
               <Image
                 width={24}
                 height={24}
                 alt={option.label as string}
                 src={option.icon as string}
               />
-              <Box sx={{ ml: 1 }}>{option.label}</Box>
+              <Box sx={{ ml: 1, lineHeight: 1, pt: "2px" }}>{option.label}</Box>
             </Box>
           </MenuItem>
         ))}
       </Select>
+      {touched[name] && errors[name] && (
+        <FormHelperText error>{errors[name]}</FormHelperText>
+      )}
     </FormControl>
   );
 }

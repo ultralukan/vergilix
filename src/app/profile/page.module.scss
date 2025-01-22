@@ -144,9 +144,6 @@
 
     @include media-down($break-md) {
       margin-right: 10px;
-    }
-
-    @include media-down($break-sm) {
       display: none;
     }
   }

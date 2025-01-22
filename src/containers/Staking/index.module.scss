@@ -1,0 +1,223 @@
+.icon {
+  width: 140px;
+  color: $color-main;
+
+  @include media-down($break-sm) {
+    width: 80px;
+    min-width: 80px;
+    margin-top: 0;
+  }
+}
+
+.text {
+  @include typographyHeading(xxxl, bold);
+  font-weight: bold;
+
+  @include media-down($break-sm) {
+    font-size: 35px;
+  }
+}
+
+.textBalance {
+  @include media-down($break-xs) {
+    max-width: 240px;
+    white-space: wrap;
+    word-break: break-all;
+    line-height: 1;
+  }
+}
+
+.textLabel {
+  @include typography(xl, bold);
+  line-height: 1;
+  color: #7A7A7A;
+  margin-bottom: 10px;
+}
+
+.button {
+  max-width: 400px;
+  @include media-down($break-sm) {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.title {
+  @include media-down($break-sm) {
+    display: none;
+  }
+}
+
+.main {
+  display: flex;
+  gap: 40px;
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  @include media-down($break-sm) {
+    width: 100%;
+  }
+}
+
+.formItems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 70%;
+  max-width: 480px;
+  @include media-down($break-sm) {
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+.successMessage, .errorMessage {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
+  @include typographyHeading(md, bold);
+}
+
+.errorMessage {
+  background: red;
+}
+
+.stakingTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+
+  @include media-down($break-sm) {
+    font-size: 16px;
+  }
+}
+
+.stakingItems {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stakingItem {
+  background-color: #FFF;
+  width: calc(25% - 10px);
+  padding: 15px;
+  text-align: center;
+  @include typography(xxl, bold);
+  transition: all 0.3s;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-selected {
+    background-color: $color-main;
+  }
+}
+
+.formContainer {
+  display: flex;
+  width: 100%;
+}
+
+.result {
+  padding: 20px 40px;
+  border: 2px solid $color-main;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 350px;
+  width: 350px;
+
+  @include media-down($break-xl) {
+    width: 300px;
+    padding: 20px;
+  }
+
+  @include media-down($break-sm) {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 2px solid $color-main;
+    padding-bottom: 10px;
+    gap: 10px;
+
+    span:nth-child(2) {
+      word-break: break-all;
+    }
+  }
+
+  &-header-label {
+    color: $color-gray-dark;
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  &-label {
+    color: $color-gray-dark;
+    font-size: 16px;
+  }
+
+  &-row {
+    margin-top: 20px;
+    display: inline-flex;
+    flex-direction: column;
+    font-size: 22px;
+  }
+}
+
+.formGroup {
+  display: flex;
+  gap: 40px;
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.modalResult {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    @include media-down($break-sm) {
+      flex-direction: column;
+    }
+  }
+
+  span {
+    background-color: #F2F4F7;
+    padding: 0 10px;
+    box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    gap: 10px;
+
+    @include media-down($break-sm) {
+      max-width: 300px;
+      overflow-x: scroll;
+    }
+  }
+}
