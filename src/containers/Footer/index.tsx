@@ -16,11 +16,11 @@ export default function Footer() {
     <footer className={classNames(styles.footer, {[styles["footer-main"]]: isMain})}>
       <div className={styles.content}>
         <ul className={styles.links}>
-          <li><Link href={'/terms'}>{t("terms")}</Link></li>
-          <li><Link href={'/privacy-policy'}>{t("policy")}</Link></li>
-          <li><Link href={'/AML-KYC'}>{t("AML")}</Link></li>
-          <li><Link href={'/support'}>{t("support")}</Link></li>
-          <li><Link href={'/map'}>{t("map")}</Link></li>
+          <li className={classNames(styles.link, {[styles["link-selected"]]: location === '/terms'})}><Link href={'/terms'}>{t("terms")}</Link></li>
+          <li className={classNames(styles.link, {[styles["link-selected"]]: location === '/privacy-policy'})}><Link href={'/privacy-policy'}>{t("policy")}</Link></li>
+          <li className={classNames(styles.link, {[styles["link-selected"]]: location === '/AML-KYC'})}><Link href={'/AML-KYC'}>{t("AML")}</Link></li>
+          <li className={classNames(styles.link, {[styles["link-selected"]]: location === '/support'})}><Link href={'/support'}>{t("support")}</Link></li>
+          <li className={classNames(styles.link, {[styles["link-selected"]]: location === '/map'})}><Link href={'/map'}>{t("map")}</Link></li>
         </ul>
       </div>
       <div className={styles.contentSocial}>

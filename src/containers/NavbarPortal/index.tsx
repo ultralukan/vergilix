@@ -83,9 +83,9 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
           </ul>
         </nav>
         <ul className={styles.links}>
-          <li onClick={handleClose}><Link href={'/terms'}>{f("terms")}</Link></li>
-          <li onClick={handleClose}><Link href={'/privacy-policy'}>{f("policy")}</Link></li>
-          <li onClick={handleClose}><Link href={'/AML-KYC'}>{f("AML")}</Link></li>
+          <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/terms'})}><Link href={'/terms'}>{f("terms")}</Link></li>
+          <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/privacy-policy'})}><Link href={'/privacy-policy'}>{f("policy")}</Link></li>
+          <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/AML-KYC'})}><Link href={'/AML-KYC'}>{f("AML")}</Link></li>
           <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/support'})}><Link href={'/support'}>{f("support")}</Link></li>
           <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/map'})}><Link href={'/map'}>{f("map")}</Link></li>
         </ul>
