@@ -51,7 +51,7 @@ const CookieConsentPopup = () => {
                   fontSize: "16px",
                 }}
               >
-                Отклонить
+                {t("decline")}
               </Button>
               <Button
                 onClick={handleAccept}
@@ -68,7 +68,7 @@ const CookieConsentPopup = () => {
                   minWidth: '150px',
                 }}
               >
-                Принять
+                {t("accept")}
               </Button>
             </div>
           </div>
