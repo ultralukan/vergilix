@@ -7,7 +7,8 @@ export const createValidationSchema = (e: TranslationsType) => {
       .typeError(e("typeError")),
     phone: Yup.string()
       .typeError(e("typeError"))
-      .required(e("required")),
+      .required(e("required"))
+      .matches(/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/, e("typeError")),
     name: Yup.string()
       .typeError(e("typeError"))
       .required(e("required"))

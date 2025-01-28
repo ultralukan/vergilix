@@ -1,7 +1,9 @@
 import { TextField, SxProps, Theme, TextFieldProps } from "@mui/material";
 import { useFormikContext } from "formik";
 import styles from "./index.module.scss";
-import { customBreakpoints } from "@/app/providers";
+import * as React from "react";
+import InputMask from "react-input-mask";
+import MuiPhoneNumber from "mui-phone-number";
 
 type PropsType = {
   value: string;
@@ -15,7 +17,7 @@ type PropsType = {
 };
 
 const baseStyles: SxProps<Theme> = {
-  "& .MuiFilledInput-root": {
+  "& .MuiFilledInput-root, .MuiInputBase-root": {
     color: "#000",
     backgroundColor: "#fff !important",
     borderRadius: "3px",
@@ -39,9 +41,6 @@ const baseStyles: SxProps<Theme> = {
     lineHeight: "34px",
     "&.Mui-focused": {
       color: "#A3A3A3",
-    },
-    "&.Mui-disabled": {
-      color: "#75777F",
     },
     "@media (min-width: 800px)": {
       fontSize: "20px",
@@ -134,10 +133,8 @@ const baseStyles: SxProps<Theme> = {
       fontSize: "18px",
     },
   },
-  "& .MuiInputBase-root": {
-    height: "69px",
-  },
 };
+
 
 const deepMergeStyles = (base: SxProps<Theme>, custom: SxProps<Theme>): SxProps<Theme> => {
   return {
@@ -166,6 +163,30 @@ export default function Input({
   };
 
   const mergedStyles = deepMergeStyles(baseStyles, customStyles || {});
+  if(type === 'phone') {
+    return (
+      <MuiPhoneNumber
+        defaultCountry="ru"
+        onlyCountries={["ru"]}
+        onChange={setValue}
+        localization={{ Russia: "Россия" }}
+        value={value}
+        placeholder={label}
+        sx={{
+          ...mergedStyles,
+          "& .MuiInputBase-root": {
+            backgroundColor: '#FFF',
+            border: 'none !important',
+            padding: '15px 12px 8px 20px',
+          }
+        }}
+        fullWidth
+        error={touched[name] && Boolean(errors[name])}
+        helperText={touched[name] && errors[name]}
+        {...props}
+      />
+    )
+  }
 
   return (
     <TextField

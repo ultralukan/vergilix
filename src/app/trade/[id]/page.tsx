@@ -45,7 +45,10 @@ const baseStyles: SxProps<Theme> = {
 };
 
 const customStyles: SxProps<Theme> = {
-  "& .MuiInputBase-input": {
+  "& .MuiInputBase-multiline": {
+    padding: '0 !important',
+  },
+  "& .MuiInputBase-input, .MuiInputBase-multiline": {
     padding: '15px',
     fontWeight: 'bold',
     fontSize: '24px',
@@ -260,9 +263,11 @@ function Trade() {
             <div className={styles.details}>
               <div className={styles.cardsWrapper}>
                 <div className={styles.card}>
-                  <p className={styles.cardTitle}>
-                    {isFiatFrom ? t("getTitle") : t("sendTitle")}
-                  </p>
+                  <div className={styles.network}>
+                    <p className={styles.cardTitle}>
+                      {isFiatFrom ? t("getTitle") : t("sendTitle")}
+                    </p>
+                  </div>
                   <div className={styles.inputRow}>
                     <Input
                       name="amount"
@@ -283,6 +288,7 @@ function Trade() {
                       }}
                       required
                       customStyles={customStyles}
+
                     />
                     <div className={styles.copyWrapper}>
                       <Image
@@ -390,6 +396,8 @@ function Trade() {
                       value={accountNumber}
                       setValue={setAccountNumber}
                       customStyles={customStyles}
+                      maxRows={2}
+                      multiline
                       required
                     />
                     <div className={styles.copyWrapper}>

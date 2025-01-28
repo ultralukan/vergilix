@@ -59,7 +59,8 @@ export default function ContactForm() {
       setIsLoading(true)
       const { telegram, phone, name, surname, patronymic } = values;
       const fullName = `${surname} ${name} ${patronymic}` ;
-      const response = await update({ telegram, fullName, phoneNumber: phone }).unwrap();
+      const phoneNumber = phone.replace(/\D/g, '');
+      const response = await update({ telegram, fullName, phoneNumber }).unwrap();
   
       if (response) {
         resetForm();
@@ -121,7 +122,7 @@ export default function ContactForm() {
             <Input
               label={t("formPhone")}
               name="phone"
-              type="number"
+              type="phone"
               value={phone}
               setValue={setPhone}
               disabled={edit}

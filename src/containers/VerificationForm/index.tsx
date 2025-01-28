@@ -275,7 +275,7 @@ export default function VerificationForm() {
               <Input
                 label={t('formPhone')}
                 name='phone'
-                type="text"
+                type="phone"
                 value={phone}
                 setValue={setPhone}
                 required

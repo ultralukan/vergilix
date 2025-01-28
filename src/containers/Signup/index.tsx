@@ -17,9 +17,10 @@ type Props = {
   isRegistered: boolean,
   setIsRegistered: (value: boolean) => void,
   setSelected: (value: string) => void,
+  handleClose: () => void,
 }
 
-export default function SignupForm({isRegistered, setIsRegistered, setSelected}: Props) {
+export default function SignupForm({isRegistered, setIsRegistered, setSelected, handleClose}: Props) {
   const t = useTranslations('Login');
   const e = useTranslations('Validation');
   const a = useTranslations('API');
@@ -32,22 +33,20 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [register] = useRegisterMutation();
-  
-  // Состояние для отсчета времени для повторной отправки
+
   const [timeLeft, setTimeLeft] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [resendVerif] = useResendVerificationMutation();
 
-  // Таймер отсчета времени
   useEffect(() => {
     if (isTimerRunning && timeLeft > 0) {
       const timer = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
-      return () => clearInterval(timer); // Очистка интервала при размонтировании
+      return () => clearInterval(timer);
     }
     if (timeLeft === 0 && isTimerRunning) {
-      setIsTimerRunning(false); // Останавливаем таймер, когда время вышло
+      setIsTimerRunning(false);
     }
   }, [isTimerRunning, timeLeft]);
 
@@ -210,8 +209,8 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected}:
               </div>
               <div className={styles.terms}>
                 {t('termsMessage')}{' '}
-                <Link href={"/"}>{t('terms')}</Link> {t('and')}{' '}
-                <Link href={"/"}>{t('policy')}</Link>
+                <Link onClick={handleClose} href={"/terms"}>{t('terms')}</Link> {t('and')}{' '}
+                <Link onClick={handleClose} href={"/privacy-policy"}>{t('policy')}</Link>
               </div>
               {errorMessage ? <div className={styles.errorMessage}>{errorMessage}</div> : null}
             </Form>

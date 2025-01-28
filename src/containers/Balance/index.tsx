@@ -15,6 +15,7 @@ import {Autocomplete, Box, FormControl, SxProps, Theme} from "@mui/material";
 import Image from "next/image";
 import * as React from "react";
 import ModalComponent from "@/components/Modal";
+import {MuiTelInput} from "mui-tel-input";
 
 const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
@@ -222,7 +223,11 @@ export default function Balance() {
     () => createValidationSchema(e, balance),
     [e, balance]
   );
+  const [value, setValue] = React.useState('')
 
+  const handleChange = (newValue) => {
+    setValue(newValue)
+  }
   return (
     <>
       {successMessage ? (
@@ -298,12 +303,13 @@ export default function Balance() {
                     <Input
                       label={t("phone")}
                       name="phone"
-                      type="number"
+                      type="phone"
                       value={phoneNumber}
                       setValue={setPhoneNumber}
                       disabled
                     />
                   </div>
+                  <p className={styles.helperText}>{t("helperText")}</p>
                 </div>
                 <div className={styles.button}>
                   <Button

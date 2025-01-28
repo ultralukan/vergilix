@@ -8,9 +8,7 @@ import { Form, Formik } from "formik";
 import Input from "@/components/Input";
 import { useMemo, useState } from "react";
 import { ApiError } from "@/types/error";
-import { usePostWithdrawalMutation } from "@/api/withdrawal";
-import {Autocomplete, Box, FormHelperText, SxProps, Theme} from "@mui/material";
-import Image from "next/image";
+import {FormHelperText, InputAdornment, SxProps, Theme} from "@mui/material";
 import * as React from "react";
 import ModalComponent from "@/components/Modal";
 import {getCurrenciesOptions, getStakingIncome} from "@/services/exchange";
@@ -19,141 +17,8 @@ import {createValidationSchema} from "@/containers/Staking/validation";
 import DropdownSelect from "@/components/DropdownSelect";
 import {Option} from "@/types/option";
 import {useCreateStakingMutation} from "@/api/staking";
-import ArrowIcon from "../../../public/arrow.svg";
-
-const baseStyles: SxProps<Theme> = {
-  "& .MuiFilledInput-root": {
-    color: "#000",
-    backgroundColor: "#fff !important",
-    borderRadius: "3px",
-    paddingRight: 5,
-    "&:before": {
-      display: "none",
-    },
-    "&:after": {
-      display: "none",
-    },
-    ":hover:not(.Mui-focused)": {
-      "&:before": {
-        border: "none",
-      },
-      backgroundColor: "#fff",
-    },
-  },
-  "& .MuiInputLabel-filled": {
-    fontWeight: "bold",
-    fontSize: "20px",
-    color: "#A3A3A3",
-    lineHeight: "34px",
-    "&.Mui-focused": {
-      color: "#A3A3A3",
-    },
-    "&.Mui-disabled": {
-      color: "#75777F",
-    },
-    "@media (min-width: 800px)": {
-      fontSize: "20px",
-    },
-    "@media (min-width: 1100px)": {
-      fontSize: "22px",
-    },
-    "@media (min-width: 1500px)": {
-      fontSize: "24px",
-    },
-    "@media (min-width: 2000px)": {
-      fontSize: "26px",
-    },
-  },
-  "& .MuiInputBase-input": {
-    height: "36px",
-    paddingLeft: "11px !important",
-    borderRadius: "5px",
-    fontWeight: "bold",
-    fontSize: "20px",
-    letterSpacing: "-0.5px",
-    "@media (min-width: 800px)": {
-      height: "32px",
-      fontSize: "20px",
-    },
-    "@media (min-width: 1100px)": {
-      height: "30px",
-      fontSize: "22px",
-    },
-    "@media (min-width: 1500px)": {
-      height: "36px",
-      fontSize: "24px",
-    },
-    "@media (min-width: 2000px)": {
-      height: "60px",
-      fontSize: "28px",
-    },
-  },
-  "& .MuiInputBase-inputMultiline": {
-    height: "36px",
-    paddingLeft: "20px",
-    borderRadius: "3px",
-    fontWeight: "bold",
-    fontSize: "22px",
-    paddingTop: "5px",
-    "@media (min-width: 800px)": {
-      height: "34px",
-      fontSize: "20px",
-    },
-    "@media (min-width: 1100px)": {
-      height: "32px",
-      fontSize: "22px",
-    },
-    "@media (min-width: 1500px)": {
-      height: "40px",
-      fontSize: "24px",
-    },
-    "@media (min-width: 2000px)": {
-      height: "60px",
-      fontSize: "28px",
-    },
-  },
-  "& .MuiInputLabel-root": {
-    right: 0,
-    top: "3px",
-    paddingLeft: "10px",
-    letterSpacing: "-0.5px",
-    "@media (min-width: 800px)": {
-      top: "7px",
-    },
-    "@media (min-width: 1100px)": {
-      top: "3px",
-    },
-    "@media (min-width: 2000px)": {
-      top: "12px",
-    },
-  },
-  "& .MuiInputLabel-shrink": {
-    position: "absolute",
-    right: "0",
-    left: "0",
-    top: "2px",
-    maxWidth: "100%",
-    textTransform: "uppercase",
-    fontSize: "16px",
-    letterSpacing: "normal",
-    fontWeight: "bold",
-    "@media (min-width: 800px)": {
-      top: "-1px",
-      fontSize: "18px",
-    },
-  },
-};
-
-const bankOptions = [
-  { value: "sberbank", label: "Сбербанк" },
-  { value: "tinkoff", label: "Т-Банк" },
-  { value: "alfa", label: "Альфа-Банк" },
-  { value: "vtb", label: "ВТБ" },
-  { value: "ozon", label: "Озон Банк" },
-  { value: "pochta", label: "Почта Банк" },
-  { value: "raif", label: "Райффайзен Банк" },
-];
-
+import Image from "next/image";
+import {CurrencyRuble} from "@mui/icons-material";
 
 export default function Staking() {
   const user = useAppSelector((state) => state.auth.user);
@@ -315,6 +180,13 @@ export default function Staking() {
                         value={amount}
                         setValue={setAmount}
                         required
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <CurrencyRuble/>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </div>
                     <div className={styles.formItem}>

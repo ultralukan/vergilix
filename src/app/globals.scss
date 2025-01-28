@@ -152,7 +152,8 @@ h1, h2 {
   }
 
   @include media-down($break-lg) {
-    @include typographyHeading(xxl, bold)
+    font-size: 35px;
+    line-height: 1;
   }
 }
 

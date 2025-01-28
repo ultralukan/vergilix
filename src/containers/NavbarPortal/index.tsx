@@ -7,7 +7,7 @@ import SignupForm from "../Signup";
 import ResetForm from "../ResetForm";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from "next/link";
-import { Mail, Telegram, WhatsApp } from "@mui/icons-material";
+import {Mail, Telegram, WhatsApp, X} from "@mui/icons-material";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -83,16 +83,16 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
           </ul>
         </nav>
         <ul className={styles.links}>
-          <li onClick={handleClose}><Link href={'/'}>{f("terms")}</Link></li>
-          <li onClick={handleClose}><Link href={'/'}>{f("policy")}</Link></li>
-          <li onClick={handleClose}><Link href={'/'}>{f("AML")}</Link></li>
+          <li onClick={handleClose}><Link href={'/terms'}>{f("terms")}</Link></li>
+          <li onClick={handleClose}><Link href={'/privacy-policy'}>{f("policy")}</Link></li>
+          <li onClick={handleClose}><Link href={'/AML-KYC'}>{f("AML")}</Link></li>
           <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/support'})}><Link href={'/support'}>{f("support")}</Link></li>
           <li onClick={handleClose} className={classNames(styles.link, {[styles["link-selected"]]: pathName === '/map'})}><Link href={'/map'}>{f("map")}</Link></li>
         </ul>
         </div>
         <ul className={styles.social}>
-          <li><Link href={'/'}><Telegram/></Link></li>
-          <li><Link href={'/'}><WhatsApp/></Link></li>
+          <li><Link href={'https://t.me/vergilixExchange'} target={"_blank"}><Telegram/></Link></li>
+          <li><Link href={'https://x.com/Vergilix_'} target={"_blank"}><X/></Link></li>
           <li><Link href={'/'}><Mail/></Link></li>
         </ul>
         </div>

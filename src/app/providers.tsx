@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { store, useAppDispatch } from '../store';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { Language, setAuthLoading, setLanguage, setRates, setToken, setUser } from '@/store/slices/authSlice';
+import { setAuthLoading, setLanguage, setRates, setToken, setUser } from '@/store/slices/authSlice';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { enUS } from '@mui/material/locale';
 import { ruRU } from '@mui/material/locale';
@@ -16,6 +16,7 @@ import 'dayjs/locale/en';
 import { useGetRateQuery } from '@/api/rates';
 import { VideoComponent } from '@/components/Video';
 import ChatWidget from '@/components/ChatWidget';
+import CookieConsentPopup from "@/containers/CookieConsentPopup";
 
 type ProvidersProps = {
   children: React.ReactNode;
@@ -123,6 +124,7 @@ function StoreInitializer({ children }: { children: React.ReactNode }) {
         <>
           {children}
           <ChatWidget />
+          <CookieConsentPopup />
         </>
       )}
     </>

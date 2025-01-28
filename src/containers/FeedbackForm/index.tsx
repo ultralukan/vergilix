@@ -77,7 +77,7 @@ export default function FeedbackForm() {
             // }}
           />
           <div className={styles.terms}>
-            {l('termsMessage')} <Link href={"/"}>{l('terms')}</Link> {l('and')} <Link href={"/"}>{l('policy')}</Link>
+            {l('termsMessage')} <Link href={"/terms"}>{l('terms')}</Link> {l('and')} <Link href={"/privacy-policy"}>{l('policy')}</Link>
           </div>
           <div className={styles.button}>
             <Button label={t('formBtn')}/>

@@ -41,6 +41,10 @@
   background: $color-main;
   padding: 5px 15px 0;
   margin-bottom: 20px;
+
+  @include media-down($break-xs) {
+    font-size: 30px;
+  }
 }
 
 .form {
@@ -68,7 +72,6 @@
   padding: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   @include media-down($break-lg) {
     width: 100%;
     padding: 20px;

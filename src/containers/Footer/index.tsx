@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import classNames from "classnames";
-import { Mail, Telegram, WhatsApp } from "@mui/icons-material";
+import {Mail, Telegram, Twitter, WhatsApp, X} from "@mui/icons-material";
 
 export default function Footer() {
   const t = useTranslations('Footer');
@@ -16,9 +16,9 @@ export default function Footer() {
     <footer className={classNames(styles.footer, {[styles["footer-main"]]: isMain})}>
       <div className={styles.content}>
         <ul className={styles.links}>
-          <li><Link href={'/'}>{t("terms")}</Link></li>
-          <li><Link href={'/'}>{t("policy")}</Link></li>
-          <li><Link href={'/'}>{t("AML")}</Link></li>
+          <li><Link href={'/terms'}>{t("terms")}</Link></li>
+          <li><Link href={'/privacy-policy'}>{t("policy")}</Link></li>
+          <li><Link href={'/AML-KYC'}>{t("AML")}</Link></li>
           <li><Link href={'/support'}>{t("support")}</Link></li>
           <li><Link href={'/map'}>{t("map")}</Link></li>
         </ul>
@@ -27,8 +27,8 @@ export default function Footer() {
         <div className={styles.contentSocialWrapper}>
           <button className={styles.language}>EN</button>
           <ul className={styles.social}>
-            <li><Link href={'/'}><Telegram/></Link></li>
-            <li><Link href={'/'}><WhatsApp/></Link></li>
+            <li><Link href={'https://t.me/vergilixExchange'} target={"_blank"}><Telegram/></Link></li>
+            <li><Link href={'https://x.com/Vergilix_'} target={"_blank"}><X/></Link></li>
             <li><Link href={'/'}><Mail/></Link></li>
           </ul>
         </div>

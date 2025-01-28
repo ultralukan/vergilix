@@ -1,0 +1,59 @@
+.page {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  background: $color-gray;
+  padding: 120px 15rem 30px;
+  
+  @include media-down($break-xxl) {
+    padding: 120px 10rem 30px;
+  }
+
+  @include media-down($break-xl) {
+    padding: 100px 7rem 30px;
+  }
+
+  @include media-down($break-lg) {
+    padding: 100px 2rem 30px;
+  }
+
+  @include media-down($break-sm) {
+    padding: 100px 20px 30px;
+  }
+}
+
+.title {
+  display: inline-block;
+  background: $color-main;
+  padding: 5px 15px 0;
+  margin-bottom: 20px;
+
+  @include media-down($break-xs) {
+    hyphens: auto;
+    font-size: 28px;
+  }
+}
+
+.item {
+  margin-bottom: 30px;
+  @include media-up($break-md) {
+    max-width: 70%;
+  }
+}
+
+.label {
+  @include typographyHeading(lg, bold);
+
+  @include media-up($break-md) {
+    @include typographyHeading(xl, bold)
+  }
+}
+
+.subLabel {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.content {
+  white-space: pre-line;
+}

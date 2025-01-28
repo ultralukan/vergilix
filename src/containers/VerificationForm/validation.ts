@@ -20,7 +20,10 @@ export const personalityValidationSchema = (t: TranslationsType) =>
     ),
     birthday: Yup.date().required(t('required')).typeError(t('typeError')),
     place: Yup.string().required(t('required')),
-    phone: Yup.string().matches(/^\d+$/, t('typeError')).min(2, t('typeError')).required(t('required')),
+    phone: Yup.string()
+      .typeError(t("typeError"))
+      .required(t("required"))
+      .matches(/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/, t("typeError")),
   });
 
 export const documentValidationSchema = (t: TranslationsType) =>

@@ -1,0 +1,82 @@
+.link {
+  text-decoration: underline !important;
+  color: $color-main;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.cookiePopup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0px -4px 20px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: slideUp 0.5s ease-out;
+}
+
+.popupContent {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 16px;
+
+  @include media-down($break-sm) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.popupText {
+  color: #333;
+  white-space: pre-line;
+}
+
+.popupActions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  max-height: 40px;
+}
+
+.declineButton, .acceptButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.declineButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.declineButton:hover {
+  background-color: #d32f2f;
+}
+
+.acceptButton {
+  background-color: #71E0C1;
+  color: white;
+}
+
+.acceptButton:hover {
+  background-color: #4caf50;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

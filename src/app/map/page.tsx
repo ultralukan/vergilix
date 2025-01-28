@@ -34,9 +34,9 @@ export default function Map() {
           </div>
           <div className={styles.list}>
             <Link href={'/'} className={styles.listTitle}>{t("titleTerms")}</Link>
-            <Link href={'/'} className={styles.item}>{t("terms")}</Link>
-            <Link href={'/'} className={styles.item}>{t("policy")}</Link>
-            <Link href={'/'} className={styles.item}>{t("AML")}</Link>
+            <Link href={'/terms'} className={styles.item}>{t("terms")}</Link>
+            <Link href={'/privacy-policy'} className={styles.item}>{t("policy")}</Link>
+            <Link href={'/AML-KYC'} className={styles.item}>{t("AML")}</Link>
           </div>
         </div>
         <div>

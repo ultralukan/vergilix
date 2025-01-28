@@ -39,6 +39,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  transpilePackages: ['mui-tel-input']
 };
 
 export default withNextIntl(nextConfig);
