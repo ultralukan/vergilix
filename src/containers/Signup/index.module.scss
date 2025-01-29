@@ -6,15 +6,15 @@
 
 .errorMessage {
 	border-radius: 5px;
-	padding: 20px;
-	background-color: rgb(245, 170, 170);
-	color: rgb(85, 2, 2);
+	@include typography(md, bold);
+	padding: 25px 40px;
+	font-size: 16px;
+	font-weight: 550;
+	line-height: 23px;
+	letter-spacing: -0.02em;
 	text-align: center;
-	@include typography(xl);
-
-	@include media-down($break-xxl) {
-		@include typography(md);
-	}
+	background-color: #34353A;
+	color: rgb(230, 84, 84);
 }
 
 .terms {

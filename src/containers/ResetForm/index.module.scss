@@ -19,18 +19,22 @@
 
 .errorMessage, .successMessage {
 	border-radius: 5px;
-	padding: 20px;
 	@include typography(md, bold);
+	padding: 25px 40px;
+	font-size: 16px;
+	font-weight: 550;
+	line-height: 23px;
+	letter-spacing: -0.02em;
+	text-align: center;
+	background-color: #34353A;
 }
 
 .errorMessage {
-	background-color: rgb(245, 170, 170);
-	color: rgb(85, 2, 2);
+	color: rgb(230, 84, 84);
 }
 
 .successMessage {
-	background-color: rgb(170, 245, 180);
-	color: rgb(2, 85, 17);
+	color: $color-main;
 }
 
 .text {
