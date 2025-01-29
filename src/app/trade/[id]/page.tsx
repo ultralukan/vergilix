@@ -378,8 +378,8 @@ function Trade() {
                             }}
                             onOpen={() => setIsMenuOpen(true)}
                           >
-                            {networkOptions.map((option) => (
-                              <MenuItem key={option.network} value={option} sx={{textTransform: "uppercase"}}>
+                            {networkOptions.map((option, index) => (
+                              <MenuItem key={index} value={option} sx={{textTransform: "uppercase"}}>
                                 {option.network}
                               </MenuItem>
                             ))}
@@ -578,12 +578,11 @@ function Trade() {
     handleClickButtonStep1();
   }
 
-
   const handleSubmitStep1 = async(status) => {
     try {
       handleClose();
       setIsLoading(true);
-      const response = await updateTrade({ id: trade._id, data: { status: status, network: (isFiatFrom && network) ? network : undefined, accountNumber } }).unwrap();
+      const response = await updateTrade({ id: trade._id, data: { status: status, network: (isFiatFrom && network) ? network?.network : undefined, accountNumber } }).unwrap();
       
       if(response) {
         handleNext()

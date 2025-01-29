@@ -2,13 +2,13 @@
 
 import { useAppSelector } from "@/store";
 import styles from "./page.module.scss";
-import { NewsType } from "@/types/news";
 import { formatDateNoTime } from "@/services/dates";
 import DOMPurify from "isomorphic-dompurify";
 import parse from 'html-react-parser';
 import ArrowIcon from "../../../../public/arrow-short.svg"
 import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
+import {useParams} from "next/navigation";
+import Link from "next/link";
 
 const news = [
   {
@@ -81,12 +81,12 @@ export default function NewsDetailPage() {
             <p className={styles.year}>{date[2]}</p>
           </div>
         </div>
-        <div className={styles.back}>
+        <Link className={styles.back} href={'/news'}>
           <ArrowIcon className={styles.arrow}/>
           <div>
             {t("backBtn")}
           </div>
-        </div>
+        </Link>
       </div>
        <h2 className={styles.title}>{data?.title}</h2>
       {/*{*/}
