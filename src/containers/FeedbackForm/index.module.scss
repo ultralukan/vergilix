@@ -10,6 +10,10 @@
 
   @include media-down($break-xxl) {
     padding: 50px 15rem;
+
+    @include media-down($break-sm) {
+      padding: 40px 15rem 80px;
+    }
   }
 
   .title {
@@ -17,6 +21,11 @@
     background: $color-main;
     padding: 5px 15px 0;
     margin-bottom: 20px;
+
+    @include media-down($break-sm) {
+      font-size: 28px;
+      line-height: 32px;
+    }
   }
 
   @include media-down($break-sm) {
@@ -74,7 +83,8 @@
 
   @include media-down($break-sm) {
     text-align: center;
-	}
+    font-size: 12px;
+  }
 
 	color: $color-gray-dark;
 	a {

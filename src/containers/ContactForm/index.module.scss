@@ -50,6 +50,10 @@
 
   @include media-down($break-sm) {
     width: 100%;
+    button {
+      background: $color-black;
+      color: $color-white;
+    }
   }
 }
 

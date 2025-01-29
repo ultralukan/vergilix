@@ -62,6 +62,7 @@ const CookieConsentPopup = () => {
                   textTransform: "none",
                   backgroundColor: "#71E0C1",
                   fontSize: "16px",
+                  color: "#000",
                   "&:hover": {
                     filter: "brightness(1.05)",
                   },

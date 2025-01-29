@@ -183,7 +183,12 @@ export default function Staking() {
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
-                              <CurrencyRuble/>
+                              <Image
+                                width={30}
+                                height={30}
+                                src={'/new-icons/RUB.png'}
+                                alt={"rubble"}
+                              />
                             </InputAdornment>
                           ),
                         }}

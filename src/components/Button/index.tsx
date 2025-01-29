@@ -48,6 +48,7 @@ export default function Button({
         padding: "20px",
         "@media (min-width: 320px)": {
           fontSize: "18px",
+          padding: "17px 20px"
         },
         "@media (min-width: 800px)": {
           fontSize: "16px",

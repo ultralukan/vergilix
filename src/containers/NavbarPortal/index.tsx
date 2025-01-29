@@ -92,7 +92,7 @@ export default function NavBarPortal({ isOpen, onClose, isAuth, handleLogout, ha
         </div>
         <ul className={styles.social}>
           <li><Link href={'https://t.me/vergilixExchange'} target={"_blank"}><Telegram/></Link></li>
-          <li><Link href={'https://x.com/Vergilix_'} target={"_blank"}><X/></Link></li>
+          <li><Link href={'https://x.com/Vergilix_'} target={"_blank"}><X sx={{scale: 0.8}}/></Link></li>
           <li><Link href={'/'}><Mail/></Link></li>
         </ul>
         </div>

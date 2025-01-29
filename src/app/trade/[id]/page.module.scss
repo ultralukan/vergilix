@@ -158,6 +158,11 @@
     .button {
       width: 100%;
       min-width: auto;
+
+      button {
+        background: $color-black;
+        color: $color-white;
+      }
     }
   }
 
@@ -358,6 +363,11 @@
   @include media-down($break-sm) {
     width: 100%;
     min-width: auto;
+
+    button {
+      background: $color-black;
+      color: $color-white;
+    }
   }
 }
 

@@ -11,7 +11,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ApiError } from "@/types/error";
 import { usePostWithdrawalMutation } from "@/api/withdrawal";
 import { createValidationSchema } from "@/containers/Balance/validation";
-import {Autocomplete, Box, FormControl, SxProps, Theme} from "@mui/material";
+import {Autocomplete, Box, FormControl, InputAdornment, SxProps, Theme} from "@mui/material";
 import Image from "next/image";
 import * as React from "react";
 import ModalComponent from "@/components/Modal";
@@ -240,7 +240,7 @@ export default function Balance() {
             <BalanceIcon className={styles.icon} />
             <div className={styles.text}>
               <p className={styles.textLabel}>{t("title")}:</p>
-              <p className={styles.textBalance}>{user?.balance} &#8381;</p>
+              <p className={styles.textBalance}>{user?.balance} ₽</p>
             </div>
           </div>
           <div className={styles.button}>
@@ -274,6 +274,18 @@ export default function Balance() {
                       value={amount}
                       setValue={setAmount}
                       required
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Image
+                              width={30}
+                              height={30}
+                              src={'/new-icons/RUB.png'}
+                              alt={"rubble"}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </div>
                   <div className={styles.formItem}>

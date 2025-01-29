@@ -34,7 +34,8 @@ export function getIconPath(value: string) {
 	try {
 		const lower = value.toLocaleLowerCase();
 		const folder = isFiat(value) ? 'black' : 'icon';
-		return `/${folder}/${lower}.png`
+		// return `/${folder}/${lower}.png`
+		return `/new-icons/${value}.png`
 	}catch{
 		return null
 	}

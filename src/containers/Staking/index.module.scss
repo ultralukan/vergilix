@@ -39,6 +39,10 @@
   @include media-down($break-sm) {
     width: 100%;
     max-width: none;
+    button {
+      background: $color-black;
+      color: $color-white;
+    }
   }
 }
 
@@ -60,7 +64,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+
   width: 100%;
 
   @include media-down($break-sm) {
@@ -185,6 +189,7 @@
 .formGroup {
   display: flex;
   gap: 40px;
+  margin-bottom: 20px;
 
   @include media-down($break-sm) {
     flex-direction: column;
@@ -220,4 +225,8 @@
       overflow-x: scroll;
     }
   }
+}
+
+.header {
+  margin-bottom: 10px;
 }

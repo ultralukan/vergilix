@@ -120,6 +120,10 @@
       min-width: auto;
       width: 100%;
       max-width: 450px;
+      button {
+        background: $color-black;
+        color: $color-white;
+      }
     }
   }
 
