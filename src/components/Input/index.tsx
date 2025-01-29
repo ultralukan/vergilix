@@ -170,14 +170,16 @@ export default function Input({
         onlyCountries={["ru"]}
         onChange={setValue}
         localization={{ Russia: "Россия" }}
+        disableDropdown={true}
+        label={label}
+        variant={"filled"}
         value={value}
-        placeholder={label}
         sx={{
           ...mergedStyles,
           "& .MuiInputBase-root": {
             backgroundColor: '#FFF',
             border: 'none !important',
-            padding: '15px 12px 8px 20px',
+            padding: '0',
           }
         }}
         fullWidth
