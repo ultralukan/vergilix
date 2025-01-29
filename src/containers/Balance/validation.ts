@@ -6,7 +6,12 @@ export const createValidationSchema = (e: TranslationsType, amount: number,) => 
     phone: Yup.string()
       .typeError(e("typeError"))
       .required(e("phoneRequired"))
-      .matches(/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/, e("typeError")),
+      .test('phone-format', e("typeError"), function(value) {
+        if (!value) return true;
+        const format1 = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
+        const format2 = /^7\d{10}$/;
+        return format1.test(value) || format2.test(value);
+      }),
     amount: Yup.number()
       .typeError(e("typeError"))
       .required(e("required"))

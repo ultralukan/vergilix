@@ -23,7 +23,12 @@ export const personalityValidationSchema = (t: TranslationsType) =>
     phone: Yup.string()
       .typeError(t("typeError"))
       .required(t("required"))
-      .matches(/^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/, t("typeError")),
+      .test('phone-format', t("typeError"), function(value) {
+        if (!value) return true;
+        const format1 = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
+        const format2 = /^7\d{10}$/;
+        return format1.test(value) || format2.test(value);
+      }),
   });
 
 export const documentValidationSchema = (t: TranslationsType) =>
