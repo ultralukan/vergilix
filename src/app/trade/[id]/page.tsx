@@ -511,7 +511,7 @@ function Trade() {
             </div>
           </div>
           <div className={styles.resultButton}>
-            <Button label={t("resultButton")} type="button" onClick={() => router.replace('/')}/>
+            <Button label={t("resultButton")} type="button" onClick={() => router.replace('/profile?tab=trades')}/>
           </div>
         </div>
         <div className={styles.video}>

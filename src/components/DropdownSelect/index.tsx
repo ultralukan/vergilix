@@ -11,7 +11,6 @@ import { useFormikContext } from "formik";
 import { getIconPath } from "@/services/exchange";
 import {FormControl, FormHelperText, SxProps} from "@mui/material";
 import { Theme } from "@emotion/react";
-import {black} from "next/dist/lib/picocolors";
 
 interface DropdownSelectProps {
   label?: string;
@@ -22,6 +21,7 @@ interface DropdownSelectProps {
   text?: string;
   touched?: Record<string, boolean>;
   errors?: Record<string, string>;
+  customStyles: SxProps<Theme>;
 }
 
 interface FormValues {
@@ -189,7 +189,7 @@ export default function DropdownSelect({
           },
         }}
         IconComponent={(props) => (<Image src={"/dropdown.svg"} width={15} height={15} alt="more" {...props}/>)}
-        renderValue={(value) => {
+        renderValue={() => {
           if (selectedItem) {
             return (
               <Box sx={{ display: "flex", alignItems: "center" }}>

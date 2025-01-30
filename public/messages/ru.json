@@ -271,7 +271,7 @@
     "date": "Дата и время создания",
     "time": "Время для оплаты",
     "btnPay": "Оплатить",
-    "statusPaid": "Оплачено",
+    "statusPaid": "Ожидает зачисления",
     "statusCancelled": "Отменено",
     "statusCompleted": "Успешно",
     "statusPending": "Ожидает оплаты",
@@ -281,7 +281,7 @@
     "labelFilterCompleted": "Успешные",
     "labelFilterCancelled": "Отмененные",
     "labelFilterPending": "Ожидают оплаты",
-    "labelFilterPaid": "Оплаченные",
+    "labelFilterPaid": "Ожидают зачисления",
     "noData": "Данных нет"
   },
   "EmailVerif": {
@@ -293,7 +293,7 @@
   }, 
   "Trade": {
     "titleStep1": "Ожидание перевода",
-    "titleStep2": "Перевод завершён!",
+    "titleStep2": "Заявка в обработке!",
     "titleStep2Fiat": "Подтверждение!",
     "stepTitle1": "Выбор валют",
     "stepTitle2": "Оплата",
@@ -323,7 +323,7 @@
     "detailsTitle": "Детали операции",
     "detailsId": "ID заявки",
     "detailsDate": "Дата заявки",
-    "resultButton": "На главную страницу",
+    "resultButton": "Мои заявки",
     "network": "Сеть"
   },
   "DatePicker": {

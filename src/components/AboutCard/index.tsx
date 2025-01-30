@@ -1,11 +1,11 @@
 import styles from "./index.module.scss";
 
 type ItemProps = {
-  img: string;
+  src: string;
   text?: string;
 };
 
-export default function AboutCard({ img, text, src }: ItemProps) {
+export default function AboutCard({ text, src }: ItemProps) {
 
   return (
     <div className={styles.wrapper}>

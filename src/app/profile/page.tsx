@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
 import { useTranslations } from "next-intl";
 import styles from "./page.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames";
 import ContactForm from "@/containers/ContactForm";
 import PasswordRecover from "@/containers/PasswordRecover";
@@ -13,7 +13,7 @@ import LockIcon from "../../../public/lock-profile.svg";
 import PersonIcon from "../../../public/man-profile.svg";
 import MapIcon from "../../../public/map.svg";
 import Balance from "@/containers/Balance";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import SavingsIcon from '@mui/icons-material/Savings';
 import TradesComponent from "@/components/Trades/page";
 import Staking from "@/containers/Staking";
@@ -21,7 +21,14 @@ import Staking from "@/containers/Staking";
 export default function Profile() {
   const t = useTranslations('Profile');
   const [selectedNav, setSelectedNav] = useState('contact');
-  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab && ['contact', 'trades', 'balance', 'staking', 'verification', 'change'].includes(tab)) {
+      setSelectedNav(tab);
+    }
+  }, [searchParams]);
 
   return (
     <div className={styles.page}>

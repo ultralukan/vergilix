@@ -36,7 +36,7 @@ export function getIconPath(value: string) {
 		const folder = isFiat(value) ? 'black' : 'icon';
 		// return `/${folder}/${lower}.png`
 		return `/new-icons/${value}.png`
-	}catch{
+	} catch{
 		return null
 	}
 }

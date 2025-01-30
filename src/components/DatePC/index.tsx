@@ -2,7 +2,7 @@ import { TextField, SxProps, Theme, TextFieldProps } from "@mui/material";
 import { useFormikContext } from "formik";
 import styles from "./index.module.scss";
 import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import { useTranslations } from "next-intl";
 
 type PropsType = {
@@ -160,8 +160,8 @@ export default function DatePC({
   const { touched, errors, handleBlur } = useFormikContext<{ [key: string]: string }>();
   const t = useTranslations('DatePicker');
 
-  const handleChange = (newValue: any) => {
-    setValue(newValue);
+  const handleChange = (newValue: Dayjs | null) => {
+    setValue(newValue ? newValue.format("DD.MM.YYYY") : "");
   };
 
   const parsedValue = value ? dayjs(value) : null;
@@ -189,7 +189,7 @@ export default function DatePC({
           sx: {
             ...(baseStyles as SxProps<Theme>),
             ...(customStyles as SxProps<Theme>),
-          },
+          } as SxProps<Theme>,
           ...props,
         },
         actionBar: {
