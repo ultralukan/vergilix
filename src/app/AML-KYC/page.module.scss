@@ -56,4 +56,18 @@
 
 .content {
   white-space: pre-line;
+
+  .subContent {
+    &-item {
+      margin: 10px 0;
+    }
+
+    .subContent {
+      margin-left: 10px;
+      li {
+        list-style: circle;
+        margin-left: 20px;
+      }
+    }
+  }
 }
