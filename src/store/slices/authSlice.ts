@@ -1,5 +1,5 @@
-import { RateType } from '@/types/rate';
-import { UserType } from '@/types/user';
+import { RateType } from '@/types/api/rates';
+import { UserType } from '@/types/api/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type Language =  'ru' | 'en';

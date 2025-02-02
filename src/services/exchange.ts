@@ -1,4 +1,4 @@
-import { RateType } from "@/types/rate";
+import { RateType } from "@/types/api/rates";
 
 export const isFiat = (str: string) => ['USD', 'EUR', 'RUB', 'KGS'].includes(str);
 export const filterRates = (str: string) => ['KGS'].includes(str);

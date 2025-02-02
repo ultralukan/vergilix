@@ -1,5 +1,6 @@
-import { UserType, UserTypeApi } from "@/types/user";
+import { UserType } from "@/types/api/user";
 import { baseApi } from "./baseApi";
+import {UserRQType} from "@/types/api/user";
 
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -10,7 +11,7 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ['USER', 'WITHDRAWAL']
     }),
-    updateUser: builder.mutation<UserType, UserTypeApi>({
+    updateUser: builder.mutation<UserType, UserRQType>({
       query: (data) => ({
         url: '/user',
         method: 'PATCH',

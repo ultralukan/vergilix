@@ -1,9 +1,11 @@
-import { APITradeGetType, TradeGetType, TradeType } from "@/types/trades";
+
 import { baseApi } from "./baseApi";
+import {TradeRPType, TradeRQType, TradeUpdateRQType} from "@/types/api/trades";
+import {TradeType} from "@/types/trades";
 
 export const tradesApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-    postTrade: builder.mutation<APITradeGetType, TradeType>({
+    postTrade: builder.mutation<TradeRPType, TradeRQType>({
       query: (data) => ({
         url: '/trades',
         method: 'POST',
@@ -11,7 +13,7 @@ export const tradesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['TRADE']
     }),
-    updateTrade: builder.mutation<APITradeGetType, TradeType>({
+    updateTrade: builder.mutation<TradeRPType, TradeUpdateRQType>({
       query: ({id, data}) => ({
         url: `/trades/${id}`,
         method: 'PATCH',
@@ -19,14 +21,14 @@ export const tradesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['TRADE']
     }),
-    getUserTrade: builder.query<TradeGetType, string>({
+    getUserTrade: builder.query<TradeType, string>({
       query: (id) => ({
         url: `/trades/${id}`,
         method: 'GET',
       }),
       providesTags: ['TRADE']
     }),
-    getAllUserTrades: builder.query<TradeGetType[], void>({
+    getAllUserTrades: builder.query<TradeType[], void>({
       query: () => ({
         url: `/user/trades`,
         method: 'GET',

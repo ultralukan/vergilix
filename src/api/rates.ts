@@ -1,5 +1,5 @@
 import { baseApi } from "./baseApi";
-import { RateType } from "@/types/rate";
+import {RateType} from "@/types/api/rates";
 
 export const ratesApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

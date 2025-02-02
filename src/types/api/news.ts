@@ -5,5 +5,3 @@ export type NewsType = {
   date: string,
   img: string
 }
-
-export type NewsTypeApi = Omit<NewsType, '_id' | 'date'>;

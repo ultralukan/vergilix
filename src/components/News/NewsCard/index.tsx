@@ -1,4 +1,4 @@
-import { NewsType } from "@/types/news";
+import { NewsType } from "@/types/api/news";
 import styles from "./index.module.scss";
 import ArrowIcon from '../../../../public/arrow.svg';
 

@@ -1,5 +1,5 @@
-import { NewsType } from "@/types/news";
 import { baseApi } from "./baseApi";
+import {NewsType} from "@/types/api/news";
 
 export const newsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

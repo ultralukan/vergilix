@@ -1,9 +1,9 @@
-import { UserType, UserTypeApi } from "@/types/user";
 import { baseApi } from "./baseApi";
+import {WithdrawalRPType, WithdrawalRQType} from "@/types/api/withdrawal";
 
 export const withdrawalApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-      postWithdrawal: builder.mutation<UserType, UserTypeApi>({
+      postWithdrawal: builder.mutation<WithdrawalRPType, WithdrawalRQType>({
         query: (data) => ({
           url: '/withdrawals',
           method: 'POST',

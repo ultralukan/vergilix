@@ -1,6 +1,6 @@
-import { NewsType } from "@/types/news";
 import styles from "./index.module.scss";
 import ArrowIcon from '../../../../public/arrow.svg';
+import {NewsType} from "@/types/api/news";
 
 export const NewsSameCard = ({data}: {data: NewsType}) => {
   return (

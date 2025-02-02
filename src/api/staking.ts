@@ -1,9 +1,9 @@
-import { ReviewType } from "@/types/review";
 import { baseApi } from "./baseApi";
+import {StakingRPType} from "@/types/api/staking";
 
 export const stakingApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-    createStaking: builder.mutation<ReviewType[], void>({
+    createStaking: builder.mutation<StakingRPType[], void>({
       query: (data) => ({
         url: '/staking',
         method: 'POST',

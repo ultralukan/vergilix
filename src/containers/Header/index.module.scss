@@ -44,9 +44,7 @@
 
 .logo {
   width: 140px;
-  @include media-down($break-xxl) {
 
-  }
   @include media-down($break-xl) {
     width: 100px;
   }

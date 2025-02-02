@@ -1,27 +1,22 @@
-export type TradeType = {
-	fromCurrency: string,
-	toCurrency: string,
-	amount: number,
-	accountNumber?: string,
-	telegramLogin?: string,
-	email?: string
+export interface StatusType {
+	status: 'completed' | 'pending' | 'cancelled' | 'paid',
 }
 
-export type TradeGetType = {
-	userId: string,
-	fromCurrency: string,
-	toCurrency: string,
-	amount: number,
-	rate: number,
-	adjustedRate: number,
-	receivedAmount?: string,
-	accountNumber: string,
-	telegramLogin?: string,
-	status: string,
-	createdAt: string
-}
-
-export type APITradeGetType = {
-  message: string,
-	trade?: TradeGetType
+export interface TradeType {
+	accountNumber: string;
+	amount: number;
+	createdAt: string;
+	email: string;
+	fromCurrency: string;
+	network: string | null;
+	phoneNumber: string;
+	rate: number;
+	receivedAmount: number;
+	status: string;
+	telegramLogin: string;
+	toCurrency: string;
+	userId: string;
+	wallets: never[];
+	__v: number;
+	_id: string;
 }

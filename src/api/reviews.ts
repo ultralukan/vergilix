@@ -1,9 +1,9 @@
-import { ReviewType } from "@/types/review";
 import { baseApi } from "./baseApi";
+import {ReviewsRPType} from "@/types/api/reviews";
 
 export const reviewsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-    getReviews: builder.query<ReviewType[], void>({
+    getReviews: builder.query<ReviewsRPType[], void>({
       query: () => ({
         url: '/reviews',
         method: 'GET',
