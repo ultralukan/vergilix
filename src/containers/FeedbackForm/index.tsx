@@ -7,13 +7,13 @@ import Input from "@/components/Input";
 import { useTranslations } from "next-intl";
 import Button from "@/components/Button";
 import Link from "next/link";
+import {HtmlContent} from "@/components/HtmlContent";
 
 export default function FeedbackForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [question, setQuestion] = useState("");
   const t = useTranslations('About');
-  const l = useTranslations('Login');
 
   const handleSubmit = () => {}
 
@@ -77,7 +77,7 @@ export default function FeedbackForm() {
             // }}
           />
           <div className={styles.terms}>
-            {l('termsMessage')} <Link href={"/terms"}>{l('terms')}</Link> {l('and')} <Link href={"/privacy-policy"}>{l('policy')}</Link>
+            <HtmlContent htmlString={t.raw("terms")}/>
           </div>
           <div className={styles.button}>
             <Button label={t('formBtn')}/>

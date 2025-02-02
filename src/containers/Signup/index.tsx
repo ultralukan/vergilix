@@ -8,10 +8,10 @@ import { Captcha } from "@/components/Captcha";
 import ReCAPTCHA from "react-google-recaptcha";
 import { createValidationSchema } from "./validation";
 import { useRegisterMutation, useResendVerificationMutation } from "@/api/auth";
-import Link from "next/link";
 import { ApiError } from "@/types/error";
 import Image from "next/image";
-import { InputAdornment } from "@mui/material";
+import {Checkbox, FormControlLabel, FormGroup, InputAdornment, Typography} from "@mui/material";
+import {HtmlContent} from "@/components/HtmlContent";
 
 type Props = {
   isRegistered: boolean,
@@ -165,7 +165,7 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected, 
                           height={30}
                           alt="showPassword"
                           onClick={() => setHidePassword((prev) => !prev)}
-                          style={{ cursor: 'pointer' }}
+                          style={{cursor: 'pointer'}}
                         />
                       )}
                     </InputAdornment>
@@ -189,15 +189,19 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected, 
                           height={30}
                           alt="showPassword"
                           onClick={() => setHidePassword((prev) => !prev)}
-                          style={{ cursor: 'pointer' }}
+                          style={{cursor: 'pointer'}}
                         />
                       )}
                     </InputAdornment>
                   ),
                 }}
               />
+              <FormGroup>
+                <FormControlLabel required control={<Checkbox style={{color: "#71E0C1"}}/>} label={<span className={styles["terms-item"]}><HtmlContent htmlString={t.raw("terms")}/></span>}/>
+                <FormControlLabel required control={<Checkbox style={{color: "#71E0C1"}}/>} label={<span className={styles["terms-item"]}><HtmlContent htmlString={t.raw("policy")}/></span>}/>
+              </FormGroup>
               <div className={styles.captcha}>
-                <Captcha ref={captchaRef} onChange={handleRecaptchaChange} />
+                <Captcha ref={captchaRef} onChange={handleRecaptchaChange}/>
               </div>
               <div className={styles.button}>
                 <Button
@@ -207,22 +211,17 @@ export default function SignupForm({isRegistered, setIsRegistered, setSelected, 
                   label={t('signupFormBtn')}
                 />
               </div>
-              <div className={styles.terms}>
-                {t('termsMessage')}{' '}
-                <Link onClick={handleClose} href={"/terms"}>{t('terms')}</Link> {t('and')}{' '}
-                <Link onClick={handleClose} href={"/privacy-policy"}>{t('policy')}</Link>
-              </div>
               {errorMessage ? <div className={styles.errorMessage}>{errorMessage}</div> : null}
             </Form>
           )}
         </Formik>
       ) : (
         <div className={styles.successMessage}>
-          <img src="./home.png" alt="homeIcon" />
+          <img src="./home.png" alt="homeIcon"/>
           <h5>{t("registerSuccessTitle")}</h5>
           <p>{t('registerSuccessText')}</p>
           <div className={styles.resendedVerif}>
-            <p className={styles.resendedVerifTitle}>{t('registerSendVerif')}</p>
+          <p className={styles.resendedVerifTitle}>{t('registerSendVerif')}</p>
             <p
               className={styles.resendedVerifBtn}
               onClick={handleSubmitVerif}

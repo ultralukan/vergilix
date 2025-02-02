@@ -18,15 +18,14 @@
 }
 
 .terms {
-	@include typography(xl);
 
-	@include media-down($break-xxl) {
-		@include typography(md);
-	}
-	text-align: center;
-	color: $color-gray-dark;
-	a {
-		color: $color-white;
+	&-item {
+		font-size: 16px;
+		color: $color-gray-dark;
+		a {
+			white-space: nowrap;
+			color: #FFF;
+		}
 	}
 }
 
