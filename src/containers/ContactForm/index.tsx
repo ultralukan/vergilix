@@ -59,7 +59,7 @@ export default function ContactForm() {
       setIsLoading(true)
       const { telegram, phone, name, surname, patronymic } = values;
       const fullName = `${surname} ${name} ${patronymic}` ;
-      const phoneNumber = phone.replace(/\D/g, '');
+      const phoneNumber = phone;
       const response = await update({ telegram, fullName, phoneNumber }).unwrap();
   
       if (response) {
