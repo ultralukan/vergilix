@@ -198,7 +198,7 @@ export default function DropdownSelect({
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <InputAdornment position="start">
                   <Image
-                    src={getIconPath(selectedItem.label)}
+                    src={selectedItem.icon}
                     alt={selectedItem.label}
                     width={26}
                     height={26}
@@ -214,8 +214,8 @@ export default function DropdownSelect({
         }}
         error={touched[name] && Boolean(errors[name])}
       >
-        {options.map((option) => (
-          <MenuItem key={option.value} value={option.label}>
+        {options.map((option, index) => (
+          <MenuItem key={index} value={option.label}>
             <Box sx={{ display: "flex", alignItems: "center", p: 0.5 }}>
               <Image
                 width={24}

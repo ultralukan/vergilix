@@ -10,12 +10,19 @@ import Input from "@/components/Input";
 import { useEffect, useMemo, useState } from "react";
 import { ApiError } from "@/types/error";
 import { usePostWithdrawalMutation } from "@/api/withdrawal";
-import { createValidationSchema } from "@/containers/Balance/validation";
-import {Autocomplete, Box, FormControl, InputAdornment, SxProps, Theme} from "@mui/material";
+import {
+  createValidationCardSchema,
+  createValidationSBPSchema,
+} from "@/containers/Balance/validation";
+import {Autocomplete, Box, InputAdornment, SxProps, Theme} from "@mui/material";
 import Image from "next/image";
 import * as React from "react";
 import ModalComponent from "@/components/Modal";
-import {MuiTelInput} from "mui-tel-input";
+import classNames from "classnames";
+import {useGetWalletsQuery, walletsApi} from "@/api/wallets";
+import DropdownSelect from "@/components/DropdownSelect";
+import {Option} from "@/types/option";
+import {getCurrenciesOptions, getWalletsOptions} from "@/services/exchange";
 
 const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
@@ -150,6 +157,12 @@ const bankOptions = [
   { value: "raif", label: "Райффайзен Банк" },
 ];
 
+const customStyles: SxProps<Theme> = {
+  "& .MuiInputBase-input, .MuiInputBase-multiline": {
+    WebkitTextFillColor: 'black !important',
+  },
+}
+
 
 export default function Balance() {
   const user = useAppSelector((state) => state.auth.user);
@@ -159,14 +172,22 @@ export default function Balance() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [amount, setAmount] = useState("");
   const [bank, setBank] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const balance = user?.balance;
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const [withType, setWithType] = useState("sbp");
+  const {data: wallets} = useGetWalletsQuery();
 
   const [withdrawal] = usePostWithdrawalMutation();
+  const [currency, setCurrency] = useState(null);
+
+  const options = useMemo(() => {
+    return getWalletsOptions(wallets) || []
+  }, [wallets]);
 
   useEffect(() => {
     try {
@@ -181,8 +202,9 @@ export default function Balance() {
       phone: phoneNumber,
       amount: amount,
       bank: bank,
+      cardNumber: cardNumber
     };
-  }, [phoneNumber, amount, bank]);
+  }, [phoneNumber, amount, bank, cardNumber]);
 
   const handleOpen = () => setModal(true);
   const handleClose = () => {
@@ -194,13 +216,19 @@ export default function Balance() {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       setIsLoading(true);
-      const response = await withdrawal({ bank: bankOptions.filter((el) => el.value === bank)[0].label, amount, phoneNumber }).unwrap();
+      let response;
+      if(withType === "sbp") {
+        response = await withdrawal({ bank: bankOptions.filter((el) => el.value === bank)[0].label, amount, phoneNumber }).unwrap();
+      } else {
+        response = await withdrawal({ amount, cardNumber }).unwrap();
+      }
 
       if (response) {
         resetForm();
         setSuccessMessage(t("successMessage"));
         setAmount("");
         setBank("");
+        setCardNumber("")
       }
     } catch (error) {
       if (error && (error as ApiError).data) {
@@ -220,14 +248,10 @@ export default function Balance() {
   };
 
   const validationSchema = useMemo(
-    () => createValidationSchema(e, balance),
-    [e, balance]
+    () => withType === 'sbp' ? createValidationSBPSchema(e, balance) : createValidationCardSchema(e, balance),
+    [e, balance, withType]
   );
-  const [value, setValue] = React.useState('')
 
-  const handleChange = (newValue) => {
-    setValue(newValue)
-  }
   return (
     <>
       {successMessage ? (
@@ -237,7 +261,7 @@ export default function Balance() {
         <div className={styles.item}>
           <h5 className={styles.title}>{t("title")}</h5>
           <div className={styles.card}>
-            <BalanceIcon className={styles.icon} />
+            <BalanceIcon className={styles.icon}/>
             <div className={styles.text}>
               <p className={styles.textLabel}>{t("title")}:</p>
               <p className={styles.textBalance}>{user?.balance} ₽</p>
@@ -252,6 +276,44 @@ export default function Balance() {
               }
             />
           </div>
+          <div className={styles.crypto}>
+            {t("cryptoTitle")}
+            <Formik
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+              validateOnChange={true}
+              validateOnBlur={true}
+              enableReinitialize
+            >
+              <>
+                <div className={styles.formItemCrypto}>
+                  <DropdownSelect
+                    id="currency"
+                    name="currency"
+                    setSelectedItem={setCurrency}
+                    selectedItem={currency}
+                    options={options as Option[]}
+                    customStyles={{width: '100%'}}
+                    label={t("currency")}
+                  />
+                </div>
+                <div className={styles.formItem}>
+                  {!!currency?.value && (
+                    <Input
+                      label={t("wallet")}
+                      name="phone"
+                      type="text"
+                      value={currency?.value}
+                      disabled
+                      multiline={true}
+                      customStyles={customStyles}
+                    />
+                  )}
+                </div>
+              </>
+            </Formik>
+          </div>
         </div>
         <Formik
           initialValues={initialValues}
@@ -261,11 +323,19 @@ export default function Balance() {
           validateOnBlur={true}
           enableReinitialize
         >
-          {({}) => {
+          {({errors}) => {
             return (
               <Form className={styles.form}>
                 <h5 className={styles.header}>{t("titleWith")}</h5>
                 <div className={styles.formItems}>
+                  <div className={styles.withItems}>
+                    <div onClick={() => setWithType('sbp')}
+                         className={classNames(styles.withItem, {[styles["withItem-selected"]]: withType === 'sbp'})}>{t("SBP")}
+                    </div>
+                    <div onClick={() => setWithType('card')}
+                         className={classNames(styles.withItem, {[styles["withItem-selected"]]: withType === 'card'})}>{t("cardWith")}
+                    </div>
+                  </div>
                   <div className={styles.formItem}>
                     <Input
                       label={t("amount")}
@@ -288,51 +358,69 @@ export default function Balance() {
                       }}
                     />
                   </div>
-                  <div className={styles.formItem}>
-                    <Box sx={baseStyles}>
-                      <Autocomplete
-                        id={"bank"}
-                        options={bankOptions}
-                        getOptionLabel={(option) => option.label}
-                        value={bankOptions.find((option) => option.value === bank) || null}
-                        onChange={(_, newValue) => {
-                          setBank(newValue ? newValue.value : "");
-                        }}
-                        popupIcon={<Image src={"/dropdown.svg"} width={15} height={15} alt="more"/>}
-                        renderInput={(params) => (
+                  {
+                    withType === 'sbp' ? (
+                      <>
+                        <div className={styles.formItem}>
+                          <Box sx={baseStyles}>
+                            <Autocomplete
+                              id={"bank"}
+                              options={bankOptions}
+                              getOptionLabel={(option) => option.label}
+                              value={bankOptions.find((option) => option.value === bank) || null}
+                              onChange={(_, newValue) => {
+                                setBank(newValue ? newValue.value : "");
+                              }}
+                              popupIcon={<Image src={"/dropdown.svg"} width={15} height={15} alt="more"/>}
+                              renderInput={(params) => (
+                                <Input
+                                  {...params}
+                                  label={t("bank")}
+                                  name="bank"
+                                  type="text"
+                                  required
+                                />
+                              )}
+                            />
+                          </Box>
+                        </div>
+                        <div className={styles.formItem}>
                           <Input
-                            {...params}
-                            label={t("bank")}
-                            name="bank"
-                            type="text"
-                            required
+                            label={t("phone")}
+                            name="phone"
+                            type="phone"
+                            value={phoneNumber}
+                            setValue={setPhoneNumber}
+                            disabled
                           />
-                        )}
-                      />
-                    </Box>
-                  </div>
-                  <div className={styles.formItem}>
-                    <Input
-                      label={t("phone")}
-                      name="phone"
-                      type="phone"
-                      value={phoneNumber}
-                      setValue={setPhoneNumber}
-                      disabled
-                    />
-                  </div>
-                  <p className={styles.helperText}>{t("helperText")}</p>
-                </div>
-                <div className={styles.button}>
-                  <Button
-                    label={t("buttonWith")}
-                    type={"submit"}
-                    isLoading={isLoading}
-                    disabled={isLoading}
-                  />
-                </div>
-              </Form>
-            );
+                        </div>
+                      </>
+                    ) : (
+                      <div className={styles.formItem}>
+                        <Input
+                          label={t("card")}
+                          name="cardNumber"
+                          type="card"
+                          value={cardNumber}
+                          setValue={setCardNumber}
+                          required
+                        />
+                      </div>
+                    )
+                  }
+            <p className={styles.helperText}>{t("helperText")}</p>
+          </div>
+            <div className={styles.button}>
+              <Button
+                label={t("buttonWith")}
+                type={"submit"}
+                isLoading={isLoading}
+                disabled={isLoading}
+              />
+            </div>
+          </Form>
+          )
+            ;
           }}
         </Formik>
       </div>

@@ -14,6 +14,14 @@ export const createValidationSchema = (e: TranslationsType, amount?: number, isF
           if (!isFiat) return true;
           return value <= amount;
         },
+      })
+      .test({
+        name: "amountFrom-min",
+        message: e("amountFromLessMinimum"),
+        test: function (value) {
+          if (!isFiat) return true;
+          return value >= 25000;
+        },
       }),
     amountTo: Yup.number()
       .typeError(e("typeError"))

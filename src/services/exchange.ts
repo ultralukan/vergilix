@@ -76,3 +76,21 @@ export const getStakingIncome = (amount: number, month: number) => {
 		percentage
 	})
 }
+
+export function getWalletsOptions(items: RateType[] = []) {
+	const grouped: { value: number, label: string, icon: string | null }[] = []
+
+	if(items.length) {
+		items.forEach((item, index) => {
+			if (!grouped.map((el) => el.label).includes(item.chain)) {
+				const label = item.chain.toUpperCase();
+				grouped.push({
+					value: item.address,
+					label: (item.network && ['USDC', 'USDT'].includes(label)) ? `${label} (${item.network.toUpperCase()})` : label,
+					icon: getIconPath(`${item.chain}`.toUpperCase())
+				})
+			}
+		});
+	}
+	return grouped.sort((a, b) => a.label.localeCompare(b.label));
+}

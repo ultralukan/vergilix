@@ -78,6 +78,33 @@
   }
 }
 
+.crypto {
+  margin-top: 20px;
+  white-space: pre-line;
+  font-size: 16px;
+
+  @include media-up($break-sm) {
+    max-width: 400px;
+  }
+
+  @include media-up($break-xxl) {
+    max-width: 700px;
+  }
+
+  .formItem, .formItemCrypto {
+    margin-top: 20px;
+    max-width: none;
+
+    @include media-down($break-sm) {
+      margin-top: 10px;
+    }
+  }
+
+  .formItemCrypto {
+    max-width: 400px;
+  }
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -120,4 +147,26 @@
 
 .header {
   margin-bottom: 10px;
+}
+
+.withItems {
+  display: flex;
+  justify-content: space-between;
+}
+
+.withItem {
+  background-color: #FFF;
+  width: calc(50% - 10px);
+  padding: 15px;
+  text-align: center;
+  @include typography(xxl, bold);
+  transition: all 0.3s;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-selected {
+    background-color: $color-main;
+  }
 }

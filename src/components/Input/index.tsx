@@ -2,7 +2,6 @@ import { TextField, SxProps, Theme, TextFieldProps } from "@mui/material";
 import { useFormikContext } from "formik";
 import styles from "./index.module.scss";
 import * as React from "react";
-import InputMask from "react-input-mask";
 import MuiPhoneNumber from "mui-phone-number";
 
 type PropsType = {
@@ -190,6 +189,34 @@ export default function Input({
     )
   }
 
+  if (type === 'card') {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const formattedValue = formatCardNumber(e.target.value);
+      setValue(formattedValue);
+    };
+    return (
+      <TextField
+        id={name}
+        value={value}
+        onChange={handleChange}
+        label={label}
+        type={'text'}
+        error={touched[name] && Boolean(errors[name])}
+        helperText={touched[name] && errors[name]}
+        onBlur={handleBlur}
+        className={styles.input}
+        variant="filled"
+        fullWidth
+        sx={{
+          ...mergedStyles,
+          // minWidth: 180,
+        }}
+        inputProps={{ maxLength: 19 }}
+        {...props}
+      />
+    );
+  }
+
   return (
     <TextField
       id={name}
@@ -211,3 +238,10 @@ export default function Input({
     />
   );
 }
+
+const formatCardNumber = (value: string): string => {
+  // Удаляем все символы, кроме цифр
+  const numbersOnly = value.replace(/\D/g, "");
+  // Добавляем пробелы после каждых 4 символов
+  return numbersOnly.replace(/(\d{4})(?=\d)/g, "$1 ");
+};

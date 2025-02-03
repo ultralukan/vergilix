@@ -8,7 +8,7 @@ import { Form, Formik } from "formik";
 import Input from "@/components/Input";
 import { useMemo, useState } from "react";
 import { ApiError } from "@/types/error";
-import {FormHelperText, InputAdornment, SxProps, Theme} from "@mui/material";
+import {FormHelperText, InputAdornment} from "@mui/material";
 import * as React from "react";
 import ModalComponent from "@/components/Modal";
 import {getCurrenciesOptions, getStakingIncome} from "@/services/exchange";
@@ -18,7 +18,6 @@ import DropdownSelect from "@/components/DropdownSelect";
 import {Option} from "@/types/option";
 import {useCreateStakingMutation} from "@/api/staking";
 import Image from "next/image";
-import {CurrencyRuble} from "@mui/icons-material";
 
 export default function Staking() {
   const user = useAppSelector((state) => state.auth.user);

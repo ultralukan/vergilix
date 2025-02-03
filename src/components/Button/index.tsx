@@ -60,7 +60,7 @@ export default function Button({
           fontSize: "20px",
         },
         "@media (min-width: 2000px)": {
-          fontSize: "28px",
+          fontSize: "24px",
         },
         width: "100%",
         background: 'rgb(107, 232, 194)',
