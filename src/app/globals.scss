@@ -24,7 +24,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  @include typographyHeading(xxl);
+  @include typographyHeading(xl);
   
   @include media-down($break-xxl) {
     @include typography(xl);

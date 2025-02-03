@@ -75,7 +75,7 @@ const baseStyles: SxProps<Theme> = {
       fontSize: "24px",
     },
     "@media (min-width: 2000px)": {
-      height: "60px",
+      height: "50px",
       fontSize: "28px",
     },
   },
@@ -99,7 +99,7 @@ const baseStyles: SxProps<Theme> = {
       fontSize: "24px",
     },
     "@media (min-width: 2000px)": {
-      height: "60px",
+      height: "50px",
       fontSize: "28px",
     },
   },

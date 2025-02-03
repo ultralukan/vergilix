@@ -328,7 +328,7 @@ function Home() {
                     type="text"
                     value={amountFrom}
                     setValue={handleAmountFromChange}
-                    customStyles={{width: '63%', "& .MuiFilledInput-root": {borderRadius: '5px 0 0 5px', boxShadow: 'none'}, "& .MuiInputBase-root": {height: "69px"} }}
+                    customStyles={{width: '63%', "& .MuiFilledInput-root": {borderRadius: '5px 0 0 5px', boxShadow: 'none'}, "& .MuiInputBase-root": {height: "69px", "@media (min-width: 2000px)": {height: "80px", fontSize: "28px"}} }}
                     type="number"
                     required
                   />
@@ -359,7 +359,7 @@ function Home() {
                     type="text"
                     value={amountTo}
                     setValue={handleAmountToChange}
-                    customStyles={{width: '63%', "& .MuiFilledInput-root": {borderRadius: '5px 0 0 5px', boxShadow: 'none'}, "& .MuiInputBase-root": {height: "69px"} }}
+                    customStyles={{width: '63%', "& .MuiFilledInput-root": {borderRadius: '5px 0 0 5px', boxShadow: 'none'}, "& .MuiInputBase-root": {height: "69px", "@media (min-width: 2000px)": {height: "80px", fontSize: "28px"}} }}
                     type="number"
                     required
                   />

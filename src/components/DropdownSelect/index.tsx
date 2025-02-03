@@ -34,6 +34,9 @@ const baseStyles: SxProps<Theme> = {
     backgroundColor: "#fff !important",
     borderRadius: "3px",
     height: "69px",
+    "@media (min-width: 2000px)": {
+      height: "80px",
+    },
     display: "flex",
     alignItems: "center",
     "&:before": {

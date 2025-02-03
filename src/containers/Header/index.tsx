@@ -7,7 +7,6 @@ import styles from "./index.module.scss";
 import { useEffect, useState } from "react";
 import LoginPortal from "../LoginPortal";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { Menu, MenuItem } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/store/slices/authSlice";
 import Cookies from "js-cookie";
@@ -42,10 +41,6 @@ export default function Header() {
 
   const toggleNavBarForm = () => {
     setIsNavBarOpen((prev) => !prev);
-  };
-
-  const toggleDropDown = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
   };
 
   const closeDropDown = () => {
@@ -84,11 +79,6 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [lastScrollTop]);
-
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   return (
     <header
@@ -150,19 +140,6 @@ export default function Header() {
           <Image src={"/burger.svg"} alt="logo" width="150" height="30" />
         </button>
       </div>
-      {/* <div className={classNames(styles.buttonsMobile, {[styles["buttons-main"]]: isMain})}>
-        {!isAuthLoading && (
-          <button
-            className={classNames(styles.login, {[styles["login-main"]]: isMain})}
-            onClick={isAuth ? toggleDropDown : toggleLoginForm}
-          >
-            <PersonIcon className={styles.icon}/>
-          </button>
-        )}
-        <button className={styles.menuToggle} onClick={toggleNavBarForm}>
-          <Image src={"/burger.svg"} alt="logo" width="150" height="30" />
-        </button>
-      </div> */}
       <LoginPortal isOpen={isLoginOpen} onClose={toggleLoginForm}/>
       <NavBarPortal isOpen={isNavBarOpen} onClose={toggleNavBarForm} isAuth={isAuth} handleLogout={handleClick} handleLogin={toggleLoginForm}/>
     </div>
