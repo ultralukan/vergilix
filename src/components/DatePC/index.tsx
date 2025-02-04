@@ -170,7 +170,7 @@ export default function DatePC({
   return (
     <DatePicker
       value={isValidDate ? parsedValue : null}
-      onChange={handleChange}
+      onChange={setValue}
       label={label}
       localeText={{
         toolbarTitle: t("toolbarTitle"),

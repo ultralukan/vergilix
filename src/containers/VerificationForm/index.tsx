@@ -169,6 +169,8 @@ export default function VerificationForm() {
     'result'
   ];
 
+  console.log(birthday)
+
   const prevLastStep = activeStep === steps.length - 2;
   const lastStep = activeStep === steps.length - 1;
 
