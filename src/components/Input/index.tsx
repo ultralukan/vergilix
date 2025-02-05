@@ -217,6 +217,37 @@ export default function Input({
     );
   }
 
+  if (type === 'number') {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+
+      if (value === '' || /^\d*\.?\d*$/.test(value)) {
+        setValue(value);
+      }
+    };
+
+    return (
+      <TextField
+        id={name}
+        value={value}
+        onChange={handleChange}
+        label={label}
+        type={"text"}
+        error={touched[name] && Boolean(errors[name])}
+        helperText={touched[name] && errors[name]}
+        onBlur={handleBlur}
+        className={styles.input}
+        variant="filled"
+        fullWidth
+        sx={{
+          ...mergedStyles,
+          // minWidth: 180,
+        }}
+        {...props}
+      />
+    );
+  }
+
   return (
     <TextField
       id={name}

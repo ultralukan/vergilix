@@ -7,6 +7,7 @@ export const createValidationSchema = (e: TranslationsType, amount: number,) => 
       .typeError(e("typeError"))
       .required(e("required"))
       .min(0.01, e("typeError"))
+      .max(9999999999, e("typeError"))
       .test({
         name: "amountFrom-greater",
         message: e("amountFromLessThanAmountError"),

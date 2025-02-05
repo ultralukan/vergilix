@@ -114,7 +114,7 @@ export default function Header() {
         </nav>
       </div>
       <div className={classNames(styles.buttons, {[styles["buttons-main"]]: isMain})}>
-        <button className={styles.language}>EN</button>
+        {/*<button className={styles.language}>EN</button>*/}
         {!isAuthLoading && (
           <>
           {

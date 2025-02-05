@@ -179,6 +179,7 @@ export default function Staking() {
                         value={amount}
                         setValue={setAmount}
                         required
+                        slotProps={{ htmlInput: { maxLength: 10 } }}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">

@@ -25,7 +25,7 @@ export default function Footer() {
       </div>
       <div className={styles.contentSocial}>
         <div className={styles.contentSocialWrapper}>
-          <button className={styles.language}>EN</button>
+          {/*<button className={styles.language}>EN</button>*/}
           <ul className={styles.social}>
             <li><Link href={'https://t.me/vergilixExchange'} target={"_blank"}><Telegram/></Link></li>
             <li><Link href={'https://x.com/Vergilix_'} target={"_blank"}><X sx={{scale: 0.8}}/></Link></li>

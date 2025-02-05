@@ -47,6 +47,7 @@ export function getCurrenciesOptions(rates: RateType[] = []) {
 	if(rates.length) {
 		rates.forEach((rate, index) => {
 			const valueTo = rate.toCurrency;
+			if(valueTo !== 'RUB') return; // временно
 			if (!grouped.map((el) => el.label).includes(valueTo)) {
 				grouped.push({
 					value: index,

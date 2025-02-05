@@ -19,10 +19,10 @@ import Image from "next/image";
 import * as React from "react";
 import ModalComponent from "@/components/Modal";
 import classNames from "classnames";
-import {useGetWalletsQuery, walletsApi} from "@/api/wallets";
+import {useGetWalletsQuery} from "@/api/wallets";
 import DropdownSelect from "@/components/DropdownSelect";
 import {Option} from "@/types/option";
-import {getCurrenciesOptions, getWalletsOptions} from "@/services/exchange";
+import {getWalletsOptions} from "@/services/exchange";
 
 const baseStyles: SxProps<Theme> = {
   "& .MuiFilledInput-root": {
@@ -267,6 +267,7 @@ export default function Balance() {
               <p className={styles.textBalance}>{user?.balance} ₽</p>
             </div>
           </div>
+          <p className={styles.helperText}>{t("helperTextEmail")}</p>
           <div className={styles.button}>
             <Button
               label={t("btnLabel")}

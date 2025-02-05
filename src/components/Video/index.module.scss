@@ -8,13 +8,10 @@
 }
 
 .bg {
-  background-color: #6EE8BE;
+  background-color: $color-main;
   width: 100vw;
   height: 100vh;
-  transition: opacity 1s ease;
-  @include media-down($break-sm) {
-    background-color: #63E5B5;
-  }
+  transition: opacity 0.3s ease;
 }
 
 .video {
@@ -27,4 +24,18 @@
 
 .fadeOut {
   animation: fadeOut 1s forwards;
+}
+
+.text {
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @include media-down($break-md) {
+    font-size: 4rem;
+  }
 }
