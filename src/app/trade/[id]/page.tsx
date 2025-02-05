@@ -62,6 +62,28 @@ const customStyles: SxProps<Theme> = {
 
 const isValidId = (id: string) => /^[a-fA-F0-9]{24}$/.test(id);
 
+const getMaxLength = (currency: string, network?: string): number => {
+  switch (currency) {
+    case "BTC":
+      return 35;
+    case "ETH":
+    case "DAI":
+      return 42;
+    case "USDT":
+    case "USDC":
+      switch (network) {
+        case "eth":
+          return 42;
+        case "tron":
+          return 34;
+        default:
+          return 0;
+      }
+    default:
+      return 0;
+  }
+};
+
 function Trade() {
   const { id } = useParams();
   const router = useRouter();
@@ -198,7 +220,7 @@ function Trade() {
     })
   }, [amount, accountNumber])
 
-  const validationSchema = useMemo(() => createValidationSchema(e), [e]);
+  const validationSchema = useMemo(() => createValidationSchema(e, isFiatFrom ? trade?.toCurrency : trade?.fromCurrency, network?.network), [isFiatFrom, e, trade?.fromCurrency, trade?.toCurrency, network?.network]);
 
   const renderModalInputs = () => {
     return(
@@ -360,7 +382,7 @@ function Trade() {
                                 fontSize: "20px",
                                 letterSpacing: "-0.5px",
                                 "@media (min-width: 480px)": {
-                                  padding: "10px",
+                                  padding: "4px 10px",
                                 },
                               },
                               "& .MuiSelect-icon": {
@@ -396,8 +418,9 @@ function Trade() {
                       value={accountNumber}
                       setValue={setAccountNumber}
                       customStyles={customStyles}
-                      maxRows={2}
+                      maxRows={3}
                       multiline
+                      slotProps={{ htmlInput: { maxLength: isFiatFrom ? getMaxLength(isFiatFrom ? trade?.toCurrency : trade?.fromCurrency, network?.network) : "" } }}
                       required
                     />
                     <div className={styles.copyWrapper}>

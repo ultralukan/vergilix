@@ -80,7 +80,8 @@
     "noTrailingSpaces": "Строка не должна содержать пробелов",
     "amountFromLessThanAmountError": "Недостаточно средств на балансе",
     "amountFromLessMinimum": "Минимальная сумма 25000 ₽",
-    "phoneRequired": "Заполните настройки в профиле"
+    "phoneRequired": "Заполните настройки в профиле",
+    "invalidWalletAddress": "Неверный формат кошелька"
   },
   "News": {
     "title": "Новости",
