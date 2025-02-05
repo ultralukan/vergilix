@@ -1,0 +1,85 @@
+.MuiTable-root {
+  background-color: $color-gray;
+  border-collapse:separate;
+  border-spacing: 0 0.5rem;
+}
+
+.MuiPaper-root {
+  box-shadow: none !important;
+}
+
+// .MuiTableBody-root {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.MuiTableRow-head, .MuiTableHead-root {
+  background-color: $color-gray !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.MuiTableCell-head, .MuiTableCell-root {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.MuiTableCell-head {
+  color: $color-gray-dark;
+}
+
+.MuiTable-root {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.MuiTableContainer-root {
+  width: 100%;
+}
+
+.MuiTableContainer-root {
+  background-color: $color-gray;
+}
+
+
+.MuiTableCell-head {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.MuiTableCell-root:not(.Mui-TableBodyCell-DetailPanel) {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+  padding: 20px 10px;
+  
+  &:not(:last-child) {
+    vertical-align: top;
+  }
+
+  .MuiButtonBase-root {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  font-weight: bold;
+}
+
+.MuiTableRow-root {
+  width: 100%;
+}
+
+.Mui-TableBodyCell-DetailPanel {
+  background: $color-white;
+}
+
+.MuiTableRow-expanded {
+  background-color: $color-black !important;
+  td {
+    color: $color-white !important;
+  }
+}

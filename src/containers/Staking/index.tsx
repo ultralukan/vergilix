@@ -16,10 +16,13 @@ import classNames from "classnames";
 import {createValidationSchema} from "@/containers/Staking/validation";
 import DropdownSelect from "@/components/DropdownSelect";
 import {Option} from "@/types/option";
-import {useCreateStakingMutation} from "@/api/staking";
+import {useCreateStakingMutation, useGetUserStakingsQuery} from "@/api/staking";
 import Image from "next/image";
+import {StakingsTable} from "@/components/TableStakings";
 
 export default function Staking() {
+  const {data: stakings = [], isFetching: isLoadingStakings} = useGetUserStakingsQuery({})
+  console.log(stakings)
   const user = useAppSelector((state) => state.auth.user);
   const rates = useAppSelector((state) => state.auth.rates);
   const options = useMemo(() => getCurrenciesOptions(rates), [rates]);
@@ -233,6 +236,9 @@ export default function Staking() {
             );
           }}
         </Formik>
+      </div>
+      <div className={styles.table}>
+        <StakingsTable data={stakings} isLoading={isLoadingStakings}/>
       </div>
       <ModalComponent
         open={modal}

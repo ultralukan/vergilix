@@ -3,6 +3,6 @@ import { baseQueryWithReauth } from "../baseQueryConfig";
 
 export const baseApi = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['USER', 'TRADE', 'WITHDRAWAL'],
+  tagTypes: ['USER', 'TRADE', 'WITHDRAWAL', 'STAKING'],
   endpoints: () => ({}),
 });

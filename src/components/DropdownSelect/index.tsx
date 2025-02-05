@@ -77,9 +77,10 @@ const baseStyles: SxProps<Theme> = {
   },
   "& .MuiInputBase-input": {
     height: "36px",
-    padding: "10px 32px 10px 20px",
+    padding: "10px 32px 10px 22px",
     fontWeight: "bold",
     letterSpacing: "-0.5px",
+    fontSize: "20px",
     display: "flex",
     alignItems: "center",
     "@media (min-width: 800px)": {
